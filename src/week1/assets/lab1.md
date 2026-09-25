@@ -1,5 +1,5 @@
 # Lab 1: Unix, SSH, and Vim
-{: .no_toc}
+
 
 Welcome to the first CSE 29 lab!  
 I'm your lab for this course, here to provide you with the time and space to explore practical software tools, including Unix commands, Git, GDB, Valgrind, Makefiles, and shell scripting.  
@@ -11,7 +11,6 @@ These labs are a low-stakes environment to get proficient with programming and s
 
 
 ## Lab 1 Learning Objectives
-{: .no_toc }
 
 * Connect to `ieng6` using SSH (Secure SHell)
 * Try out and understand some essential Unix/Linux commands
@@ -19,10 +18,10 @@ These labs are a low-stakes environment to get proficient with programming and s
 * Compile and run the C program you wrote
 
 #### Table of contents
-{: .no_toc}
+
 
 1. TOC
-{:toc }
+
 
 # Icebreaker
 
@@ -97,7 +96,7 @@ To see all available software packages, type "prep -l" at the command prompt, or
 
 Now your terminal is connected to a computer that is physically somewhere else on campus, and any commands you run will run on that computer\! We call your computer the *client* and the computer that is elsewhere the *server* based on how you are connected.
 
-{: .fun-fact}
+
 > I sent one of your staff members on a mission to inquire about the origin of the name *ieng6*. The following was provided by the Office of Engineering Computing:  
 > "ieng6 is a load-balanced multiprocessor Linux server that is maintained by ITS. This hostname originated decades ago, and unfortunately, we do not know why it was named ieng6. It may not even stand for anything."  
 > While the history of the name remains a mystery (at least for the time being), we did learn something interesting about *what* it is. Many people can use ieng6 at the same time.  
@@ -168,7 +167,7 @@ Most commands will have multiple pre-defined options which allow you to modify t
 If you would like to always have the colored output, run the following command which will add the line "alias ls=\"ls --color\" to the end of a file called .bash_profile. You do not need to fully understand this yet.  
 `echo alias ls=\"ls --color\" >> ~/.bash_profile`  
 
-{: .note }
+
 If you get a message resembling: `-bash: (...) .bash_profile Permission denied`  
 Run: `chmod +w ~/.bash_profile` to give yourself permission to write to the file.
 
@@ -345,16 +344,15 @@ Run:
  1. Within `lab1`, Run:
 `cp -r /home/linux/ieng6/CSE29_SP26_A00/public/people .` 
 
-{: .note }
+
 the `.` at the end is the path for your *current directory*. This will recursively copy the entire directory we've made called `people` into `lab1` since that's where you are.
 
-{: .exercise }
+
 Using commands from above, write down some information you find. Each person should contribute at least one thing they found to the whiteboard resulting in something like this 
 
 ![people_whiteboard](../../assets/labs/sp26/people_whiteboard.png)
 
 
-{: .exercise }
 
 > 1. Inside lab1, create two directories called Music and Books
 > 1. In Music and Books, create a couple of files with the names of your favorite songs and books respectively, here’s an example:
@@ -391,7 +389,7 @@ After all, all the awesome hackers in movies are always *typing*, have you seen 
 
 Our terminal-based editor is called **vim**. It’s an incredibly powerful editor once you learn how to use it properly. However, the learning curve is very steep, which is why the more you practice in these earlier weeks, the better. In this lab, you will use vim to write a small C program while learning a few essential vim features along the way.
 
-{: .exercise}
+
 > to get acquainted with `vim`, you can run `$ vimtutor` to open vimtutor which is a tutorial in and of itself. Please complete sections 1 and 2 of vimtutor. If you are a bit low on time, you can skip 2.3-2.5 and do them later.
 > Don't worry about memorizing everything as you go, you can always revisit it later and I have provided some of the same information throughout the last activity for your reference. 
 
@@ -467,14 +465,14 @@ By the way, if you ever change your mind and want to abandon your command, press
 
 A quick side note - avoid running two instances of Vim on the same file at the same time as this can lead to <a href="https://engineering.purdue.edu/ece264/21sp/resources/vim_swap_warnings">swap file conflicts</a>. You should not close your terminal window to exit Vim as this will leave the swapfile there.
 
-{: .exercise }
+
 > 1. Using `yy` and `p` in Normal mode, change your code to make several calls to `contains` with different values for `item`, printing out the result each time.
 > 2. Using `dd` in Normal mode, remove the line with `return 0;` inside the `main` function. This line is actually not required for the `main` function.
 > 3. Save your changes and exit vim.
 > 4. To verify that your changes are saved, display the contents of `contains.c` without using vim.
 
 
-{: .owntime }
+
 Vim has many more commands and shortcuts. You can complete more of `vimtutor` on your own time for a guided tutorial through them.
 
 # Compiling and running your program
