@@ -1,11 +1,3 @@
----
-layout: default
-title: Lab 1
-parent: Labs
-nav_order: 2
-permalink: /lab1
----
-
 # Lab 1: Unix, SSH, and Vim
 {: .no_toc}
 

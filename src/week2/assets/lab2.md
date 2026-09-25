@@ -1,10 +1,4 @@
----
-layout: default
-title: Lab 2
-parent: Labs
-nav_order: 3
-permalink: /lab2
----
+
 # Lab 2: Version Control with Git
 {: .no_toc}
 
