@@ -1,0 +1,11 @@
+[book]
+authors = ["Aaron Schulman"]
+language = "en"
+src = "src"
+title = "UCSD CSE29 Fall 2026"
+
+[output.html]
+additional-css = ["theme/no-numbers.css"]
+
+[output.html.playground]
+runnable = false
