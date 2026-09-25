@@ -1,5 +1,13 @@
-# Lab 1: Unix, SSH, and Vim
+---
+layout: default
+title: Lab 1
+parent: Labs
+nav_order: 2
+permalink: /lab1
+---
 
+# Lab 1: Unix, SSH, and Vim
+{: .no_toc}
 
 Welcome to the first CSE 29 lab!  
 I'm your lab for this course, here to provide you with the time and space to explore practical software tools, including Unix commands, Git, GDB, Valgrind, Makefiles, and shell scripting.  
@@ -11,6 +19,7 @@ These labs are a low-stakes environment to get proficient with programming and s
 
 
 ## Lab 1 Learning Objectives
+{: .no_toc }
 
 * Connect to `ieng6` using SSH (Secure SHell)
 * Try out and understand some essential Unix/Linux commands
