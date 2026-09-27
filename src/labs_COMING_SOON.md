@@ -1,6 +1,6 @@
 # Labs Coming Soon
 
-- [Lab 1](./week1/lab1.md)
+- [Lab 1](./week1/index.md)
 - [Lab 2](./week2/lab2.md)
 - [Lab 3](./week3/lab3.md)
 - [Lab 4](./week4/lab4.md)
