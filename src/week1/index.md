@@ -96,6 +96,7 @@ To see all available software packages, type "prep -l" at the command prompt, or
 
 Now your terminal is connected to a computer that is physically somewhere else on campus, and any commands you run will run on that computer\! We call your computer the *client* and the computer that is elsewhere the *server* based on how you are connected.
 
+<div class="fun-fact">
 
 > I sent one of your staff members on a mission to inquire about the origin of the name *ieng6*. The following was provided by the Office of Engineering Computing:  
 > "ieng6 is a load-balanced multiprocessor Linux server that is maintained by ITS. This hostname originated decades ago, and unfortunately, we do not know why it was named ieng6. It may not even stand for anything."  
@@ -103,6 +104,8 @@ Now your terminal is connected to a computer that is physically somewhere else o
 > Being a "multiprocessor" system means each machine(201, 202, 203 ...) has multiple CPUs (or cores), so it can run many tasks at the same time.  
 > Being "load balanced" means that when people connect to ieng6, they are distributed across multiple machines behind the scenes so no single machine becomes overloaded with work. When you SSH into ieng6 you are placed on a specific machine (such as ieng6-201, ieng6-202 or ieng6-203) which you can see in your prompt. Which one are you on? Is it the same as the people around you?  
 >"Linux" is the operating system it runs. Other operating systems you may be familiar with include Windows and macOS.
+
+</div>
 
 If, in this process, you run into errors and can’t figure out how to proceed, ask\! Remember – it is **rare** for a tutorial to work perfectly. We often have to stop, think, guess, Google search, ask someone, etc. in order to get things to work the way the tutorial says.
 
@@ -167,9 +170,12 @@ Most commands will have multiple pre-defined options which allow you to modify t
 If you would like to always have the colored output, run the following command which will add the line "alias ls=\"ls --color\" to the end of a file called .bash_profile. You do not need to fully understand this yet.  
 `echo alias ls=\"ls --color\" >> ~/.bash_profile`  
 
+<div class="note">
 
 If you get a message resembling: `-bash: (...) .bash_profile Permission denied`  
 Run: `chmod +w ~/.bash_profile` to give yourself permission to write to the file.
+
+</div>
 
 ## cd \- Going Places
 
@@ -332,8 +338,11 @@ A set of example answers have been given
 
 ![whiteboard1](../../assets/labs/sp26/whoami_whiteboard.png)
 
-{: .checkoff }
+<div class="checkoff">
+
 As a group, call over your tutor/TA to get checked off for your whiteboard.
+
+</div>
 
 # Who are we anyways? -- Whiteboard Activity
 Now that you've established who you are using some commands you just learned, the course staff has come together to make an activity for you to explore more commands from above *and* learn something about them.
@@ -343,16 +352,21 @@ Run:
  1. Within `cse29`,  create a directory called `lab1`
  1. Within `lab1`, Run:
 `cp -r /home/linux/ieng6/CSE29_SP26_A00/public/people .` 
-
+<div class="note">
 
 the `.` at the end is the path for your *current directory*. This will recursively copy the entire directory we've made called `people` into `lab1` since that's where you are.
 
+</div>
+
+<div class="exercise">
 
 Using commands from above, write down some information you find. Each person should contribute at least one thing they found to the whiteboard resulting in something like this 
 
+</div>
+
 ![people_whiteboard](../../assets/labs/sp26/people_whiteboard.png)
 
-
+<div class="exercise">
 
 > 1. Inside lab1, create two directories called Music and Books
 > 1. In Music and Books, create a couple of files with the names of your favorite songs and books respectively, here’s an example:
@@ -376,6 +390,8 @@ Using commands from above, write down some information you find. Each person sho
 >
 >    **HINT:** there is an option that lets you do this, try using the `man` command to find the `ls` option that enables you to print the contents of a directory **recursively**
 
+</div>
+
 
 # The Vim Text Editor
 
@@ -389,9 +405,12 @@ After all, all the awesome hackers in movies are always *typing*, have you seen 
 
 Our terminal-based editor is called **vim**. It’s an incredibly powerful editor once you learn how to use it properly. However, the learning curve is very steep, which is why the more you practice in these earlier weeks, the better. In this lab, you will use vim to write a small C program while learning a few essential vim features along the way.
 
+<div class="exercise">
 
 > to get acquainted with `vim`, you can run `$ vimtutor` to open vimtutor which is a tutorial in and of itself. Please complete sections 1 and 2 of vimtutor. If you are a bit low on time, you can skip 2.3-2.5 and do them later.
 > Don't worry about memorizing everything as you go, you can always revisit it later and I have provided some of the same information throughout the last activity for your reference. 
+
+</div>
 
 
 Vim is highly configurable—using its own scripting language (VimScript), we can customize its behavior in a wide variety of ways. We can even install a Vim package manager and add [plugins](https://vimawesome.com/) that make it feel like VSCode\! For now, let's start with some sensible defaults, like 4 spaces for indentation, syntax highlighting enabled, and automatic "smart" indentation. If you haven't configured Vim on `ieng6` before, run the following command to download and install our configuration file:
@@ -465,15 +484,20 @@ By the way, if you ever change your mind and want to abandon your command, press
 
 A quick side note - avoid running two instances of Vim on the same file at the same time as this can lead to <a href="https://engineering.purdue.edu/ece264/21sp/resources/vim_swap_warnings">swap file conflicts</a>. You should not close your terminal window to exit Vim as this will leave the swapfile there.
 
+<div class="exercise">
 
 > 1. Using `yy` and `p` in Normal mode, change your code to make several calls to `contains` with different values for `item`, printing out the result each time.
 > 2. Using `dd` in Normal mode, remove the line with `return 0;` inside the `main` function. This line is actually not required for the `main` function.
 > 3. Save your changes and exit vim.
 > 4. To verify that your changes are saved, display the contents of `contains.c` without using vim.
 
+</div>
 
+<div class="owntime">
 
 Vim has many more commands and shortcuts. You can complete more of `vimtutor` on your own time for a guided tutorial through them.
+
+</div>
 
 # Compiling and running your program
 

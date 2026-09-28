@@ -85,3 +85,101 @@
     0% { background-position: 0% 0%, 0% 0%; }
     100% { background-position: 1200% 0% }
 }
+
+/*
+ * note / checkoff / exercise / owntime callouts, recreating just-the-docs'
+ * callouts from monip1.github.io/_config.yml (.note background from custom.scss)
+ * Colors are just-the-docs' $<color>-000 / -200 / -300.
+ */
+
+:root {
+    --callout-note-bg: #e7f3ff;
+    --callout-note-border: #183385;
+    --callout-note-title: #264caf;
+    --callout-checkoff-bg: rgba(65, 214, 147, 0.2);
+    --callout-checkoff-border: #026e57;
+    --callout-checkoff-title: #009c7b;
+    --callout-exercise-bg: rgba(114, 83, 237, 0.2);
+    --callout-exercise-border: #381885;
+    --callout-exercise-title: #4e26af;
+    --callout-owntime-bg: rgba(149, 147, 150, 0.2);
+    --callout-owntime-border: #27262b;
+    --callout-owntime-title: #44434d;
+}
+
+.coal,
+.navy,
+.ayu {
+    --callout-note-bg: #1a2332;
+    --callout-note-border: #2c84fa;
+    --callout-note-title: #2c84fa;
+    --callout-checkoff-bg: rgba(2, 110, 87, 0.2);
+    --callout-checkoff-border: #41d693;
+    --callout-checkoff-title: #41d693;
+    --callout-exercise-bg: rgba(56, 24, 133, 0.2);
+    --callout-exercise-border: #7253ed;
+    --callout-exercise-title: #7253ed;
+    --callout-owntime-bg: rgba(39, 38, 43, 0.2);
+    --callout-owntime-border: #959396;
+    --callout-owntime-title: #959396;
+}
+
+.note,
+.checkoff,
+.exercise,
+.owntime {
+    padding: 0.8rem 1rem;
+    margin: 1rem 0;
+    border-left: 4px solid;
+    border-radius: 4px;
+}
+
+.note::before,
+.checkoff::before,
+.exercise::before,
+.owntime::before {
+    display: block;
+    font-size: 0.75em;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-bottom: 0.125rem;
+}
+
+.note     { background-color: var(--callout-note-bg);     border-left-color: var(--callout-note-border); }
+.checkoff { background-color: var(--callout-checkoff-bg); border-left-color: var(--callout-checkoff-border); }
+.exercise { background-color: var(--callout-exercise-bg); border-left-color: var(--callout-exercise-border); }
+.owntime  { background-color: var(--callout-owntime-bg);  border-left-color: var(--callout-owntime-border); }
+
+.note::before     { content: "note";                  color: var(--callout-note-title); }
+.checkoff::before { content: "📋 Team check in!";     color: var(--callout-checkoff-title); }
+.exercise::before { content: "💪 Exercise";           color: var(--callout-exercise-title); }
+.owntime::before  { content: "🚀 In your own time";   color: var(--callout-owntime-title); }
+
+/* Trim the outer margins of the first/last child so the box hugs its content */
+.note > :first-child,
+.checkoff > :first-child,
+.exercise > :first-child,
+.owntime > :first-child,
+.fun-fact > :first-child {
+    margin-top: 0;
+}
+
+.note > :last-child,
+.checkoff > :last-child,
+.exercise > :last-child,
+.owntime > :last-child,
+.fun-fact > :last-child {
+    margin-bottom: 0;
+}
+
+/* Blockquotes wrapped in a callout shouldn't draw mdBook's own quote box */
+.note > blockquote,
+.checkoff > blockquote,
+.exercise > blockquote,
+.owntime > blockquote,
+.fun-fact > blockquote {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+}
