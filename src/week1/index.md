@@ -17,12 +17,6 @@ These labs are a low-stakes environment to get proficient with programming and s
 * Write a basic C program on `ieng6` using Vim
 * Compile and run the C program you wrote
 
-#### Table of contents
-
-
-1. TOC
-
-
 # Icebreaker
 
 * Discuss the following with the people around you. Get to know your fellow group members!
