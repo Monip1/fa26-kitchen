@@ -2,6 +2,7 @@
 
 :root {
     --callout-funfact-bg: #48cbe8;
+    --callout-funfact-fg: #000000;
 }
 
 /* mdBook's dark themes */
@@ -9,6 +10,7 @@
 .navy,
 .ayu {
     --callout-funfact-bg: #48aee8;
+    --callout-funfact-fg: #ffffff;
 }
 
 .fun-fact {
@@ -33,7 +35,7 @@
     background-size: 1200% 1200%, 1200% 1200%;
     background-position: 0px 0px, 0px 0px;
     animation: ff-slide 200s linear infinite;
-    color: var(--fg) !important;
+    color: var(--callout-funfact-fg) !important;
     /* just-the-docs gave blockquotes this 3px left border */
     border-left: 3px solid #41ac99 !important;
     padding: 0.75rem 1rem;
