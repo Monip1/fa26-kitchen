@@ -326,8 +326,7 @@ Try looking up some of the commands we’ve learned about so far in the manual. 
 
 # Who are you? -- Whiteboard Activity
 
-Using the commands above, fill out the following whiteboard with your group!  
-> Each group member should put their answer for each box.  
+Using the commands above, fill out the following whiteboard with your group!  Each group member should put their answer for each box.  
 A set of example answers have been given 
 
 ![whiteboard1](../../assets/labs/sp26/whoami_whiteboard.png)
@@ -410,7 +409,7 @@ Our terminal-based editor is called **vim**. It’s an incredibly powerful edito
 Vim is highly configurable—using its own scripting language (VimScript), we can customize its behavior in a wide variety of ways. We can even install a Vim package manager and add [plugins](https://vimawesome.com/) that make it feel like VSCode\! For now, let's start with some sensible defaults, like 4 spaces for indentation, syntax highlighting enabled, and automatic "smart" indentation. If you haven't configured Vim on `ieng6` before, run the following command to download and install our configuration file:
 
 ```
-$ curl https://cse29spring2026.github.io/assets/labs/lab1_commandline/vimrc.txt >> ~/.vimrc
+$ curl https://ucsd-cse29.github.io/week1/assets/vimrc.txt >> ~/.vimrc
 ```
 
 Now, we are ready to begin. Inside the `lab1` directory you created in the previous section, run the following command to edit a new file named `contains.c`:
