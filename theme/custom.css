@@ -159,16 +159,14 @@
 .note > :first-child,
 .checkoff > :first-child,
 .exercise > :first-child,
-.owntime > :first-child,
-.fun-fact > :first-child {
+.owntime > :first-child {
     margin-top: 0;
 }
 
 .note > :last-child,
 .checkoff > :last-child,
 .exercise > :last-child,
-.owntime > :last-child,
-.fun-fact > :last-child {
+.owntime > :last-child {
     margin-bottom: 0;
 }
 
@@ -176,8 +174,7 @@
 .note > blockquote,
 .checkoff > blockquote,
 .exercise > blockquote,
-.owntime > blockquote,
-.fun-fact > blockquote {
+.owntime > blockquote {
     margin: 0;
     padding: 0;
     border: none;
