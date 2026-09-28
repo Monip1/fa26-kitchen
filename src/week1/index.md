@@ -34,6 +34,15 @@ These labs are a low-stakes environment to get proficient with programming and s
 
 Throughout this lab, we strongly encourage you to help each other. The staff is always there to help, but do try working together and helping each other out first.
 
+<div class="exercise">
+
+During the labs, you will see these purple boxes, these are to help you know when there is an exercise to complete. If it needs to be checked off it will be indicated with a green box instructing you to get checked off. Please fill out your whiteboard as follows:
+![people_whiteboard](./assets/icebreaker_whiteboard.png)
+</div>
+
+
+
+
 # Let’s connect to `ieng6`
 
 First, open up a terminal window by following the instructions for your operating system.
@@ -329,7 +338,7 @@ Try looking up some of the commands we’ve learned about so far in the manual. 
 Using the commands above, fill out the following whiteboard with your group!  Each group member should put their answer for each box.  
 A set of example answers have been given 
 
-![whiteboard1](../../assets/labs/sp26/whoami_whiteboard.png)
+![whiteboard1](./assets/whoami_whiteboard.png)
 
 <div class="checkoff">
 
@@ -357,7 +366,7 @@ Using commands from above, write down some information you find. Each person sho
 
 </div>
 
-![people_whiteboard](../../assets/labs/sp26/people_whiteboard.png)
+![people_whiteboard](./assets/people_whiteboard.png)
 
 <div class="exercise">
 
