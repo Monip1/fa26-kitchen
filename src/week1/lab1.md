@@ -96,13 +96,16 @@ To see all available software packages, type "prep -l" at the command prompt, or
 
 Now your terminal is connected to a computer that is physically somewhere else on campus, and any commands you run will run on that computer\! We call your computer the *client* and the computer that is elsewhere the *server* based on how you are connected.
 
+<div class="fun-fact">
 
-> I sent one of your staff members on a mission to inquire about the origin of the name *ieng6*. The following was provided by the Office of Engineering Computing:  
-> "ieng6 is a load-balanced multiprocessor Linux server that is maintained by ITS. This hostname originated decades ago, and unfortunately, we do not know why it was named ieng6. It may not even stand for anything."  
-> While the history of the name remains a mystery (at least for the time being), we did learn something interesting about *what* it is. Many people can use ieng6 at the same time.  
-> Being a "multiprocessor" system means each machine(201, 202, 203 ...) has multiple CPUs (or cores), so it can run many tasks at the same time.  
-> Being "load balanced" means that when people connect to ieng6, they are distributed across multiple machines behind the scenes so no single machine becomes overloaded with work. When you SSH into ieng6 you are placed on a specific machine (such as ieng6-201, ieng6-202 or ieng6-203) which you can see in your prompt. Which one are you on? Is it the same as the people around you?  
->"Linux" is the operating system it runs. Other operating systems you may be familiar with include Windows and macOS.
+I sent one of your staff members on a mission to inquire about the origin of the name *ieng6*. The following was provided by the Office of Engineering Computing:  
+"ieng6 is a load-balanced multiprocessor Linux server that is maintained by ITS. This hostname originated decades ago, and unfortunately, we do not know why it was named ieng6. It may not even stand for anything."  
+While the history of the name remains a mystery (at least for the time being), we did learn something interesting about *what* it is. Many people can use ieng6 at the same time.  
+Being a "multiprocessor" system means each machine(201, 202, 203 ...) has multiple CPUs (or cores), so it can run many tasks at the same time.  
+Being "load balanced" means that when people connect to ieng6, they are distributed across multiple machines behind the scenes so no single machine becomes overloaded with work. When you SSH into ieng6 you are placed on a specific machine (such as ieng6-201, ieng6-202 or ieng6-203) which you can see in your prompt. Which one are you on? Is it the same as the people around you?  
+"Linux" is the operating system it runs. Other operating systems you may be familiar with include Windows and macOS.
+
+</div>
 
 If, in this process, you run into errors and can’t figure out how to proceed, ask\! Remember – it is **rare** for a tutorial to work perfectly. We often have to stop, think, guess, Google search, ask someone, etc. in order to get things to work the way the tutorial says.
 
