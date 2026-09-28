@@ -48,7 +48,9 @@
     content: "Fun fact: ✨";
     display: inline-block;
     margin-right: 0.5rem;
-    font-size: 1.25rem;
+    /* em, not rem: mdBook sets the root font-size to 10px */
+    font-size: 1.4em;
+    font-weight: bold;
     vertical-align: middle;
     animation: ff-pulse 8s ease-in-out infinite;
 }
