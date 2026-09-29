@@ -385,11 +385,12 @@ As a group, call over your tutor/TA to get checked off for your whiteboard.
 # Who are we anyways? -- Whiteboard Activity
 Now that you've established who you are using some commands you just learned, the course staff has come together to make an activity for you to explore more commands from above *and* learn something about them.
 
-Run:
+<div class="exercise">
  1. On ieng6, create a directory called `cse29`, this will be the directory that contains all your work for labs
  1. Within `cse29`,  create a directory called `lab1`
  1. Within `lab1`, Run:
 `cp -r /home/linux/ieng6/CSE29_SP26_A00/public/people .` 
+</div>
 <div class="note">
 
 the `.` at the end is the path for your *current directory*. This will recursively copy the entire directory we've made called `people` into `lab1` since that's where you are.
