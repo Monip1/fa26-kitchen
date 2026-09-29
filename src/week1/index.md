@@ -453,7 +453,7 @@ Our terminal-based editor is called **vim**. It’s an incredibly powerful edito
 <div class="exercise">
 
 > to get acquainted with `vim`, you can run `$ vimtutor` to open vimtutor which is a tutorial in and of itself. Please complete sections 1 and 2 of vimtutor. If you are a bit low on time, you can skip 2.3-2.5 and do them later.
-> Don't worry about memorizing everything as you go, you can always revisit it later and I have provided some of the same information throughout the last activity for your reference. 
+> Don't worry about memorizing everything as you go, you can always revisit it later and some of the same information is provided below for your reference throughout the last activity. 
 
 </div>
 
