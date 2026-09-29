@@ -368,6 +368,12 @@ Using commands from above, write down some information you find. Each person sho
 
 ![people_whiteboard](./assets/people_whiteboard.png)
 
+<div class="checkoff">
+
+As a group, call over your tutor/TA to share it with them and get checked off.
+
+</div>
+
 <div class="exercise">
 
 > 1. Inside lab1, create two directories called Music and Books
