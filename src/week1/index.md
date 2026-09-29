@@ -567,9 +567,9 @@ New accounts are standardized with the home directory bin being the last 3 digit
 `$ getent passwd etomson`
 
 etomson:*:112263:20:Tomson, Elena:/home/linux/ieng6/students/263/etomson:/bin/bash"
+</div>
 
 <div class="note">
 >SDSC is the San Diego Supercomputer Center which resides near RIMAC on Ridgewalk.
 
-</div>
 </div>
