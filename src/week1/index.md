@@ -2,10 +2,10 @@
 
 
 Welcome to the first CSE 29 lab!  
-I'm your lab for this course, here to provide you with the time and space to explore practical software tools, including Unix commands, Git, GDB, Valgrind, Makefiles, and shell scripting.  
-You are not expected to know any of these topics yet—this is just a preview of what’s to come. Over the next 10 weeks, I will guide you as you build familiarity with these tools, which you’ll use throughout this course and in future endeavors.  
-I hope you enjoy the process and have some fun along the way!
-* In each lab session, you will follow this guide to get firsthand experience with the tools and techniques we have introduced to you in lectures and discussions. This experience will be essential to your PA work. You earn credit for participation by being engaged with the content of this lab and interacting with the staff when asked.
+Lab is the time and space to explore practical software tools aspect of CSE 29's title. Tools will include Unix commands, Git, GDB, Valgrind, Makefiles, shell scripting, and more.  
+You are not expected to know what any of these topics are yet—this is just a preview of what’s to come. Over the next 10 weeks, the lab writeups found here will guide you as you build familiarity with these tools, which you’ll use throughout this course and in future endeavors.  
+I, the Lab, hope you enjoy the process and have some fun along the way!
+* In each lab session, you will follow this guide to get firsthand experience with the tools and techniques we have introduced to you in lectures and discussions. This experience will be essential to your Project work. You earn credit for participation by being engaged with the content of this lab and interacting with the staff when asked.
 
 These labs are a low-stakes environment to get proficient with programming and software tools with support from fellow classmates and course staff. **Please ask for help from course staff if you are stuck on something—we are here for you!**
 
@@ -101,14 +101,50 @@ Now your terminal is connected to a computer that is physically somewhere else o
 
 <div class="fun-fact">
 
-I sent one of your staff members on a mission to inquire about the origin of the name *ieng6*. The following was provided by the Office of Engineering Computing:  
+If you find yourself wondering about the origin of the name *ieng6*, The following was provided by the Office of Engineering Computing:  
 "ieng6 is a load-balanced multiprocessor Linux server that is maintained by ITS. This hostname originated decades ago, and unfortunately, we do not know why it was named ieng6. It may not even stand for anything."  
 While the history of the name remains a mystery (at least for the time being), we did learn something interesting about *what* it is. Many people can use ieng6 at the same time.  
 Being a "multiprocessor" system means each machine(201, 202, 203 ...) has multiple CPUs (or cores), so it can run many tasks at the same time.  
 Being "load balanced" means that when people connect to ieng6, they are distributed across multiple machines behind the scenes so no single machine becomes overloaded with work. When you SSH into ieng6 you are placed on a specific machine (such as ieng6-201, ieng6-202 or ieng6-203) which you can see in your prompt. Which one are you on? Is it the same as the people around you?  
 "Linux" is the operating system it runs. Other operating systems you may be familiar with include Windows and macOS.
 
+ While that's some great information, it didn't answer our question regarding the name. Not to worry, Caleb Crawford of the IT Services department, knower of many things ieng6, has answered many questions.
+
+"For some history, ieng stands for "Interactive Engineering" and dates back to when we had machines in AP&M that you had to use a video terminal to interact with the machines. The 6 in the name is from the IP Address originally assigned,  which was 132.239.50.6. There used to be other "ieng" machines, you may encounter someone that remembers ieng9 that used to host Solaris SPARC used in CSE30 and CSE120.
+
+ieng6 and almost all of the infrastructure students might use is physically located in SDSC. The ieng6 machines are entirely virtual machine based so they're balanced on a cluster of hardware supporting most ITS.
+
+ieng6.ucsd.edu is a round robin load balancer that currently balances number of connections between ieng6-201, 202, and 203 (this will be increasing this summer). 201-203 are SSH only machines, everything else also allows RDP desktop sessions which you can connect to from campus/VPN or via linuxcloud.ucsd.edu. All the ieng6 machines are open to use as needed but we may point courses at specific sets of machines depending on what's needed for the course.
+
+ieng6-240 - 253 are the original desktop cluster and the number is based off their IP address. 
+
+`$ host ieng6-240`
+
+ieng6-240.ucsd.edu has address 128.54.70.240
+
+ieng6-640 and ieng6-641 were originally the first x86_64 deployments and are currently used to support old software that needs CentOS 7.
+
+ieng6-700 through 702 and ieng6-300 through 309 are higher resource machines (more memory + CPU) which were added as we needed to support more intensive desktop software/more desktop sessions total during covid.
+
+ieng6-ece-01 through 20 are machines specifically for ECE courses.
+
+There used to be igpu-### machines which were GPU compute servers that eventually turned into the DSMLP cluster.
+
+For home directories, the old style "OCE" paths means your account was setup prior to May 2025 and didn't get migrated to the new format. I don't know the particular history on how that hash layout was developed but it was in use for 30+ years. Accounts used to need to be flagged as "Open Computing Environment" to get persistent storage and compute resources that you can use outside of a specific course, which mattered a lot more when disk and cpu resources were limited. Non OCE accounts used to look like "cs29sp26aa" and were allocated for specific courses and removed after the quarter.
+
+New accounts are standardized with the home directory bin being the last 3 digits of your UID. Note your UID is 112263
+
+`$ getent passwd etomson`
+
+etomson:*:112263:20:Tomson, Elena:/home/linux/ieng6/students/263/etomson:/bin/bash"
+
+<div class="note">
+>SDSC is the San Diego Supercomputer Center which resides near RIMAC on Ridgewalk.
+
 </div>
+</div>
+
+
 
 If, in this process, you run into errors and can’t figure out how to proceed, ask\! Remember – it is **rare** for a tutorial to work perfectly. We often have to stop, think, guess, Google search, ask someone, etc. in order to get things to work the way the tutorial says.
 
