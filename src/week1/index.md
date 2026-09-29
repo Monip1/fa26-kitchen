@@ -424,7 +424,7 @@ Our terminal-based editor is called **vim**. It’s an incredibly powerful edito
 Vim is highly configurable—using its own scripting language (VimScript), we can customize its behavior in a wide variety of ways. We can even install a Vim package manager and add [plugins](https://vimawesome.com/) that make it feel like VSCode\! For now, let's start with some sensible defaults, like 4 spaces for indentation, syntax highlighting enabled, and automatic "smart" indentation. If you haven't configured Vim on `ieng6` before, run the following command to download and install our configuration file:
 
 ```
-$ curl https://ucsd-cse29.github.io/week1/assets/vimrc.txt >> ~/.vimrc
+$ curl https://ucsd-cse29.github.io/fa26/week1/assets/vimrc.txt >> ~/.vimrc
 ```
 
 Now, we are ready to begin. Inside the `lab1` directory you created in the previous section, run the following command to edit a new file named `contains.c`:
