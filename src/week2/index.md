@@ -468,5 +468,6 @@ printf("b>>1 = %d\n", b >> 1);
 ```
 
 <div class="checkoff">
+This is the submittable checkoff for the lab.
 
 </div>
