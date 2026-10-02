@@ -1,12 +1,10 @@
 
 # Lab 2: Version Control with Git
-{: .no_toc}
 
 Welcome to Lab 2, glad you're here! For a later section of the lab, you will work in groups of 2-3. Before starting the lab, form your group and do the icebreaker activity together. Let a TA or tutor know if you don’t have a group\!
 
 
 ## Lab 2 Learning Objectives
-{: .no_toc }
 
 * Enable your `ieng6` account to communicate with GitHub on your account's behalf
 * Familiarize yourself with the conceptual model of Git
@@ -14,19 +12,13 @@ Welcome to Lab 2, glad you're here! For a later section of the lab, you will wor
 * Use Git to undo a destructive change
 
 
-#### Table of contents
-{: .no_toc}
-
-1. TOC
-{:toc }
-
 # Icebreaker
 In your groups, please discuss the following:
 - Pick a song as the soundtrack of your life! Why you did you choose this song?
 - What’s your favorite genre? Who’s your favorite artist?
 
 
-Please fill out [this welcome survey](https://forms.gle/4tcPTbgrzBZws2qB6)
+Please fill out [this welcome survey](todo)
 
 # PA1: Start Early Start Often
 This is the motto of the CSE department.  
@@ -63,7 +55,7 @@ In this case, tab complete won’t complete the full filename, since the private
 
 On the GitHub website, click your profile picture in the top right to open a menu, and click on “Settings”.
 
-![Click on Settings in your GitHub account menu](../../assets/labs/sp26/github_settings.png)
+![Click on Settings in your GitHub account menu](./assets/github_settings.png)
 
 On the left, open “SSH and GPG keys”, then click on “New SSH key”.
 
@@ -380,8 +372,9 @@ Changes not staged for commit:
 
 To undo our destructive change, we precisely need to "`discard changes in working directory`" relative to our last commit. So, let's follow the instructions from `git status` to restore `contains.c`. **Please compose the command on your own from the instructions.**
 
-{: .checkoff }
+<div class="checkoff">
 Make sure everyone in your group was able to successfully restore the once destroyed `contains.c` contents.
+</div>
 
 {: .owntime }
 You might have heard about `git revert`, `git reset`, and `git restore`. Each command performs a unique operation. Learn more about what they do with Git's [official documentation](https://git-scm.com/docs/git#_reset_restore_and_revert).
@@ -441,3 +434,39 @@ If you would like to see this in practice you can try it on any of the 3 buggy f
   - This prints 4 “words” (i.e. int32s) of `arr`, as decimal numbers 
 - You can use the following [reference card](https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf) for reference on gdb commands, and format commands for x and print.
 
+
+## A Bit of Practice
+
+One of the important skills of PA3 that you will need to know is bit manipulation. That’s what we’re going to practice today\!
+
+In `bitstrings.c`, you’ll find a series of bitstrings along with incomplete assert statements. Your job will be to fill each instance of `_` with the correct bitwise operator to make the assert pass.
+
+For your reference, here is a code snippet with usages of common bitwise operators you may find useful, taken from GeeksForGeeks:
+
+```c
+// a = 5(00000101), b = 9(00001001)
+unsigned char a = 5, b = 9;
+
+// The result is 00000001 (AND)
+printf("a = %d, b = %d\n", a, b);
+printf("a&b = %d\n", a & b);
+
+// The result is 00001101 (OR)
+printf("a|b = %d\n", a | b);
+
+// The result is 00001100 (XOR)
+printf("a^b = %d\n", a ^ b);
+
+// The result is 11111010 (NOT)
+printf("~a = %d\n", a = ~a);
+
+// The result is 00010010 (left shift)
+printf("b<<1 = %d\n", b << 1);
+
+// The result is 00000100 (right shift)
+printf("b>>1 = %d\n", b >> 1);
+```
+
+<div class="checkoff">
+
+</div>
