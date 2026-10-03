@@ -6,3 +6,11 @@
 - [Lab 1](./week1/index.md)
 - [Lab 2](./week2/index.md)
 
+- [Lab 3](./week3/index.md)
+
+- [Lab 4](./week4/index.md)
+- [Lab 5](./week5/index.md)
+- [Lab 6](./week6/index.md)
+- [Lab 7](./week7/index.md)
+- [Lab 8](./week8/index.md)
+- [Lab 9](./week9/index.md)
