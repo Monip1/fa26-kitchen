@@ -7,24 +7,16 @@ permalink: /lab4
 ---
 
 # Lab 4: Finding memory errors with Valgrind
-{: .no_toc}
 In this lab, you'll use Valgrind, a memory error checker, to identify memory management mishaps in programs involving arrays and linked lists. Valgrind is ubiquitous in systems programming workflows, especially for programs written in C and C++. You'll find it valuable for PA 2 and onward, too\!
 
 ## Lab 4 learning objectives
-{: .no_toc}
 
 * Recognize the purpose of Valgrind in C programming
 * Interpret output from Valgrind for memory-related problems
 * Recognize Valgrind outputs for direct leaks, indirect leaks, use after free, and double free
 * Use Valgrind to guide memory error fixing
 
-![Illustration of 2D arrays and linked lists in memory](../../assets/labs/sp26/l4_pointers_meme.png)
-
-#### Table of contents
-{: .no_toc}
-
-1. TOC
-{:toc }
+![Illustration of 2D arrays and linked lists in memory](./assets/l4_pointers_meme.png)
 
 # Icebreaker
 
@@ -32,8 +24,11 @@ If you could choose a superpower to have, what would it be? What would you do wi
 Who’s your favorite superhero/villain, if you have any?
 
 
-{: .note }
+<div class="note">
+
 Please write the answers on your whiteboard. No check-off is needed!
+
+</div>
 
 ## Warm-up
 
@@ -50,13 +45,16 @@ Draw the memory diagram for the following linked list on your whiteboard. These 
    add_event(&finals, "June 15th 2026 1pm", "June 15th 2026 2pm", "Love CSE29");
    reschedule_event(&finals, "Cry", "June 16th 2026 1pm", "June 16th 2026 5pm");
 ```
-<img src="../../assets/labs/sp26/linked_list.png" alt="whiteboard" width="800">
+<img src="./assets/linked_list.png" alt="whiteboard" width="800">
 
-{: .quality}
-> Before you get right into memory leaks and how to fix them, we have a quality of life improvement.
-> Recall that in lab2 you made a pair of ssh keys to allow you to securely access github from your ieng6 account.
-> There is another pair of keys we can make which give you the power to never have to type your password when signing into ieng6 again.
-> The tutorial for this resides in the last lab: [here](./lab3#identify-yourself-to-ieng6).
+<div class="quality">
+
+Before you get right into memory leaks and how to fix them, we have a quality of life improvement.
+Recall that in lab2 you made a pair of ssh keys to allow you to securely access github from your ieng6 account.
+There is another pair of keys we can make which give you the power to never have to type your password when signing into ieng6 again.
+The tutorial for this resides in the last lab: [here](./lab3#identify-yourself-to-ieng6).
+
+</div>
 
 # Part 1: Help! My program leaks…
 
@@ -111,8 +109,11 @@ Let's go over each function in `memory_errors.c` in more detail, and fix each of
 - `reuse_freed()`: Also not a memory leak, but a case in which we try to access memory that was already freed. Valgrind reports this error as an "invalid write" above the heap summary. Again, it's good practice to set a freed pointer to `NULL` immediately after it's been freed.
 - `double_malloc()`: This can accidentally occur when you intend to allocate two blocks of memory to be used one after the other with the same pointer, but forget to free the first block. What should be done here to fix this leak?
 
-{: .owntime}
+<div class="owntime">
+
 Once you've implemented the fixes, compile and re-run the program with Valgrind to confirm that there are no longer any memory leaks or errors. It should report that "all heap blocks were freed -- no leaks are possible". Yippee! Although if there are still memory leaks/errors, try again, then yippee.
+
+</div>
 
 ## Types of Memory Leaks
 
@@ -137,30 +138,39 @@ Now let’s put what you’ve learned into practice. In the lab repository, `lea
 
 In `leak.c`, there is a function that performs matrix addition on two 2D arrays. While the functionality may appear correct, a run of valgrind will tell you that memory isn’t freed properly. For reference, here is a diagram of how matrix addition works:
 
-![Matrix addition visualization](../../assets/labs/sp26/l4matrix_addition.png)
+![Matrix addition visualization](./assets/l4matrix_addition.png)
 
-{: .checkoff }
+<div class="checkoff">
+
 Please check in with your teammates to make sure everyone understands `leak.c` and it's problem and solution. If you have any questions now is a good time to ask a staff member as a group for any clarifications.
+
+</div>
 
 In `losing_track.c`, there is a function that returns the lower-cased version of the [query string](https://en.wikipedia.org/wiki/Query_string) of a url **without modifying the original string**. This is the portion after the question mark in http urls that are often used to specify parameters for a website. We want to return this portion without modifying the original URL. Like previously mentioned, this function appears to work properly, but does not manage memory properly. This error is particularly nasty because this implementation **loses track** of its allocated memory. Let's take a deeper look into what this means. 
 
 When we first initialize `query`, we point to the beginning of the string, and therefore have access to our whole chunk of memory. Our memory looks like this:
 
-![image](../../assets/labs/sp26/l4_query.png)
+![image](./assets/l4_query.png)
 
 
 However, after we convert the string to lower case, use `ptr` to traverse through the string, and return `ptr`, we no longer have access to the beginning of the string, and therefore can't free the chunk of memory!
 
-![image](../../assets/labs/sp26/l4_query2.png)
+![image](./assets/l4_query2.png)
 
-{: .exercise}
->Describe the problem and how you would fix it. Work with your teammates and write this on your whiteboard. 
->Do leave yourself space to add 2 more similar descriptions and fixes.
+<div class="exercise">
 
-{: .owntime}
->Given time, you may implement the solution and check your work however implementing your solution is **OPTIONAL**. If you would like to implement your your solution, note that given this is a very involved change, **please** modify the method as much as you like!
->
->*HINT: the problem of the current implementation is that in the string we return, we don't keep track of the beginning of the string. How can you change this code so that the string we return has its pointer pointing to the beginning?*
+Describe the problem and how you would fix it. Work with your teammates and write this on your whiteboard. 
+Do leave yourself space to add 2 more similar descriptions and fixes.
+
+</div>
+
+<div class="owntime">
+
+Given time, you may implement the solution and check your work however implementing your solution is **OPTIONAL**. If you would like to implement your your solution, note that given this is a very involved change, **please** modify the method as much as you like!
+
+*HINT: the problem of the current implementation is that in the string we return, we don't keep track of the beginning of the string. How can you change this code so that the string we return has its pointer pointing to the beginning?*
+
+</div>
 
 
 ## Valgrind on Linked Lists
@@ -171,8 +181,11 @@ A common misconception is that we can free memory by redirecting pointers to tha
 
 Once you recompile and re-run with Valgrind, you should see a different error: `Invalid read of size 8`. This time around, Valgrind has a richer story to tell about this chunk of memory. Read the series of backtraces from the bottom line upward to see the events that took place in chronological order along with where they were triggered. Use this story to help understand the nature of the memory problem and figure out how to fix it. You can also pull out GDB if you'd like.
 
-{: .exercise }
+<div class="exercise">
+
 Once you fix this error, re-compile and re-run the `list` program with Valgrind, and make sure that Valgrind reports no errors and that "no leaks are possible". Add the problem and solution to the whiteboard.
+
+</div>
 
 This is an example of "**use after free**", accessing a chunk of memory after you have freed it. The program might still have worked prior to your most recent fix, but because it accessed and relied on data inside a chunk of memory after it was freed, the program was subject to *undefined behavior*—it could crash, corrupt other memory it owns, or do whatever it wants! Thankfully, Valgrind can detect most instances of undefined behavior and help you eliminate it.
 
@@ -190,11 +203,17 @@ $ valgrind --track-origins=yes ./writesong
 
 The program should write a simple song to `mysong.txt` using file I/O operations you will also encounter in PA 2. However, Valgrind reports several instances of "Conditional jump or move depends on uninitialised value(s)" and "Use of uninitialised value", and because we included the `--track-origins=yes` flag, it shows us where each uninitialized value was declared. The reports seem to repeat, indicating that an uninitialized value was used in a loop. Read the contents of `writesong.c` to figure out the problematic variable and initialize it properly. Verify that Valgrind no longer reports these errors when you run the program.
 
-{: .exercise }
+<div class="exercise">
+
 You should now be able to tell if you've fixed the memory problem on your own! Add the problem identified and how you fixed it to your whiteboard.
 
-{: .checkoff }
+</div>
+
+<div class="checkoff">
+
 Make sure to call over a staff member to go over your plan for how to fix the memory leak in `losing_track.c`, `list.c`, and `writesong.c` that are on your whiteboard.
+
+</div>
 
 As we have seen, Valgrind is useful for discovering memory bugs in your program. This will be especially useful in PA 2, where you will be graded on proper memory management as you query and sort your linked list and array. Alongside Valgrind, we cannot understate the usefulness of **drawing memory diagrams** in helping you reason about memory management and fix memory issues, especially for linked lists. They make memory management much more intuitive, so embrace them!
 
@@ -229,17 +248,20 @@ Let's start with `bad_free_path_1`. Around line 101 in `flights.c`, we have writ
 
 
 
-{: .owntime }
-> **Test-First Development**
-> <br>*Feel free to skip this note and come back to it later.*
->
-> Most programming courses in higher education adopt a "Test-Last" approach, where we first write the implementation and then write tests to verify its correctness. What if we flip this order? The Agile programming community has advocated for *Test-First Development* (TFD), where whenever we want to develop a new feature, we first write tests (that would obviously fail), and we then write the implementation with the goal of making the tests pass. While this sounds counter-intuitive, following it in a disciplined manner has several benefits for software engineering:
->
-> 1. TFD promotes high *test coverage*, meaning tests exercise many (if not all) parts of your implementation code
-> 2. TFD encourages you to *refactor* your code, i.e., restructure it for performance, maintainability, etc. without worrying that you might break something because you can easily find out by running your tests
-> 3. Some argue that TFD makes programming more fun and rewarding. Writing a test is like giving yourself a challenge, and seeing it pass for the first time is gratifying. On the other hand, writing tests last can seem like a chore.
->
-> However, TFD is criticized for its counter-intuitiveness, repeated context switching between testing and implementing, and being unsuitable for input/output applications. While we are not in a position to officially recommend Test-First Development, we want you to try it with your next PA and see if you like it.
+<div class="owntime">
+
+**Test-First Development**
+<br>*Feel free to skip this note and come back to it later.*
+
+Most programming courses in higher education adopt a "Test-Last" approach, where we first write the implementation and then write tests to verify its correctness. What if we flip this order? The Agile programming community has advocated for *Test-First Development* (TFD), where whenever we want to develop a new feature, we first write tests (that would obviously fail), and we then write the implementation with the goal of making the tests pass. While this sounds counter-intuitive, following it in a disciplined manner has several benefits for software engineering:
+
+1. TFD promotes high *test coverage*, meaning tests exercise many (if not all) parts of your implementation code
+2. TFD encourages you to *refactor* your code, i.e., restructure it for performance, maintainability, etc. without worrying that you might break something because you can easily find out by running your tests
+3. Some argue that TFD makes programming more fun and rewarding. Writing a test is like giving yourself a challenge, and seeing it pass for the first time is gratifying. On the other hand, writing tests last can seem like a chore.
+
+However, TFD is criticized for its counter-intuitiveness, repeated context switching between testing and implementing, and being unsuitable for input/output applications. While we are not in a position to officially recommend Test-First Development, we want you to try it with your next PA and see if you like it.
+
+</div>
 
 Now that we have seen how an assert works for writing a few test cases and catching bugs, we shall write our own. We have given you 2 broken functions, `bad_remove_element` and `bad_insert_element_at_pos`.
 
@@ -291,7 +313,7 @@ You see some code open on the professor's laptop during office hours.  You do
 your best to commit it to memory and write it down (remember, you're acting
 quite unethically in this story), because it strikes you that the code was
 something regarding assignment scores.  
-![gradebook source code](../../assets/labs/sp26/gradebook_src.png)
+![gradebook source code](./assets/gradebook_src.png)
 
 Using this information, you decide to give yourself and A with a score 
 to match while maintaining a real due date.  

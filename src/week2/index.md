@@ -45,10 +45,13 @@ You’ll be prompted to “Enter a file in which to save the key”. Press Enter
 
 By default, the public SSH key is saved to a file at `~/.ssh/id_rsa.pub`.
 
-{: .note }
+<div class="note">
+
 Instead of typing out the whole filename, you can type out some prefix of the name (e.g. `~/.ssh/id`), and **press Tab to autocomplete the name**.
 In this case, tab complete won’t complete the full filename, since the private key happens to be named `id_rsa`.
 *Please* be too lazy to type out entire filenames and use tab complete instead\!
+
+</div>
 
 
 **View the contents of** `~/.ssh/id_rsa.pub` **(using `cat`)**, then copy the contents of the public key file to your clipboard.
@@ -84,8 +87,11 @@ If this is your first time connecting to GitHub, you might get a warning about t
 
 After a successful connection, it should output `Hi <your-username>! You've successfully authenticated, but GitHub does not provide shell access`.
 
-{: .checkoff }
+<div class="checkoff">
+
 If you did not get this success message, please ask someone for help, you will not be able to complete the next part if your ssh keys are not properly set up.
+
+</div>
 
 That *should* conclude the GitHub SSH key setup process. If the others in your group are struggling with this, please help them\! The next step will require everyone in your group to be able to successfully connect to GitHub.
 # Git Gud Bro
@@ -151,12 +157,15 @@ execute your script, you need to set the Execute bit by running
 using `ls -l`. Here's what [our textbook](https://diveintosystems.org/book/Appendix2/chmod.html)
 has to say about the `chmod` command and file permissions in Unix.
 
-{: .note }
+<div class="note">
+
 Several students in the past had the misconception that you need to run `chmod
 +x` every time you run the same script. Since a file's permissions are stored
 alongside it, permission changes are stored permanently, and script files don't
 unset their executable bit every time they run. So just set it once for each
 script!
+
+</div>
 
 
 ## Clone the Repo
@@ -182,8 +191,11 @@ If you accidentally cloned the repo into the wrong place, you can **m**o**v**e t
 $ mv <span class="code-replace-me" contenteditable>repo_name</span> ~/cse29/<span class="code-replace-me" contenteditable>repo_name</span>
 </code>, where `repo_name` is the name of your repo. This command is also used to move and rename files.
 
-{: .checkoff }
+<div class="checkoff">
+
 Each member of your group should have now successfully cloned the lab2 repo onto ieng6 in the cse29 folder. Make sure you have all correctly completed the command line exercise from lab 1, with the Books and Music directories being correctly named and structured.
+
+</div>
 
 ## “You have good taste\!”
 Remember those books and songs that you created last week? Now it’s time to pool them all together into one big Books directory and one big Music directory\! Before you proceed, make sure that everyone on your team has done the previous checkoff, as it is crucial each person’s `lab1` files are properly organized.
@@ -191,7 +203,7 @@ Remember those books and songs that you created last week? Now it’s time to po
 <div style="width: 100%; background: #fcdb03; text-align: center; padding: 0.5rem; font-weight: bold">
     All teammates should do the steps below individually, keep going until you reach the stopping point
 </div>
-<div markdown="1" style="border: 4px solid #fcdb03; padding: 1rem">
+<div style="border: 4px solid #fcdb03; padding: 1rem">
 
 **C**o**p**y over the content of your lab1 directory into your lab2 repo. You can do this by using the `cp` command like so:
 
@@ -230,8 +242,11 @@ to commit all files into the staging area to the local repo. Replace `insert-com
 
 The `-m` option allows the user to directly write a commit message as a string in the command. If you were to run `git commit` without this option, it will open vim and instruct you to write a commit message there. Generally, commit messages are concise enough that using a text editor to write them out is unnecessary.
 
-{: .important }
+<div class="important">
+
 Writing a meaningful commit message is quite useful, and usually expected in a professional setting. The commit message serves as a way for others (and yourself, in the future, looking back) to easily understand what changes were made in a commit without having to read through the changes manually.
+
+</div>
 
 Besides `-m`, there are other common options that programmers use with git commit:
 
@@ -306,8 +321,11 @@ Now you can see what songs and books your teammates enjoy\! Albeit it probably w
 
 We’ll revisit Git in a later lab and in your own time, if you’d like to learn more about some of the concepts introduced today such as commits and how they are tracked, you can look into the [Le Git Graph browser extension](https://chromewebstore.google.com/detail/le-git-graph-commits-grap/joggkdfebigddmaagckekihhfncdobff) and its [GitHub repository](https://github.com/NirmalScaria/le-git-graph). You can also check out this [interview with the creator of Git](https://github.blog/open-source/git/git-turns-20-a-qa-with-linus-torvalds/) that celebrates its 20th birthday this year, woo!
 
-{: .checkoff }
+<div class="checkoff">
+
 Verify each team member has a repo with you and your teammates’ shared Music and Books folders. Run `git log --name-status` to verify who wrote each change.
+
+</div>
 
 # Git people
 
@@ -319,12 +337,15 @@ Write each git command that you use in the following activity on your whiteboard
 
 ![git-whiteboard](../../assets/labs/sp26/l2git_whiteboard.png)
 
-{: .exercise}
+<div class="exercise">
+
 Using [**this repository**](https://classroom.github.com/a/CwYTVeid):  
 Make a `Students` directory alongside the `Instructors`, `TAs` and `Tutors` directories in your workspace.  
 Create a directory in `Students` that is your name  
 Make and populate a `data.md` file with and fun facts you want to share (we have an outline.md file you can use or you can make one of your own)  
 `git push` each team member's changes to github so you can see them all there.  
+
+</div>
 
 From github, you can then look at files by clicking the `people` folder from this screen ![git_people](../../assets/labs/sp26/github_people_repo.png)  
 From here you can go look at the `.md` files which use [markdown formatting](https://www.markdownguide.org/getting-started/) which add formatting to our plain text files. Go find one of your staff members' `data.md` to see some [formatting options](https://commonmark.org/help/) in practice.
@@ -373,11 +394,16 @@ Changes not staged for commit:
 To undo our destructive change, we precisely need to "`discard changes in working directory`" relative to our last commit. So, let's follow the instructions from `git status` to restore `contains.c`. **Please compose the command on your own from the instructions.**
 
 <div class="checkoff">
+
 Make sure everyone in your group was able to successfully restore the once destroyed `contains.c` contents.
+
 </div>
 
-{: .owntime }
+<div class="owntime">
+
 You might have heard about `git revert`, `git reset`, and `git restore`. Each command performs a unique operation. Learn more about what they do with Git's [official documentation](https://git-scm.com/docs/git#_reset_restore_and_revert).
+
+</div>
 
 # Next steps
 
@@ -468,6 +494,7 @@ printf("b>>1 = %d\n", b >> 1);
 ```
 
 <div class="checkoff">
+
 This is the submittable checkoff for the lab.
 
 </div>

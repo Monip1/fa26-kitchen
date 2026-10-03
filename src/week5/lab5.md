@@ -7,26 +7,21 @@ permalink: /lab5
 ---
 
 # Lab 5: Shell scripting, .gitignore, and Mail
-{: .no_toc}
 
-{: .note }
+<div class="note">
+
 You may find our solutions to Lab 3 and Lab 4 in our [solutions repository](https://github.com/CSE29Spring2026/lab-answer-keys). For now, let's focus on lab 5.
+
+</div>
 
 In this lab, you will organize some nostalgic files using shell scripting, write
 your own `.gitignore`, and send mail messages with Pokemon. You have the entire lab period for this. Have fun!
 
 ## Lab 5 learning objectives
-{: .no_toc}
 
 * Understand the utility and overall mechanism of shell scripting
 * Determine which files should not be tracked by Git and list them in `.gitignore`
 * Trade Pokemon by sending and receiving mail on `ieng6`!
-
-#### Table of contents
-{: .no_toc}
-
-1. TOC
-{:toc }
 
 # Icebreaker
 
@@ -34,21 +29,24 @@ This week you have the opportunity to write an icebreaker that may be used in
 future labs\! Please write an icebreaker of your own for this lab. One icebreaker
 from last quarter was: _What is your favorite letter?_ which I encourage you to also answer.
 
-<img src="../../assets/labs/sp26/l5_icebreaker.png" alt="icebreaker" width="600">  
+<img src="./assets/l5_icebreaker.png" alt="icebreaker" width="600">  
 
-{: .important }
+<div class="important">
+
 Please make sure that everyone in your group answers the icebreaker and writes their name on the whiteboard. We will come around to collect pictures for attendance soon\!
+
+</div>
 
 ## Swap files
 If you have ever gone to open your file and encountered the following:  
-<img src="../../assets/labs/sp26/l5_swp.png" alt="swap" width="600">  
+<img src="./assets/l5_swp.png" alt="swap" width="600">  
 you may have wondered what is going on. This is the menu that appears when you try to open a file but your computer sees that it has an associated swap file. If your terminal crashes for some reason while you are editing it, you computer saves your work in a swap file named as follows: if you had `hello.c` it will create `.hello.c.swp` as the swap file (as seen in the picture above). In this file are the changes that it saved for you as it crashed. Reading through the options we find you can:
 
 * Press `E` to open the last save you made. If you are ok with discarding the changes you made after you last `:w` you can choose this option.
 * Press `R` to recover what is saved in the `.swp` file. If you haven't saved recently or simply would like to recover the changes you had made, choose this. After you choose this, you can type `:w` as normal in vim to save these recovered changes to your file.  
 
 If you choose the latter option, you will see this menu.  
-<img src="../../assets/labs/sp26/l5_recover.png" alt="swap_recover" width="600">  
+<img src="./assets/l5_recover.png" alt="swap_recover" width="600">  
 As per it's suggestion, after you have saved the file and go back to the terminal, you can and should delete the swap file (`rm .hello.c.swp` for example).  
 If you choose the former option, you should also make sure to delete the swap file, for fear of later recovering a now out-of-date file.
 
@@ -69,13 +67,19 @@ Alternatively, we can tell Vim to execute a certain set of commands automaticall
 
 We will do this by putting these commands directly into a Vim runtime configuration file, called a `.vimrc` file.
 
-{: .note }
-> The `.` prefix means that it is a hidden file in UNIX, also commonly called a *dotfile*.  This means that these files will not display, by default, when listing the contents of a directory (using the `ls` command).
+<div class="note">
+
+The `.` prefix means that it is a hidden file in UNIX, also commonly called a *dotfile*.  This means that these files will not display, by default, when listing the contents of a directory (using the `ls` command).
+
+</div>
 
 By convention, you will create the `.vimrc` file in your home directory:  `~/.vimrc`
 
-{: .note }
-> Remember: the tilde character `~` is a shorthand for the current user's (your) home directory in UNIX.
+<div class="note">
+
+Remember: the tilde character `~` is a shorthand for the current user's (your) home directory in UNIX.
+
+</div>
 
 #### Create your .vimrc
 Using Vim, create an empty `.vimrc` file in your home directory on your `ieng6` account:
@@ -108,12 +112,18 @@ The effect of each of these commands is summarized briefly below:
 - `set smartindent`: apply indentation with respect to code syntax
 - `inoremap { {<CR>}<Esc>ko`: autocompletion of curly braces for ease of use
 
-{: .note}
-> If you find yourself ever working with python, you may want to switch `set noexpandtab` to `set expandtab`. Python cannot handle having mixed tabs and spaces and will error with the message [`TabError: inconsistent use of tabs and spaces in indentation`](../../assets/labs/sp26/l5_python.png).
+<div class="note">
+
+If you find yourself ever working with python, you may want to switch `set noexpandtab` to `set expandtab`. Python cannot handle having mixed tabs and spaces and will error with the message [`TabError: inconsistent use of tabs and spaces in indentation`](./assets/l5_python.png).
 If you have `set noexpandtab` set and edit a python file that uses spaces, this will occur. For our future purposes we need to have real tab characters for when we learn about Makefiles!
 
-{: .warning }
-> In general, you should not paste a command into your `.vimrc` if you are not sure what it is doing. But you can *definitely* trust us! :D
+</div>
+
+<div class="warning">
+
+In general, you should not paste a command into your `.vimrc` if you are not sure what it is doing. But you can *definitely* trust us! :D
+
+</div>
 
 These are our suggestions for `.vimrc` settings that we think would be helpful for you in this class. If you feel like you don't like some of these features, feel free to remove the corresponding lines in the `.vimrc` file. These configuration files are usually customized to each programmer's preferences&mdash;figure out what works well for you!
 
@@ -147,20 +157,25 @@ scripts can save lots of time. In the coming weeks, you may want to *write a she
 
 ## Task 0: Run a script
 
-<div style="padding: 0 8px; border: 2px solid #cc0004; color: #cc0004" markdown="1">
+<div style="padding: 0 8px; border: 2px solid #cc0004; color: #cc0004">
+
 💡 **KEY POINT**: Any command that you can run on the command line can be
 an instruction in a shell script.
+
 </div>
 
 * Fill the provided `task_1.sh` file with some commands that you know like `echo`, `ls`, or `pwd`. Each command should be on a new line.
 * To mark the file as executable, run `chmod +x task_1.sh`.
 * Try running `./task_1.sh` in your command line, and you should see the output of each command in the order you added them to the shell script.
 
-{: .note }
+<div class="note">
+
 The `#!/bin/bash` at the top specifies that this script should be parsed using
 the bash program at the directory `/bin/`. The leading `#!` is called a
 "shebang" and signals the start of this directive. A Python script, for example,
 could have `#!/usr/bin/python3` as its first line instead.
+
+</div>
 
 Here’s an example you can try. Put the following content in `task_1.sh`:
 
@@ -184,35 +199,43 @@ As it turns out, all that is needed to complete the above task is to run a
 couple of commands sequentially. Here are a couple of knowledge bits that could
 be helpful:
 
-{: .note }
-> **The wildcard pattern `*`**
->
-> In shell scripting, the `*` character acts as a way to target all files and directories. For example, if you ran `cat *`, you would print out the contents of all the files in your current working directory (you would likely also get error messages from trying to view the contents of folders in your directory).  Furthermore, the `*` character can also be used to match specific patterns. For example, if you ran `cat *.txt`, you would print out the contents of all the files in your working directory that have the `.txt` extension.
+<div class="note">
 
-{: .note }
-> **The `mv` command**
->
-> The move command, as its name suggests, can be used to move files into directories. For example, you can use it like so:
->
-> ```bash
-> mv a.txt Books
-> ```
->
-> This will move a.txt into the Books directory. You can also move multiple files at once like so: `mv a.txt b.txt Books`, which will move a.txt and b.txt into the Books directory.
+**The wildcard pattern `*`**
+
+In shell scripting, the `*` character acts as a way to target all files and directories. For example, if you ran `cat *`, you would print out the contents of all the files in your current working directory (you would likely also get error messages from trying to view the contents of folders in your directory).  Furthermore, the `*` character can also be used to match specific patterns. For example, if you ran `cat *.txt`, you would print out the contents of all the files in your working directory that have the `.txt` extension.
+
+</div>
+
+<div class="note">
+
+**The `mv` command**
+
+The move command, as its name suggests, can be used to move files into directories. For example, you can use it like so:
+
+```bash
+mv a.txt Books
+```
+
+This will move a.txt into the Books directory. You can also move multiple files at once like so: `mv a.txt b.txt Books`, which will move a.txt and b.txt into the Books directory.
+
+</div>
 
 ## Task 1: Books and Music
 
 With these tidbits, you are now ready to write your (possibly) first ever shell script\! **Your first task will be to write a shell script to organize the text and mp3 files in `minihome` into the `Books` and `Music` directories.** Please work on this with your groupmates if you so wish. As a reminder, you can use the `ls -R` command you all discovered back in lab 1 to test if your files ended up in the right place. While testing your script, you may end up accidentally messing up your directory structure. If this happens, we have provided you with a `reset_task_1.sh` script in the **minihome** directory which you can run to reset the .txt and .mp3 files. This will leave your .sh files intact, however, so don’t worry about losing your progress.
 
-{: .checkoff }
+<div class="checkoff">
+
 Please write what you did for `task_1.sh` on your whiteboard and check in with your teammates.
+
+</div>
 
 Our minihome is now looking a lot cleaner. But maybe we can go further. The length of these books seems a bit varied, no? It would be nice if we were able to sort these books into **short stories** and **novels**. This will be your next task. One requirement for your script is that you should be able to supply an **argument** for the cutoff between a novel and a short story. Before you begin the task, **first change into the `Books` directory**.
 
 Here are some knowledge bits that could be useful:
 
 ## Shell scripting - variables
-{: .no_toc}
 
 You can declare and use variables like so in shell scripting:
 
@@ -233,7 +256,6 @@ To reference a variable, you simply put a dollar sign in front of it.
 Note that this still works inside double-quoted strings, so `echo "$num $fruit"` would have achieved the same effect in the script above. To print out `$num $fruit` literally, you would need to either use single quotes (`'$num $fruit'`) or escape the dollar signs (`"\$num \$fruit"`).
 
 ## Shell scripting \- accessing command line arguments
-{: .no_toc}
 
 To access the `n`th command line argument, use `$n` in your script. For example, the 1st command line argument would be accessed with `$1`. Note that the 0th command line argument is the name of the command you executed. Here is a demonstration:
 
@@ -251,7 +273,6 @@ $ ./demo.sh 5 apples and more
 Note that a string wrapped in quotes counts as one argument. For example, in: `$ ./demo.sh 2 "PA 2"`  We have `$1` equal to `2` and `$2` equal to `PA 2`.
 
 ## Shell scripting \- if statements
-{: .no_toc}
 
 The basic structure of an if statement in shell scripting is as follows:
 
@@ -312,7 +333,6 @@ if [ "$num1" -le "$num2" ]; then   # num1 is less than or equal to num2
 ```
 
 ## Shell scripting \- for loops
-{: .no_toc}
 
 In Bash, there are many different types of loops, each having their use cases. Here, we’ll introduce one of those loops: the for loop. The basic syntax is as follows:
 
@@ -349,7 +369,6 @@ Here are some examples of how you can use a for loop:
   ```
 
 ## The `wc` command
-{: .no_toc}
 
 Here, `wc` does not stand for water closet, but rather word count. Passing it a text file will print out the number of lines, words, and characters in that file followed by the name of that file. For example:
 ```
@@ -379,7 +398,6 @@ $ wc -l < alice.txt
 Neat!
 
 ## Shell scripting - command substitution
-{: .no_toc}
 You can run a command and assign its output (as a string) to a variable using `var=$(command)`. For example:
 
 ```bash
@@ -433,8 +451,11 @@ You may have used the `git add .` in the past. By default, this means Git should
 
 Then Git should ignore all files that end with `.o`. In this context, `*` is a wildcard that matches any sequence of characters.
 
-{: .note}
+<div class="note">
+
 It would be nice if we could write an expression that matches all executable files without an extension. As it turns out, we don't know of a neat way to do this. You could copy the list of targets from your Makefile as an alternative. You could also write a shell script that enumerates all the executable files and writes their names into `.gitignore`. Beware that the wildcard in Makefiles is `%`, while the wildcard in `.gitignore` files is `*`.
+
+</div>
 
 ## What if they are already being tracked?
 
@@ -451,17 +472,23 @@ For example, if you have committed `stack.o` and want to untrack it without dele
 
 Some of the files in our starter repository should not have been tracked. First, **change back from `minihome` back to the root of your starter repo.** Run `ls -a` to list all the files (including hidden ones), use your best judgment to decide which ones shouldn't have been tracked, and instruct Git to untrack those files without removing them. Then, write an appropriate `.gitignore` file. To check your work, run `git status`. The files you untracked should not appear in the list of "untracked files", and when you run `git add .`, they should not become tracked again. Don't hesitate to work with your group and ask for help\!
 
-{: .note }
-> - Even though `.gitignore` is technically a hidden file, you should track `.gitignore` itself. This prevents your collaborators from tracking the files you don't want to track.
-> - You might have noticed the `.git` directory. This is Git's hidden workspace,
->   where it stores your repository's commit history and branches. Git will
->   never track `.git` by default, as this would end up requiring infinite
->   space. Therefore, you don't need to put it in `.gitignore`.
+<div class="note">
 
-{: .checkoff }
+- Even though `.gitignore` is technically a hidden file, you should track `.gitignore` itself. This prevents your collaborators from tracking the files you don't want to track.
+- You might have noticed the `.git` directory. This is Git's hidden workspace,
+  where it stores your repository's commit history and branches. Git will
+  never track `.git` by default, as this would end up requiring infinite
+  space. Therefore, you don't need to put it in `.gitignore`.
+
+</div>
+
+<div class="checkoff">
+
 Please write what you added to your `.gitignore` on your whiteboard.
 
-# [You've got Mail!](http://www.aolsucks.org/aolsound.htm){:target="_blank"}
+</div>
+
+# <a href="http://www.aolsucks.org/aolsound.htm" target="_blank">You've got Mail!</a>
 
 The mail command, unlike other commands we’ve taught you in this lab and previous ones, is especially unique: literally no one\* uses this\! As such, this section is not relevant to any course material. But the idea of sending each other mail via the terminal, all 1970s-core, is too appealing to pass up on.
 
@@ -484,11 +511,14 @@ Then `ieng6-640` is the cluster you are logged into. In order to SSH into a spec
 
 And enter your password as usual. Make sure both you and your partner are on cluster 640\.
 
-{: .important }
+<div class="important">
+
 In the following instructions, you will use the `mail` command, but it is not
 available on the `ieng6-2xx` servers. Please make sure to **log out of `ieng6`**
 and **then** sign into **`ieng6-640.ucsd.edu`**! This specific cluster runs an older
 operating system that still has the `mail` command.
+
+</div>
 
 Once you and your partner are in the same cluster, try using the mail command to begin composing an e-mail (electronic mail). Either command below works:
 
@@ -587,19 +617,24 @@ Extracting the attachment in a readable form from the email itself is quite invo
 ./extract_pokemon.sh pokemon.mail > pokemon.pk
 cat pokemon.pk
 ```
-{: .note }
->
-> If you get an error running `extract_pokemon.sh` that mentions something about a bad interpreter, this is likely because the file hasn't been formatted for unix correctly yet. Run `sed -i 's/\r$//' extract_pokemon.sh` to reformat the file and try again.
+
+<div class="note">
+
+If you get an error running `extract_pokemon.sh` that mentions something about a bad interpreter, this is likely because the file hasn't been formatted for unix correctly yet. Run `sed -i 's/\r$//' extract_pokemon.sh` to reformat the file and try again.
+
+</div>
 
 
 If everything went well, you should get the Pokemon your partner sent you\! Have a bit of fun with this and send each other some cool Pokemon.
 
-{: .checkoff }
-> Please spend a couple minutes drawing the pokemon you received from your neighbor.
-> You can take turns drawing and reading through the next part.
+<div class="checkoff">
 
-#  HACKING 
-{: style="color: #00ff41 !important; background-color: #0d0d0d; font-family: 'Courier New', Courier, monospace; padding: 10px 20px;text-shadow: 0 0 8px #00ff41, 0 0 20px #00ff41; border-radius: 4px; letter-spacing: 4px;"}
+Please spend a couple minutes drawing the pokemon you received from your neighbor.
+You can take turns drawing and reading through the next part.
+
+</div>
+
+<h1 id="hacking" style="color: #00ff41 !important; background-color: #0d0d0d; font-family: 'Courier New', Courier, monospace; padding: 10px 20px;text-shadow: 0 0 8px #00ff41, 0 0 20px #00ff41; border-radius: 4px; letter-spacing: 4px;">HACKING</h1>
 
 This is the same file you may or may not have started in lab 3 and can be found in [**this** github classroom](https://classroom.github.com/a/7dYavFbQ) in the `gradebook` directory.
 
@@ -618,7 +653,7 @@ You see some code open on the professor's laptop during office hours.  You do
 your best to commit it to memory and write it down (remember, you're acting
 quite unethically in this story), because it strikes you that the code was
 something regarding assignment scores.  
-![gradebook source code](../../assets/labs/sp26/gradebook_src.png)
+![gradebook source code](./assets/gradebook_src.png)
 
 Using this information, you decide to give yourself and A with a score 
 to match while maintaining a real due date.  
@@ -660,11 +695,7 @@ There are now 2 fun optional activities you can complete:
 
 You can do either or neither in any order, they are here for your own practice and amusement.
 
-## Mass mailing
-{: .d-inline-block }
-
-Optional
-{: .label .label-purple }
+## Mass mailing <span class="label label-purple">Optional</span>
 
 Another useful function in scripting is the while loop. For example, running:
 
@@ -717,11 +748,7 @@ Given this and the command to send mail:
 
 Where `-a filename` will attach the file with `filename` to the email, **send everyone in `recipients.txt` your Pokemon**. Please send this to the list in `recipients.txt` **no more than once**. To test your loop, you may want to make a file of your groupmates' emails in the same format of `recipients.txt`. Note that you may also send mail to yourself.
 
-## Adding Pokemon to `.bash_profile`
-{: .d-inline-block }
-
-Optional
-{: .label .label-purple }
+## Adding Pokemon to `.bash_profile` <span class="label label-purple">Optional</span>
 
 If you would like your Pokemon to appear when you open ieng6, you may do the following.
 

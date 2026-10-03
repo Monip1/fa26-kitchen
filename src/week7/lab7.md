@@ -7,26 +7,21 @@ permalink: /lab7
 ---
 
 # Lab 7: Pipes and filters in UNIX
-{: .no_toc}
 
-{: .note }
+<div class="note">
+
 You may find our solutions to Lab 6 in our [solutions repository](https://github.com/CSE29Spring2026/lab-answer-keys). For now, let's focus on lab 7.
+
+</div>
 
 In this lab, you will get to know the commands `less` and `grep`, and experiment with input and
 output redirection.
 
 ## Lab 7 learning objectives
-{: .no_toc}
 
 * Get more comfortable and efficient using the command line
 * Use `less` and `grep` to view and search through text files
 * Recognize and use pipe and redirection operators
-
-#### Table of contents
-{: .no_toc}
-
-1. TOC
-{:toc }
 
 # Icebreaker
 
@@ -36,18 +31,21 @@ Can you guess what part of campus each of these photos was taken? Work with your
 
 
 <figure>
-    <img src="../../assets/labs/sp26/lab7_campus1.png" alt="Photo of muir field" width="500">
-    <img src="../../assets/labs/sp26/lab7_campus2.png" alt="Photo of sixth" width="500">
-    <img src="../../assets/labs/sp26/lab7_campus3.png" alt="Photo of Rady's" width="500">
-    <img src="../../assets/labs/sp26/lab7_campus4.png" alt="Photo of econ" width="500">
+    <img src="./assets/lab7_campus1.png" alt="Photo of muir field" width="500">
+    <img src="./assets/lab7_campus2.png" alt="Photo of sixth" width="500">
+    <img src="./assets/lab7_campus3.png" alt="Photo of Rady's" width="500">
+    <img src="./assets/lab7_campus4.png" alt="Photo of econ" width="500">
 </figure>
 
-{: .important }
+<div class="important">
+
 Please write the answers on your whiteboard!
+
+</div>
 
 # Warmup: UNIX Golf
 
-<img src="../../assets/labs/sp26/indie_tree.png" alt="diagram for warmup directory" width="500">
+<img src="./assets/indie_tree.png" alt="diagram for warmup directory" width="500">
 
 Consider “surf” as our starting directory and start there (current pwd). Complete each task in as few keystrokes as possible. Write your answers on your whiteboard.
 
@@ -55,14 +53,17 @@ Consider “surf” as our starting directory and start there (current pwd). Com
 2. Travis forgot to add Hozier! Add Hozier.txt to less_indie.
 3. Travis only likes like one or two song from Skeggs. Remove Skeggs.txt
 
-{: .quality}
-> As you continue to use vim, you may want to consider tools to enhance your experience. Below are several options:
->
-> Vundle -- a plugin manager for vim <https://github.com/vundlevim/vundle.vim>
->
-> vimawesome -- a site with plugins you can add with the help of vundle <https://vimawesome.com/>
->
-> These would take longer to customize so feel free to take a few minutes to look through these but do continue on without much delay.
+<div class="quality">
+
+As you continue to use vim, you may want to consider tools to enhance your experience. Below are several options:
+
+Vundle -- a plugin manager for vim <https://github.com/vundlevim/vundle.vim>
+
+vimawesome -- a site with plugins you can add with the help of vundle <https://vimawesome.com/>
+
+These would take longer to customize so feel free to take a few minutes to look through these but do continue on without much delay.
+
+</div>
 
 # Searching and Filtering Program Output
 
@@ -102,13 +103,19 @@ You can use `cat` to view the contents of the file, but this is no better than l
 $ less problem.txt
 ```
 
-{: .note }
+<div class="note">
+
 The `less` command succeeds the `more` command, which does the same thing but does not support backwards navigation. In this sense, `less` is like `more`, but also (as `man less` duly notes) `less` is the opposite of `more`.
+
+</div>
 
 The one subcommand you need to know is to type `h` while in this program to display a list of subcommands. Some especially helpful subcommands include `q` to quit and `f`/`b` to move forward/backward one window. You may also notice that you can use `j` and `k` to move forward or backward by one line, just like in Vim. The subcommand we want to use to filter out all lines that do not have an error is to type "&" followed by the word "error", then press Enter. `less` will insert a slash ("/") in between to indicate that what follows is a pattern to match. This method of filtering is convenient if you don’t want to clutter the terminal interface, but requires that the output exists in a file already.
 
-{: .checkoff }
+<div class="checkoff">
+
 Once you have filtered the lines in `problem.txt` such that only the "error" lines remain, as a team, interpret the error and explain it to a tutor or TA.
+
+</div>
 
 ## Search with `grep`
 
@@ -332,8 +339,11 @@ $ ./problem | tee problem.txt
     </div>
 </div>
 
-{: .note }
+<div class="note">
+
 The tee command shares its name with the tee pipe in plumbing. Ironically, tee is not rendered as a tee pipe in this analogy. Did we really research plumbing terminology for this lab writeup? Yes.
+
+</div>
 
 We can continue to construct longer pipe systems to feed output through multiple commands. This command runs `problem`, filters its output with `grep`, then outputs to both a file and the terminal.
 
@@ -442,15 +452,19 @@ We can also use two redirections in conjunction with each other to redirect diff
 $ ./problem > problem.txt 2> errors.txt
 ```
 
-{: .checkoff}
-> First, comment out the `fprintf` statement and uncomment the `printf` statement, so that all output redirects to stdout.
-> Write a command that outputs all lines that involve the first column of the 2D array into both the terminal display and a file called `out0.txt`.
-> As a group, ask a tutor or TA to check your work.
+<div class="checkoff">
 
-{: .note-title }
-> Hint
->
-> The square brackets are special characters in grep, so to search for `[` and `]`, you must use the escape character. For example, if you wanted to search for `"[5]"`, you would use grep like so: `grep "\[5\]"`
+First, comment out the `fprintf` statement and uncomment the `printf` statement, so that all output redirects to stdout.
+Write a command that outputs all lines that involve the first column of the 2D array into both the terminal display and a file called `out0.txt`.
+As a group, ask a tutor or TA to check your work.
+
+</div>
+
+<div class="note" data-title="Hint">
+
+The square brackets are special characters in grep, so to search for `[` and `]`, you must use the escape character. For example, if you wanted to search for `"[5]"`, you would use grep like so: `grep "\[5\]"`
+
+</div>
 
 <style>
     .flowchart {

@@ -7,11 +7,9 @@ permalink: /lab3
 ---
 
 # Lab 3: Debugging with GDB
-{: .no_toc}
 In this lab, you will get hands-on experience using GDB to debug C programs. GDB will become an essential tool for your PA work as this course develops, so lock in\!
 
 ## Lab 3 learning objectives
-{: .no_toc}
 
 * Recognize the need for debugging using a debugger
 * Compile a C program for debugging
@@ -20,53 +18,56 @@ In this lab, you will get hands-on experience using GDB to debug C programs. GDB
 * Use various GDB commands to observe and control program execution
 * Use GDB to troubleshoot a crashing program
 
-#### Table of contents
-{: .no_toc}
 
-1. TOC
-{:toc }
+<div class="fun-fact">
 
+On the quest I sent a staff member to gather information about ieng6, success was achieved. Some guy of ITS (IT Services) has answered many questions.<br><br> 
+"For some history, ieng stands for "Interactive Engineering" and dates back to when we had machines in AP&M that you had to use a video terminal to interact with the machines. The 6 in the name is from the IP Address originally assigned,  which was 132.239.50.6. There used to be other "ieng" machines, you may encounter someone that remembers ieng9 that used to host Solaris SPARC used in CSE30 and CSE120.
+<br><br>
+ieng6 and almost all of the infrastructure students might use is physically located in SDSC. The ieng6 machines are entirely virtual machine based so they're balanced on a cluster of hardware supporting most ITS.
+<br><br>
+ieng6.ucsd.edu is a round robin load balancer that currently balances number of connections between ieng6-201, 202, and 203 (this will be increasing this summer). 201-203 are SSH only machines, everything else also allows RDP desktop sessions which you can connect to from campus/VPN or via linuxcloud.ucsd.edu. All the ieng6 machines are open to use as needed but we may point courses at specific sets of machines depending on what's needed for the course.
+<br><br>
+ieng6-240 - 253 are the original desktop cluster and the number is based off their IP address. 
+<br><br>
+`$ host ieng6-240`
+<br>
+ieng6-240.ucsd.edu has address 128.54.70.240
+<br>
+ieng6-640 and ieng6-641 were originally the first x86_64 deployments and are currently used to support old software that needs CentOS 7.
+<br>
+ieng6-700 through 702 and ieng6-300 through 309 are higher resource machines (more memory + CPU) which were added as we needed to support more intensive desktop software/more desktop sessions total during covid.
+<br>
+ieng6-ece-01 through 20 are machines specifically for ECE courses.
+<br><br>
+There used to be igpu-### machines which were GPU compute servers that eventually turned into the DSMLP cluster.
+<br><br>
+For home directories, the old style "OCE" paths means your account was setup prior to May 2025 and didn't get migrated to the new format. I don't know the particular history on how that hash layout was developed but it was in use for 30+ years. Accounts used to need to be flagged as "Open Computing Environment" to get persistent storage and compute resources that you can use outside of a specific course, which mattered a lot more when disk and cpu resources were limited. Non OCE accounts used to look like "cs29sp26aa" and were allocated for specific courses and removed after the quarter.
+<br><br>
+New accounts are standardized with the home directory bin being the last 3 digits of your UID. Note your UID is 112263
+<br><br>
+`$ getent passwd etomson`
+<br>
+etomson:*:112263:20:Tomson, Elena:/home/linux/ieng6/students/263/etomson:/bin/bash"
 
-{: .fun-fact}
->On the quest I sent a staff member to gather information about ieng6, success was achieved. Some guy of ITS (IT Services) has answered many questions.<br><br> 
->"For some history, ieng stands for "Interactive Engineering" and dates back to when we had machines in AP&M that you had to use a video terminal to interact with the machines. The 6 in the name is from the IP Address originally assigned,  which was 132.239.50.6. There used to be other "ieng" machines, you may encounter someone that remembers ieng9 that used to host Solaris SPARC used in CSE30 and CSE120.
-><br><br>
->ieng6 and almost all of the infrastructure students might use is physically located in SDSC. The ieng6 machines are entirely virtual machine based so they're balanced on a cluster of hardware supporting most ITS.
-><br><br>
->ieng6.ucsd.edu is a round robin load balancer that currently balances number of connections between ieng6-201, 202, and 203 (this will be increasing this summer). 201-203 are SSH only machines, everything else also allows RDP desktop sessions which you can connect to from campus/VPN or via linuxcloud.ucsd.edu. All the ieng6 machines are open to use as needed but we may point courses at specific sets of machines depending on what's needed for the course.
-><br><br>
->ieng6-240 - 253 are the original desktop cluster and the number is based off their IP address. 
-><br><br>
->`$ host ieng6-240`
-><br>
->ieng6-240.ucsd.edu has address 128.54.70.240
-><br>
->ieng6-640 and ieng6-641 were originally the first x86_64 deployments and are currently used to support old software that needs CentOS 7.
-><br>
->ieng6-700 through 702 and ieng6-300 through 309 are higher resource machines (more memory + CPU) which were added as we needed to support more intensive desktop software/more desktop sessions total during covid.
-><br>
->ieng6-ece-01 through 20 are machines specifically for ECE courses.
-><br><br>
->There used to be igpu-### machines which were GPU compute servers that eventually turned into the DSMLP cluster.
-><br><br>
->For home directories, the old style "OCE" paths means your account was setup prior to May 2025 and didn't get migrated to the new format. I don't know the particular history on how that hash layout was developed but it was in use for 30+ years. Accounts used to need to be flagged as "Open Computing Environment" to get persistent storage and compute resources that you can use outside of a specific course, which mattered a lot more when disk and cpu resources were limited. Non OCE accounts used to look like "cs29sp26aa" and were allocated for specific courses and removed after the quarter.
-><br><br>
->New accounts are standardized with the home directory bin being the last 3 digits of your UID. Note your UID is 112263
-><br><br>
->`$ getent passwd etomson`
-><br>
->etomson:*:112263:20:Tomson, Elena:/home/linux/ieng6/students/263/etomson:/bin/bash"
+</div>
 
-{: .note}
->SDSC is the San Diego Supercomputer Center which resides near RIMAC on Ridgewalk.
+<div class="note">
+
+SDSC is the San Diego Supercomputer Center which resides near RIMAC on Ridgewalk.
+
+</div>
 
 # Whiteboard activity #1
 
 ## Icebreaker
 The CSE 29 genie, which runs on ieng6, would like to grant you 3 wishes. You may wish for anything you want, except you may not wish recursively (i.e., wish for more wishes). What do you wish for?
 
-{: .note }
+<div class="note">
+
 Please write the answers of yourself and one of your group members on your whiteboard.
+
+</div>
 
 ## Warm-up
 
@@ -82,7 +83,7 @@ for(int i = 0; i < 4; i++){
     }
 }
 ```
-<img src="../../assets/labs/sp26/l3_whiteboard_memory.png" alt="whiteboard" width="800">
+<img src="./assets/l3_whiteboard_memory.png" alt="whiteboard" width="800">
 
 At approximately 10 mins into the lab, the staff members present will bring the class together to go over the board. If you finish the whiteboard and icebreaker before that time, feel free to read the next section.
 
@@ -97,8 +98,11 @@ At approximately 10 mins into the lab, the staff members present will bring the 
 Our compiler `gcc` is designed to catch possible errors at compile time and warn you. While it gives you some of these warnings by default, we can force it to display all possible errors it detects by telling it to W(arn) all using `-Wall` flag. We can add this flag as follows:  
 `gcc myprogram.c -o myprogram -Wall`  
 
-{: .note}
+<div class="note">
+
 The order of flags given to `gcc` does not matter. The only space-seperated string where the order matters is if the flag is followed by an argument. `-o` is followed immediately by what the binary file should be named as.
+
+</div>
 
 Using [**this repository**](https://classroom.github.com/a/7dYavFbQ) navigate to the `Wall` directory and fix the programs. All bugs will be reported by compiliing using the `-Wall` flag
 
@@ -123,10 +127,13 @@ The `gdb` directory contains several programs which we will debug with GDB: `ind
 
 The correct behavior of `index_of_E` is to find the index of the first occurrence of the character `E` in a string `str`. 
 
-{: .exercise}
+<div class="exercise">
+
 Predict the output for the following strings, "Baby_Alpaca", "CSE29", "Alp" and "Alpacas_Eat". Fill out your whiteboard, leaving some extra space for your later bug fix like so:
 
-<img src="../../assets/labs/sp26/l3_whiteboard_alpaca.png" alt="whiteboard_2" width="800">
+</div>
+
+<img src="./assets/l3_whiteboard_alpaca.png" alt="whiteboard_2" width="800">
 
 ## Compiling for GDB
 
@@ -159,8 +166,11 @@ To **quit** out of GDB, you can use the `quit` command.
 (gdb) quit
 ```
 
-{: .important }
+<div class="important">
+
 In the future, please add `-Wall` to your compilation command to ask the compiler to help you find potential bugs.
+
+</div>
 
 
 
@@ -237,23 +247,32 @@ Use `next` to execute the program up until, but not actually executing, the call
 (gdb) step
 ```
 
-{: .note }
-> GDB also provides shortcuts for some commonly used commands, which can be used in place of the full command name. Some of those include: `r` for `run`, `q` for `quit`, `b` for `break`, `p` for `print`, `n` for `next`, and `s` for `step`.
->
-> In addition to shortcuts, inputting no command and pressing `Enter` will automatically execute the most recently used command. This can be helpful when you need to use `next` repeatedly.
+<div class="note">
+
+GDB also provides shortcuts for some commonly used commands, which can be used in place of the full command name. Some of those include: `r` for `run`, `q` for `quit`, `b` for `break`, `p` for `print`, `n` for `next`, and `s` for `step`.
+
+In addition to shortcuts, inputting no command and pressing `Enter` will automatically execute the most recently used command. This can be helpful when you need to use `next` repeatedly.
+
+</div>
 
 Then continue using `next` to run through the loop and figure out why `index_of()` is buggy. Try printing out the relevant variables as you go through each iteration. Once you figure out why `index_of()` isn’t working, write what the problem was along with how you would fix it on your whiteboard.
 
-{: .checkoff }
+<div class="checkoff">
+
 Ask a staff member to check the fix for `index_of_E` on your whiteboard.
+
+</div>
 
 This buggy program demonstrated an example of a logical error. A logical error is one in which the behavior of the program is different than what we expect it to be, without refusing to compile or crashing at runtime. However, before your fix, it was theoretically possible for this program to crash—why do you think it was? Feel free to verify your thoughts with your peers, tutors or TA.
 
 
-{: .note }
-> When you tried to print `str` inside `index_of_E`, GDB printed the entire string, just as we expected. However, what if you want to print the contents of an integer array passed into a function?
->
-> If you'd like, try this with `contains.c` from our previous labs (you can `wget` our version if you don't have one—visit Lab 2's instructions for the command). When you try printing out `arr` like you did while in `main()`, you’ll realize that it prints out some hexadecimal number, instead of its contents. This happens because `arr` is passed into `contains()` as a pointer to the start of the array. The hexadecimal number you see is the address of the start of the array. You can use `print *arr` (`arr` with the dereference operator `*`) to dereference the pointer and get the value at the start of the array, or `print *arr@NUM` to print out the values stored at address `arr` and the next `NUM` addresses. This means you can use `print *arr@6` to print out all of the contents of the size 6 array.
+<div class="note">
+
+When you tried to print `str` inside `index_of_E`, GDB printed the entire string, just as we expected. However, what if you want to print the contents of an integer array passed into a function?
+
+If you'd like, try this with `contains.c` from our previous labs (you can `wget` our version if you don't have one—visit Lab 2's instructions for the command). When you try printing out `arr` like you did while in `main()`, you’ll realize that it prints out some hexadecimal number, instead of its contents. This happens because `arr` is passed into `contains()` as a pointer to the start of the array. The hexadecimal number you see is the address of the start of the array. You can use `print *arr` (`arr` with the dereference operator `*`) to dereference the pointer and get the value at the start of the array, or `print *arr@NUM` to print out the values stored at address `arr` and the next `NUM` addresses. This means you can use `print *arr@6` to print out all of the contents of the size 6 array.
+
+</div>
 
 ## Segfault and Backtrace
 
@@ -269,9 +288,12 @@ Since we know that segfaults are caused by illegal memory access, and we know th
 
 ## Debugging practice
 
-{: .exercise }
->There are 3 buggy programs in the `gdb` directory with names `buggy*.c`.
-> Use what you have learned in this lab to fix these programs.
+<div class="exercise">
+
+There are 3 buggy programs in the `gdb` directory with names `buggy*.c`.
+Use what you have learned in this lab to fix these programs.
+
+</div>
 
 
 # Identify yourself to ieng6
@@ -329,7 +351,7 @@ You see some code open on the professor's laptop during office hours.  You do
 your best to commit it to memory and write it down (remember, you're acting
 quite unethically in this story), because it strikes you that the code was
 something regarding assignment scores.  
-![gradebook source code](../../assets/labs/sp26/gradebook_src.png)
+![gradebook source code](./assets/gradebook_src.png)
 
 Using this information, you decide to give yourself and A with a score 
 to match while maintaining a real due date.  

@@ -7,12 +7,10 @@ permalink: /lab8
 ---
 
 # Lab 8: Git and GitHub at scale
-{: .no_toc}
 
 In this lab, you will do a more advanced Git collaboration exercise to learn about forks, pull requests, branches, and how to revert commits. This exercise mimics common collaboration workflows in software engineering. We hope that this exercise will boost your confidence in using Git and prepare you to use it well in future CSE classes and industry\!
 
 ## Lab 8 learning objectives
-{: .no_toc}
 
 - Practice pair programming with driver and navigator roles
 - Understand the mechanism of branching in Git
@@ -20,12 +18,6 @@ In this lab, you will do a more advanced Git collaboration exercise to learn abo
 - Distinguish between reverting and restoring
 - Write a pull request to initiate a merge between branches
 - Handle merge conflicts as they arise
-
-#### Table of contents
-{: .no_toc}
-
-1. TOC
-{:toc }
 
 
 
@@ -46,8 +38,11 @@ Write your answer on the whiteboard.
 # Git Great
 ### Partner Activity
 
-{: .important}
-> later in the lab you will be **switching who** is typing at the **keyboard**. You are welcome to use share your laptops but if you prefer to share the keyboard on the workstation, one of you should sign into it now. (for now you will have separate devices but soon you will be sharing)
+<div class="important">
+
+later in the lab you will be **switching who** is typing at the **keyboard**. You are welcome to use share your laptops but if you prefer to share the keyboard on the workstation, one of you should sign into it now. (for now you will have separate devices but soon you will be sharing)
+
+</div>
 
 #### Partner 1 ONLY:
 1. Create a new team on the Github Classroom assignment for you and your partner: <https://classroom.github.com/a/O9CzURk9> 
@@ -119,8 +114,11 @@ Following the above tips should lead to a more productive and amicable pair prog
 
 ## Branching Out
 
-{: .important }
+<div class="important">
+
 We are now entering the pair programming phase of the lab. From this point onwards, only the driver should be at the keyboard.
+
+</div>
 
 Now, to introduce the task that you will be completing: building an implementation of a stack using linked lists. Of course, such an undertaking would be too much for one lab session, which is why you'll be **splitting up** the work amongst your teams.
 
@@ -130,16 +128,19 @@ Each sub-team will be responsible for building one of three features:
 - The **pop** operation (which removes the first element from the list)
 - A function to copy the contents of the stack into an array.
 
-{: .important }
-> **READ the following paragraph very carefully** as only **ONE** person per row **creates** the github classroom team.
+<div class="important">
+
+**READ the following paragraph very carefully** as only **ONE** person per row **creates** the github classroom team.
+
+</div>
 
 **Please wait for your tutor or TA to assign one of the three features to your team.** Your tutor or TA should direct **ONLY the first driver sitting closest to the whiteboard in each row** to accept the [GitHub Classroom assignment](https://classroom.github.com/a/9roQJiWD) for this lab and name your row's team following the template and example below:
 
-![GitHub classroom team name template](../../assets/labs/sp26/l8_teamnamingtemplate.png)
+![GitHub classroom team name template](./assets/l8_teamnamingtemplate.png)
 
 Following the above template, “TIME” is replaced with your lab’s start time (“10am”, “12pm”, “2pm”, “4pm”), “ROOM” is replaced with your lab’s room number (“b240”, “b250”), “ROW” should be replaced with your row’s number (“row1”, “row2”, … , “row7”), and “NAME” should be replaced with your agreed upon team name (“cheeze-itz”, “burgers”). For example, the above template should be filled out like so:
 
-![GitHub classroom team name example](../../assets/labs/sp26/l8_teamnamingexample.png)
+![GitHub classroom team name example](./assets/l8_teamnamingexample.png)
 
 After the first driver sitting closest to the whiteboard in your row accepts the assignment and names the team, **all other drivers will JOIN** your row's team.
 
@@ -147,11 +148,11 @@ Hopefully, now your sub-team knows which function to implement. Because it is ea
 
 You can think of a branch as a separate version of a repository that is unaffected by changes pushed to other branches. Each repository starts out with a **main** branch, which is what you all have been using up until now. If you were to use this approach for our collaborative task, the commit history would look something like this:
 
-![All commits on the main branch becomes messy](/assets/labs/lab8_singlebranch.svg)
+![All commits on the main branch becomes messy](./assets/lab8_singlebranch.svg)
 
 Not only is this workflow unorganized, but since there's no easy way to go back to a previous version of your feature if you realize you made a mistake, you would need to constantly be pulling each other's changes, which may result in frequent **merge conflicts**. Let's see what a workflow with branches would look like:
 
-![Having commits on separate branches reduces conflict](/assets/labs/lab8_branched.svg)
+![Having commits on separate branches reduces conflict](./assets/lab8_branched.svg)
 
 Now, each sub-team has their own branch to work on their own feature. They can make changes to their branch however much they want to without affecting the work of other teams. When each sub-team is done with their feature, they can simply **merge** all their changes back into the main branch. You'll learn how to do this merging process in a future section of the lab. For now, let's get to work.
 
@@ -187,18 +188,27 @@ Let's break down this command. The `--set-upstream` option is telling git that w
 
 In fact, after running this command, you can check that a new remote branch has been created on GitHub. On the webpage, on the top left corner, open the branch dropdown menu. You should see your branch in the list of branches.
 
-{: .checkoff }
+<div class="checkoff">
+
 Once you have created a new branch, run the `git status` command. Call over a tutor or TA to check off your progress.
+
+</div>
 
 ## Feature Implementation
 
-{: .note }
+<div class="note">
+
 Do you want to see `stack.h` and `stack.c` (or `stack_test.c`) side-by-side in Vim? You can do that with the `:vsplit` command in Vim. Run <code>:vsplit <span contenteditable class="code-replace-me">other file's filename</span></code> to open the other file in a vertical split, then press <kbd>Ctrl</kbd>+<kbd>W</kbd> **twice** to switch between the two panes. Likewise, if you would like to have a terminal window open alongside your code, you can use `:vert bot term` or just `term`.
+
+</div>
 
 In your pair programming sub-teams, you will now begin implementing your assigned feature. You may find a description of your feature along with the desired method signature in the `stack.h` file. Your sub-team will write your implementation code in the `stack.c` file. While writing this file, _the first driver_ elected from earlier should be at the keyboard, while all other members should be _navigators_. Feel free to do some light testing during this phase, but you will be writing tests after you implement the feature so prioritize getting the implementation done first. **Once your sub-team has finished an implementation of the feature, make sure to <span class="git-action">commit</span> and <span class="git-action">push</span> your changes.**
 
-{: .note }
+<div class="note">
+
 You'll notice that while there is a Makefile in your directory, there is no `main` function within your `stack.c`, so as of now there is no way to run your implementation without writing any tests.
+
+</div>
 
 ## Writing Tests
 
@@ -206,8 +216,11 @@ Now that you've implemented your feature, you'll write tests using `assert` stat
 
 **The _first driver_ should yield the keyboard to another sub-team member for writing tests**. If your sub-team has 3 members, each member other than the _first driver_ should be the driver for at least one test. As a sub-team of 2 or 3, brainstorm and write test cases for `stack.c` in `test_stack.c`. Since your tests likely will call functions assigned to other sub-teams, you won't be able to run the tests immediately. Instead, ask a tutor or TA to verify the correctness of your sub-team's tests.
 
-{: .checkoff }
+<div class="checkoff">
+
 When you have at least 2 test functions written, ask a TA or tutor to check your progress. Once checked off, push the test cases to your sub-team's branch.
+
+</div>
 
 ## Reverting Tests
 
@@ -244,13 +257,13 @@ Your function is now finished, but it is still sitting in your sub-team's branch
 
 Go to your row's repository on GitHub.com. Navigate to the "Pull requests" tab, and press the green "New pull request" button near the top right. Near the top of the "Comparing changes" page, you are asked to select which branch to merge from and which branch to merge into. Make sure that the "base" selection is "main" and that the "compare" selection is your sub-team's branch, which means you are merging _from_ your sub-team's branch _into_ the "main" branch.
 
-![Make selections to merge into main](/assets/labs/lab8_setup_pr.png)
+![Make selections to merge into main](./assets/lab8_setup_pr.png)
 
 GitHub may report that these branches "can't automatically merge". **Nevertheless**, press "Create pull request", populate the description box with a short description of your changes, and press "Create pull request" below the box. You have just opened a Pull request\!
 
 According to the GitHub Flow, others in your organization can now review your Pull request and write comments as well as request changes. To keep things simpler in this lab, we'll skip the code review step and defer it to CSE 110\. You should see GitHub report conflicts between the two branches in your pull request, but why?
 
-![Your branch and the main branch have diverged](/assets/labs/lab8_diverge.svg)
+![Your branch and the main branch have diverged](./assets/lab8_diverge.svg)
 
 Between the instant when your sub-team's branch was created and now, `main` has been updated. Unfortunately, your TA has written their own bad implementations of the three functions in `stack.c` and committed it directly to your row's `main` branch. Then, another sub-team has possibly contributed their feature to `main` already. The diagram above shows a probable state of your repository, where the `main` branch and your branch have _diverged_ with different changes. When these divergent commits modify the same file, they could pose a conflict when you want to merge them together.
 
@@ -264,7 +277,7 @@ $ git config pull.rebase false
 
 In your pull request, press the "**View command line instructions**" link near the bottom:
 
-![GitHub shows "view command line instructions" at the bottom of the conflict box](/assets/labs/lab8_pr_conflict.png)
+![GitHub shows "view command line instructions" at the bottom of the conflict box](./assets/lab8_pr_conflict.png)
 
 Ensure that you are on the `main` branch by running:
 
@@ -287,8 +300,11 @@ Follow the instructions from GitHub until you see a `CONFLICT` reported by Git i
 
 Integrate the changes, and then remove Git's markers (`>>>>>>>`, `=======`, `<<<<<<<`), ensuring that the file has proper C syntax. **Repeat this for each file with a conflict (e.g., `stack.c`).** After fixing each file, run <code>git add <span contenteditable class="code-replace-me">filename</span></code> to tell Git that you have finished fixing it.
 
-{: .checkoff }
+<div class="checkoff">
+
 Once you have finished resolving the conflicts in all files, ask a tutor or TA to check your progress.
+
+</div>
 
 Technically, the instructions from GitHub made you complete a merge in the _opposite_ direction compared to your intention. Your intention is to merge your feature branch into `main`, but the commands you ran just merged `main` into your feature branch. Think about how this approach resolves conflicts between your branch and `main` and why GitHub didn't tell you to complete the merge in the direction you intended.
 
@@ -299,11 +315,11 @@ Technically, the instructions from GitHub made you complete a merge in the _oppo
 
 By running `git add`, you have staged changes that resolve the conflict between your branch and `main`. **<span class="git-action">Commit</span> these changes and <span class="git-action">push</span> them to GitHub**, and refresh the webpage with your Pull request. You should now be able to merge your Pull request, so pretend that your team has reviewed your code, and **press "Merge pull request"**. Congratulations---you have successfully resolved a merge conflict\!
 
-{: .warning-title }
+<div class="warning" data-title="🛑 WAIT">
 
-> 🛑 WAIT
->
-> Pause here until every sub-team in your row has merged their pull request into the `main` branch\! Help the other sub-teams in your row if they get stuck.
+Pause here until every sub-team in your row has merged their pull request into the `main` branch\! Help the other sub-teams in your row if they get stuck.
+
+</div>
 
 ## Finishing up
 
@@ -311,8 +327,11 @@ After the branch from each sub-team has been merged, your row's `main` branch wi
 
 Switch to the `main` branch in your local repository, and run `git pull` to pull the latest updates from GitHub. Compile your code with `make`, and execute the combined test suite. **If the tests don't pass, that is okay! You don't need to make all the tests pass.**
 
-{: .checkoff }
+<div class="checkoff">
+
 Show a TA/tutor the outcome of your tests.
+
+</div>
 
 # Next steps
 
@@ -322,7 +341,6 @@ If you finish with the lab content above you may any do the following:
 * Work on HW6
 
 # Fruit
-{: .no_toc}
 in the initial repo you started with your partner, there is a `fruits` directory
 
 Sort the files to create the following directory, and note that the files should not be empty.

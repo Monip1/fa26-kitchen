@@ -7,16 +7,17 @@ permalink: /lab6
 ---
 
 # Lab 6: Automating compilation with Makefiles
-{: .no_toc}
 
-{: .note }
+<div class="note">
+
 You may find our solutions to Lab 5 in our [solutions repository](https://github.com/CSE29Spring2026/lab-answer-keys). For now, let's focus on lab 6.
+
+</div>
 
 In this lab, you will fix compiler errors by adding a header guard, learn about the syntax of Makefiles, write a couple Makefile rules, and do a short exercise with bitwise operations.
 
 
 ## Lab 6 learning objectives
-{: .no_toc}
 
 * Recognize the purpose of header files
 * Understand the need for header guards
@@ -24,19 +25,16 @@ In this lab, you will fix compiler errors by adding a header guard, learn about 
 * Write a simple Makefile rule with dependencies and a recipe
 * Review the behavior of bitwise operations
 
-#### Table of contents
-{: .no_toc}
-
-1. TOC
-{:toc }
-
 # Icebreaker
 
 > What is your dream concert lineup?
 
 
-{: .important }
+<div class="important">
+
 Please make sure that everyone in your group answers the icebreaker and writes their name on the whiteboard. We will come around to collect pictures for attendance soon\!
+
+</div>
 
 
 Please fill out [this mid-quarter survey](https://forms.gle/g8f2AB31dDx9Mgyb8)
@@ -53,9 +51,12 @@ Exit the `ieng6` server one more time, and create this SSH config file inside yo
 $ vim ~/.ssh/config
 ```
 
-{: .note}
->If on windows you can do `notepad ~/.ssh/config`  
->It may create the file as `config.txt` and you will need to rename it to `config`
+<div class="note">
+
+If on windows you can do `notepad ~/.ssh/config`  
+It may create the file as `config.txt` and you will need to rename it to `config`
+
+</div>
 
 Copy the following lines and paste them into the `config` you just created and opened.
 ```
@@ -65,8 +66,11 @@ Host ieng6
     IdentityFile ~/.ssh/id_rsa
 ```
 
-{: .note}
+<div class="note">
+
 The default place for the private key is `~/.ssh/id_rsa` so this particular `IdentityFile` line is unnecessary. If when you use `ssh-keygen` you *do* specify a filename for your keys, this is how you would use it for a particular host. (you could have named it `key-to-ieng6` and then you would simply put the path to that new private key in the config)
+
+</div>
 
 
 Replace `<username>` with your `ieng6` username.  The `IdentityFile` field specifies the filename for the private key created to access the given server.
@@ -102,7 +106,7 @@ Let's illustrate the utility of header guards with a concrete example.
 
 After cloning the Github classroom repository onto `ieng6`, `cd` into `headers` and inspect the contents of the five `.c` and `.h` files inside. These files together represent 3 "modules" with the following dependency graph:
 
-![header_diagram](../../assets/labs/sp26/l6_header_dep.svg)
+![header_diagram](./assets/l6_header_dep.svg)
 
 When the compiler reads `test.c`, its preprocessor will process `span.h` twice: once through the direct arrow pointing to `span.h` and once through `queries.h`, which also points to `span.h`. As a result, the contents of `span.h` will be "pasted" into the source file twice. Since `span.h` contains a struct *definition* for `struct string_span`, this definition will be repeated twice. Try the following compilation command to see what this causes:
 
@@ -317,7 +321,7 @@ When we use `gcc` to manually compile programs, we typically compile directly fr
 
 The linking process resolves symbol references between object files, meaning that functions defined in one file can be used in another. In `part3`, a long program with 50000 adder functions (each of which adds the integer in its name to the parameter and returns it) is given in `adders.c`. The corresponding header file, `adders.h`, contains function declarations to be shared between source files. Then, in `main.c`, we print the return value of `run_adders`, which calls all of the adder functions and sums their results.  
 
-![](one-million-functions.png)
+![](./assets/one-million-functions.png)
 
 We can use the following `gcc` commands to create then link the object files (we will run the `time` command so it will tell us how long each of these commands took to run):
 
@@ -358,7 +362,7 @@ Here, we make extensive use of variables for the ultimate target (`adders`) and 
 
 Go to the `one_million_functions` directory and take a look at the `script.sh` file (a bash script, which we learned about last week).  
 This runs very similar commands to the time commands you ran previously to compile the `adders` program. This example, however, has one million functions as opposed to the original fifty thousand.  
-![](../../assets/labs/sp26/one-million-functions.png)  
+![](./assets/one-million-functions.png)  
 To run a program in the background we can add a `&` immediately following it.
 ```bash
 $ ./script.sh > out.txt &
