@@ -329,7 +329,7 @@ Verify each team member has a repo with you and your teammates’ shared Music a
 
 # Git people
 
-Recall the `people` directory from lab1? If not, no need to worry but once you `git clone` to explore the `people`, our descriptions of [ls](../week1/index#ls---looking-around) and [man](./lab1#man---getting-help) may be of use to you.
+Recall the `people` directory from lab1? If not, no need to worry but once you `git clone` to explore the `people`, our descriptions of [ls](../week1/index.html#ls---looking-around) and [man](../week1/index.html#man---getting-help) may be of use to you.
 
 Now you get to add data of your own!
 
