@@ -335,11 +335,11 @@ Now you get to add data of your own!
 
 Write each git command that you use in the following activity on your whiteboard along with a short description of what it did on your whiteboards. (Please let each person write at least one).
 
-![git-whiteboard](../../assets/labs/sp26/l2git_whiteboard.png)
+![git-whiteboard](./assets/l2git_whiteboard.png)
 
 <div class="exercise">
 
-Using [**this repository**](https://classroom.github.com/a/CwYTVeid):  
+Using [**this repository**](todo):  
 Make a `Students` directory alongside the `Instructors`, `TAs` and `Tutors` directories in your workspace.  
 Create a directory in `Students` that is your name  
 Make and populate a `data.md` file with and fun facts you want to share (we have an outline.md file you can use or you can make one of your own)  
@@ -347,7 +347,7 @@ Make and populate a `data.md` file with and fun facts you want to share (we have
 
 </div>
 
-From github, you can then look at files by clicking the `people` folder from this screen ![git_people](../../assets/labs/sp26/github_people_repo.png)  
+From github, you can then look at files by clicking the `people` folder from this screen ![git_people](./assets/github_people_repo.png)  
 From here you can go look at the `.md` files which use [markdown formatting](https://www.markdownguide.org/getting-started/) which add formatting to our plain text files. Go find one of your staff members' `data.md` to see some [formatting options](https://commonmark.org/help/) in practice.
 
 
@@ -367,7 +367,7 @@ $ cp ../lab1/contains.c .
 **If you did not successfully compile `contains.c` in Lab 1**, you may run the following command at the root of your Git repository to download a working version from us.
 
 ```
-$ wget https://cse29.site/assets/labs/lab1_commandline/contains.c
+$ wget https://cse29.site/week2/assets/lab1_commandline/contains.c
 ```
 
 Occasionally, `ieng6` throttles connections to GitHub. If this command gets stuck for too long (like 5 seconds), abort it by pressing `Ctrl+C` and try it again. No need to copy-paste: just press the up arrow in the terminal to populate it with a previous command. You'll find the arrow keys very helpful in the terminal\!
@@ -395,7 +395,7 @@ To undo our destructive change, we precisely need to "`discard changes in workin
 
 <div class="checkoff">
 
-Make sure everyone in your group was able to successfully restore the once destroyed `contains.c` contents.
+Make sure everyone in your group was able to successfully restore the once destroyed `contains.c` contents. Call over a staff member to get checked off.
 
 </div>
 
@@ -405,13 +405,51 @@ You might have heard about `git revert`, `git reset`, and `git restore`. Each co
 
 </div>
 
+## A Bit of Practice
+
+One of the important skills of PA3 that you will need to know is bit manipulation. That’s what we’re going to practice today\!
+
+In `bitstrings.c`, you’ll find a series of bitstrings along with incomplete assert statements. Your job will be to fill each instance of `_` with the correct bitwise operator to make the assert pass.
+
+For your reference, here is a code snippet with usages of common bitwise operators you may find useful, taken from GeeksForGeeks:
+
+```c
+// a = 5(00000101), b = 9(00001001)
+unsigned char a = 5, b = 9;
+
+// The result is 00000001 (AND)
+printf("a = %d, b = %d\n", a, b);
+printf("a&b = %d\n", a & b);
+
+// The result is 00001101 (OR)
+printf("a|b = %d\n", a | b);
+
+// The result is 00001100 (XOR)
+printf("a^b = %d\n", a ^ b);
+
+// The result is 11111010 (NOT)
+printf("~a = %d\n", a = ~a);
+
+// The result is 00010010 (left shift)
+printf("b<<1 = %d\n", b << 1);
+
+// The result is 00000100 (right shift)
+printf("b>>1 = %d\n", b >> 1);
+```
+
+<div class="checkoff">
+
+This is the submittable checkoff for the lab.
+
+</div>
+
+
 # Next steps
 
 If you finish with the lab content above you may any do the following:
 * Continue reading and get a sneak-peak on topics covered in lab 3! 👀
 * Do the parts of the lab marked as "On your own time"
 * Work on PA1
-* Work on HW2
 
 # Lab 3 Preview: Debugging with gdb
 
@@ -461,40 +499,3 @@ If you would like to see this in practice you can try it on any of the 3 buggy f
 - You can use the following [reference card](https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf) for reference on gdb commands, and format commands for x and print.
 
 
-## A Bit of Practice
-
-One of the important skills of PA3 that you will need to know is bit manipulation. That’s what we’re going to practice today\!
-
-In `bitstrings.c`, you’ll find a series of bitstrings along with incomplete assert statements. Your job will be to fill each instance of `_` with the correct bitwise operator to make the assert pass.
-
-For your reference, here is a code snippet with usages of common bitwise operators you may find useful, taken from GeeksForGeeks:
-
-```c
-// a = 5(00000101), b = 9(00001001)
-unsigned char a = 5, b = 9;
-
-// The result is 00000001 (AND)
-printf("a = %d, b = %d\n", a, b);
-printf("a&b = %d\n", a & b);
-
-// The result is 00001101 (OR)
-printf("a|b = %d\n", a | b);
-
-// The result is 00001100 (XOR)
-printf("a^b = %d\n", a ^ b);
-
-// The result is 11111010 (NOT)
-printf("~a = %d\n", a = ~a);
-
-// The result is 00010010 (left shift)
-printf("b<<1 = %d\n", b << 1);
-
-// The result is 00000100 (right shift)
-printf("b>>1 = %d\n", b >> 1);
-```
-
-<div class="checkoff">
-
-This is the submittable checkoff for the lab.
-
-</div>
