@@ -18,7 +18,7 @@ In your groups, please discuss the following:
 - What’s your favorite genre? Who’s your favorite artist?
 
 
-Please fill out [this welcome survey](todo)
+Please fill out [this welcome survey](https://forms.gle/LHGGrF37HDojrBX78)
 
 # PA1: Start Early Start Often
 This is the motto of the CSE department.  
@@ -62,7 +62,7 @@ On the GitHub website, click your profile picture in the top right to open a men
 
 On the left, open “SSH and GPG keys”, then click on “New SSH key”.
 
-![Go to "New SSH key"](../../assets/labs/sp26/github_ssh.png)
+![Go to "New SSH key"](./assets/github_ssh.png)
 
 Populate the fields as follows:
 
@@ -71,7 +71,7 @@ Populate the fields as follows:
 * **Key type**: “Authentication key”
 * **Key**: Paste the contents of the public key file here (entire block including the email portion).
 
-![Go to the "Key" box](../../assets/labs/sp26/github_add_new_key.png)
+![Go to the "Key" box](./assets/github_add_new_key.png)
 
 Click “Add SSH key”. You may need to confirm access to your account on GitHub at this point.
 
@@ -87,7 +87,7 @@ If this is your first time connecting to GitHub, you might get a warning about t
 
 After a successful connection, it should output `Hi <your-username>! You've successfully authenticated, but GitHub does not provide shell access`.
 
-<div class="checkoff">
+<div class="important">
 
 If you did not get this success message, please ask someone for help, you will not be able to complete the next part if your ssh keys are not properly set up.
 
