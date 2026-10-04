@@ -98,7 +98,7 @@ That *should* conclude the GitHub SSH key setup process. If the others in your g
 
 For this section of the lab, you should work in groups of 2-3. Let a TA or tutor know if you don’t have a group\!
 
-Have **one member** of the group follow [**this link**](https://classroom.github.com/a/k1PmAZSW) to accept the assignment for this lab on GitHub. Create a team for your group (give it any name you want\!), then the other group members should add themselves to the team by following the link themselves.
+Have **one member** of the group follow [**this link**](todo) to accept the assignment for this lab on GitHub. Create a team for your group (give it any name you want\!), then the other group members should add themselves to the team by following the link themselves.
 
 Before you start using git hands-on, we should establish some vocabulary and concepts about git and GitHub.
 
@@ -110,7 +110,7 @@ If there is any software which most (if not all) programmers use, it’s git and
 
 git organizes your code files in a particular way to give you flexibility in how you manage different versions of your repo, which we’ll visualize below. Note that git does not actually create distinct “areas” in your repo directory and move files between them, but we may refer to them analogously as if they were physical areas that files move in and out of.
 
-![Working directory, staging area, commits, and remotes](../../assets/labs/sp26/git_diagram.jpg)
+![Working directory, staging area, commits, and remotes](./assets/git_diagram.jpg)
 
 We refer to files stored on your device as **local**, and files stored on GitHub (in a server far away) as **remote**. Technically, files in your `ieng6` account are remote relative to your machine, but we will consider them local relative to the GitHub servers.
 
@@ -127,7 +127,7 @@ git contains many commands which let you manipulate and move files within this s
 **If you did not complete Lab 1**, you may run the following commands to download our shell script to create a cse29 folder with the directory tree example contents:
 
 ```
-$ wget https://cse29.site/assets/labs/lab1_commandline/exercise.sh
+$ wget https://cse29.site/week2/assets/lab1_commandline/exercise.sh
 $ chmod 755 exercise.sh
 $ ./exercise.sh
 ```
