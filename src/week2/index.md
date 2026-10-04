@@ -98,7 +98,6 @@ That *should* conclude the GitHub SSH key setup process. If the others in your g
 
 For this section of the lab, you should work in groups of 2-3. Let a TA or tutor know if you don’t have a group\!
 
-Have **one member** of the group follow [**this link**](todo) to accept the assignment for this lab on GitHub. Create a team for your group (give it any name you want\!), then the other group members should add themselves to the team by following the link themselves.
 
 Before you start using git hands-on, we should establish some vocabulary and concepts about git and GitHub.
 
@@ -173,6 +172,7 @@ A *fork* of a repository is a personal copy of the repository that you can make 
 
 **Task:** Create a fork of the Lab 3 starter repository [here](https://github.com/ucsd-cse29/lab2-starter-fa26).
 ![Image](./assets/fork.png)
+
 
 ## Clone the Repo
 
@@ -345,7 +345,7 @@ Write each git command that you use in the following activity on your whiteboard
 
 <div class="exercise">
 
-Using [**this repository**](todo):  
+Using 1 fork your team makes of [**this repository**](https://github.com/ucsd-cse29/lab-people):  
 Make a `Students` directory alongside the `Instructors`, `TAs` and `Tutors` directories in your workspace.  
 Create a directory in `Students` that is your name  
 Make and populate a `data.md` file with and fun facts you want to share (we have an outline.md file you can use or you can make one of your own)  
