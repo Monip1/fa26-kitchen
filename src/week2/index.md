@@ -345,7 +345,7 @@ Write each git command that you use in the following activity on your whiteboard
 
 <div class="exercise">
 
-Using 1 fork your team makes of [**this repository**](https://github.com/ucsd-cse29/lab-people):  
+After re-copying the people directory to get any new additions `cp -r /home/linux/ieng6/CSE29_SP26_A00/public/people .`:  
 Make a `Students` directory alongside the `Instructors`, `TAs` and `Tutors` directories in your workspace.  
 Create a directory in `Students` that is your name  
 Make and populate a `data.md` file with and fun facts you want to share (we have an outline.md file you can use or you can make one of your own)  
