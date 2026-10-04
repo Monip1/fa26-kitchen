@@ -167,6 +167,12 @@ script!
 
 </div>
 
+## Fork the Repo
+
+A *fork* of a repository is a personal copy of the repository that you can make changes to without affecting the original repository. To fork a repository, click the "Fork" button in the top right corner of the repository page.
+
+**Task:** Create a fork of the Lab 3 starter repository [here](https://github.com/ucsd-cse29/lab2-starter-fa26).
+![Image](./assets/fork.png)
 
 ## Clone the Repo
 
