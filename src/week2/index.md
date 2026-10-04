@@ -170,7 +170,7 @@ script!
 
 ## Clone the Repo
 
-![Steps to clone a repository](../../assets/labs/sp26/lab2_cloning.png)
+![Steps to clone a repository](./assets/lab2_cloning.png)
 
 First, find the SSH url for your group's repo. You can do this by following the guide above, clicking the buttons in the order presented to copy your repo's URL onto your clipboard. Making sure you get the **SSH url** and ***not*** the HTTPS url\!
 
@@ -323,13 +323,13 @@ We’ll revisit Git in a later lab and in your own time, if you’d like to lear
 
 <div class="checkoff">
 
-Verify each team member has a repo with you and your teammates’ shared Music and Books folders. Run `git log --name-status` to verify who wrote each change.
+Verify each team member has a repo with you and your teammates’ shared Music and Books folders. Run `git log --name-status` to verify who wrote each change. Call over a staff member once everyone is here to get checked off.
 
 </div>
 
 # Git people
 
-Recall the `people` directory from lab1? If not, no need to worry but once you `git clone` to explore the `people`, our descriptions of [ls](./lab1#ls---looking-around) and [man](./lab1#man---getting-help) may be of use to you.
+Recall the `people` directory from lab1? If not, no need to worry but once you `git clone` to explore the `people`, our descriptions of [ls](../week1/index#ls---looking-around) and [man](./lab1#man---getting-help) may be of use to you.
 
 Now you get to add data of your own!
 
