@@ -39,7 +39,9 @@ $ ssh <span class="code-replace-me" contenteditable>your account name</span>@ien
 $ ssh-keygen -t rsa -b 4096 -C <span class="code-replace-me" contenteditable>github_email</span>
 </code>
 
-You’ll be prompted to “Enter a file in which to save the key”. Press Enter to accept the default location. You’ll then be prompted to enter a passphrase, which isn’t really necessary. Press Enter twice to continue without setting a passphrase. Though if you really want to set a passphrase, refer to [GitHub docs on passphrases](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases).
+You’ll be prompted to “Enter a file in which to save the key”. Press Enter to accept the default location. 
+
+You are about to generate a public key and a secret private key called `~/.ssh/id_rsa` on your computer. If anyone gets ahold of that file they can SSH into all of the things you can SSH into, so you want to protect that file. One way you can protect it is to add a passphrase which is the next prompt it will give you. Press Enter twice to continue without setting a passphrase. Though if you really want to set a passphrase, refer to [GitHub docs on passphrases](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases).
 
 ## Adding your SSH key to GitHub
 
