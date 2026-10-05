@@ -208,7 +208,7 @@ Each member of your group should have now successfully cloned the lab2 repo onto
 ## “You have good taste\!”
 Remember those books and songs that you created last week? Now it’s time to pool them all together into one big Books directory and one big Music directory\! Before you proceed, make sure that everyone on your team has done the previous checkoff, as it is crucial each person’s `lab1` files are properly organized.
 
-<div style="width: 100%; background: #fcdb03; text-align: center; padding: 0.5rem; font-weight: bold">
+<div style="width: 100%; background: #fcdb03; color: #000; text-align: center; padding: 0.5rem; font-weight: bold">
     All teammates should do the steps below individually, keep going until you reach the stopping point
 </div>
 <div style="border: 4px solid #fcdb03; padding: 1rem">
@@ -262,7 +262,7 @@ Besides `-m`, there are other common options that programmers use with git commi
 * `git commit -am`: has the behavior of both `-a` and `-m` options.
 
 </div>
-<div style="width: 100%; background: #fcdb03; text-align: center; padding: 0.5rem; font-weight: bold">
+<div style="width: 100%; background: #fcdb03; color: #000; text-align: center; padding: 0.5rem; font-weight: bold">
     STOP HERE UNTIL ALL YOUR TEAMMATES ARE DONE!
 </div>
 

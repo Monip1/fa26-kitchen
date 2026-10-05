@@ -188,9 +188,10 @@
     --callout-warning-bg: #321a1a;
     --callout-warning-border: #f77e7e;
     --callout-warning-title: #f77e7e;
-    --callout-important-bg: #1a321a;
-    --callout-important-border: #41d693;
-    --callout-important-title: #41d693;
+    --callout-important-bg: #ffba6c;
+    --callout-important-border: #ff5100;
+    --callout-important-title: #742500;
+    --callout-important-fg: #000000;
     --callout-midterm-bg: rgba(221, 46, 46, 0.2);
     --callout-midterm-border: #f77e7e;
     --callout-midterm-title: #f77e7e;
@@ -234,7 +235,7 @@
 
 .note      { background-color: var(--callout-note-bg);      border-left-color: var(--callout-note-border); }
 .warning   { background-color: var(--callout-warning-bg);   border-left-color: var(--callout-warning-border); }
-.important { background-color: var(--callout-important-bg); border-left-color: var(--callout-important-border); }
+.important { background-color: var(--callout-important-bg); border-left-color: var(--callout-important-border); color: var(--callout-important-fg, inherit); }
 .checkoff  { background-color: var(--callout-checkoff-bg);  border-left-color: var(--callout-checkoff-border); }
 .exercise  { background-color: var(--callout-exercise-bg);  border-left-color: var(--callout-exercise-border); }
 .owntime   { background-color: var(--callout-owntime-bg);   border-left-color: var(--callout-owntime-border); }
