@@ -413,7 +413,7 @@ You might have heard about `git revert`, `git reset`, and `git restore`. Each co
 
 ## A Bit of Practice
 
-One of the important skills of PA3 that you will need to know is bit manipulation. That’s what we’re going to practice today\!
+One of the important skills of PA1 that you will need to know is bit manipulation. That’s what we’re going to practice today\!
 
 In `bitstrings.c`, you’ll find a series of bitstrings along with incomplete assert statements. Your job will be to fill each instance of `_` with the correct bitwise operator to make the assert pass.
 
