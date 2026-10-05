@@ -89,11 +89,12 @@ After a successful connection, it should output `Hi <your-username>! You've succ
 
 <div class="important">
 
-If you did not get this success message, please ask someone for help, you will not be able to complete the next part if your ssh keys are not properly set up.
+If you did not get this success message, please ask someone for help, you will not be able to complete the next part if your ssh keys are not properly set up.  
+That *should* conclude the GitHub SSH key setup process. If the others in your group are struggling with this, please help them\! The next step will require everyone in your group to be able to successfully connect to GitHub.
 
 </div>
 
-That *should* conclude the GitHub SSH key setup process. If the others in your group are struggling with this, please help them\! The next step will require everyone in your group to be able to successfully connect to GitHub.
+
 # Git Gud Bro
 
 For this section of the lab, you should work in groups of 2-3. Let a TA or tutor know if you don’t have a group\!
