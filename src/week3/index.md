@@ -45,7 +45,7 @@ Please write each other's icebreaker answers on your whiteboard as well.
 At approximately 10 mins into the lab, the staff members present will bring the class together to go over the board. If you finish the whiteboard and icebreaker before that time, feel free to read the next section.
 
 ## Color ls
-1. if you did not opt to make your `ls` colorful in [week1](./lab1#ls---looking-around), now is the time.  
+1. if you did not opt to make your `ls` colorful in [week1](../week1/index#ls---looking-around), now is the time.  
 1. Run `echo alias ls=\"ls --color\" >> ~/.bash_profile`  
     - if you have file permission issues, you can use `chmod u+rwx ~/.bash_profile`
 1. you can use `source ~/.bash_profile` to apply these changes right now.
@@ -61,7 +61,7 @@ The order of flags given to `gcc` does not matter. The only space-seperated stri
 
 </div>
 
-Using [**this repository**](https://classroom.github.com/a/7dYavFbQ) navigate to the `Wall` directory and fix the programs. All bugs will be reported by compiliing using the `-Wall` flag
+Using [**this repository**](classroomtodo) navigate to the `Wall` directory and fix the programs. All bugs will be reported by compiliing using the `-Wall` flag
 
 # Part 2: What and why debugging?
 
@@ -289,8 +289,7 @@ Try to log onto your remote account again. **You shouldn’t be prompted for a p
 
 If you finish with the lab content above you may any do the following:
 * Continue reading and get a sneak-peak on topics covered in lab 4! 👀
-* Work on PA1
-* Work on HW3
+* Work on PA2?
 
 # Lab 4 Preview: Hacking
 ## 4.1. Background
