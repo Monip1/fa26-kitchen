@@ -22,27 +22,12 @@ The CSE 29 genie, which runs on ieng6, would like to grant you 3 wishes. You may
 
 <div class="exercise">
 
-Draw the memory diagram for the following 2D array on your whiteboard.
-```c
-int ** arr = malloc (4*sizeof(int *));
-for(int i = 0; i < 4; i++){
-    arr[i] = malloc(3*sizeof(int));
-}
-for(int i = 0; i < 4; i++){
-    for(int j = 0; j < 3; j++){
-        arr[i][j] = j + 4*i;
-    }
-}
-
-```
 
 Please write each other's icebreaker answers on your whiteboard as well.
 
 </div>
 
 <img src="./assets/l3_whiteboard_memory.png" alt="whiteboard" width="800">
-
-At approximately 10 mins into the lab, the staff members present will bring the class together to go over the board. If you finish the whiteboard and icebreaker before that time, feel free to read the next section.
 
 ## Color ls
 1. if you did not opt to make your `ls` colorful in [week1](../week1/index#ls---looking-around), now is the time.  
@@ -61,7 +46,12 @@ The order of flags given to `gcc` does not matter. The only space-seperated stri
 
 </div>
 
+
+<div class="exercise">
+
 Using [**this repository**]() navigate to the `Wall` directory and fix the programs. All bugs will be reported by compiliing using the `-Wall` flag
+
+</div>
 
 # Part 2: What and why debugging?
 
@@ -291,51 +281,3 @@ If you finish with the lab content above you may any do the following:
 * Continue reading and get a sneak-peak on topics covered in lab 4! 👀
 * Work on PA2?
 
-# Lab 4 Preview: Hacking
-## 4.1. Background
-
-Imagine that you're a less ethical student than I'm sure you actually are. You
-overhear from some other students in lab that there's a binary available on the
-pi-cluster that can show you your grades on assignments before we formally
-release them. You hear quieter whispers that someone found a way to use it to
-_change_ their grade. Given our less-than-ethical assumption about your state
-of mind, you might be tempted to exploit this for yourself.  
-
-## 4.2. The Plot Thickens
-
-You see some code open on the professor's laptop during office hours.  You do
-your best to commit it to memory and write it down (remember, you're acting
-quite unethically in this story), because it strikes you that the code was
-something regarding assignment scores.  
-![gradebook source code](./assets/gradebook_src.png)
-
-Using this information, you decide to give yourself and A with a score 
-to match while maintaining a real due date.  
-**HINT**
-When important values are adjacent on the stack, overflowing an array with
-values that you control can let you assign into other stack-allocated values.
-
-
-GDB commands that may be useful for this activity:
-
--   `(gdb) info locals`
-
--   `(gdb) info args`
-
--   `(gdb) print VALUE (or p VALUE)` You can print any variable or expression, e.g.
-
--   `print x`, `p arr[5]`, `p ((x & 0b1111) << 3)`
-
--   You can also specify a format to print in
-
--   `print/t` (binary), `print/x` (hex), `print/d` (decimal)
-
--   `(gdb) x ADDRESS` This prints out memory at an address, e.g. strings / arrays / pointers
-
--   `(gdb) x/16cb str1` This prints the first 16 bytes of `str1` as characters
-
--   `(gdb) x/20xb str2` This prints 20 bytes of `str2` in hex
-
--   `(gdb) x/4dw  arr` This prints 4 "words" (i.e. `int32s`) of `arr`, as decimal numbers
-
--   You can use the following [reference card](https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf) for reference on gdb commands, and format commands for x and print.

@@ -22,6 +22,21 @@ Please write the answers on your whiteboard. No check-off is needed!
 
 </div>
 
+Draw the memory diagram for the following 2D array on your whiteboard.
+
+```c
+int ** arr = malloc (4*sizeof(int *));
+for(int i = 0; i < 4; i++){
+    arr[i] = malloc(3*sizeof(int));
+}
+for(int i = 0; i < 4; i++){
+    for(int j = 0; j < 3; j++){
+        arr[i][j] = j + 4*i;
+    }
+}
+
+```
+
 ## Warm-up
 
 Draw the memory diagram for the following linked list on your whiteboard. These function calls are similar to your PA, but we have simplified it for this activity. Show the week, days, and the events of each day.
@@ -337,3 +352,5 @@ GDB commands that may be useful for this activity:
 -   `(gdb) x/4dw  arr` This prints 4 "words" (i.e. `int32s`) of `arr`, as decimal numbers
 
 -   You can use the following [reference card](https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf) for reference on gdb commands, and format commands for x and print.
+
+
