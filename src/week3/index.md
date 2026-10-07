@@ -1,11 +1,3 @@
----
-layout: default
-title: Lab 3
-parent: Labs
-nav_order: 4
-permalink: /lab3
----
-
 # Lab 3: Debugging with GDB
 In this lab, you will get hands-on experience using GDB to debug C programs. GDB will become an essential tool for your PA work as this course develops, so lock in\!
 
@@ -19,57 +11,16 @@ In this lab, you will get hands-on experience using GDB to debug C programs. GDB
 * Use GDB to troubleshoot a crashing program
 
 
-<div class="fun-fact">
-
-On the quest I sent a staff member to gather information about ieng6, success was achieved. Some guy of ITS (IT Services) has answered many questions.<br><br> 
-"For some history, ieng stands for "Interactive Engineering" and dates back to when we had machines in AP&M that you had to use a video terminal to interact with the machines. The 6 in the name is from the IP Address originally assigned,  which was 132.239.50.6. There used to be other "ieng" machines, you may encounter someone that remembers ieng9 that used to host Solaris SPARC used in CSE30 and CSE120.
-<br><br>
-ieng6 and almost all of the infrastructure students might use is physically located in SDSC. The ieng6 machines are entirely virtual machine based so they're balanced on a cluster of hardware supporting most ITS.
-<br><br>
-ieng6.ucsd.edu is a round robin load balancer that currently balances number of connections between ieng6-201, 202, and 203 (this will be increasing this summer). 201-203 are SSH only machines, everything else also allows RDP desktop sessions which you can connect to from campus/VPN or via linuxcloud.ucsd.edu. All the ieng6 machines are open to use as needed but we may point courses at specific sets of machines depending on what's needed for the course.
-<br><br>
-ieng6-240 - 253 are the original desktop cluster and the number is based off their IP address. 
-<br><br>
-`$ host ieng6-240`
-<br>
-ieng6-240.ucsd.edu has address 128.54.70.240
-<br>
-ieng6-640 and ieng6-641 were originally the first x86_64 deployments and are currently used to support old software that needs CentOS 7.
-<br>
-ieng6-700 through 702 and ieng6-300 through 309 are higher resource machines (more memory + CPU) which were added as we needed to support more intensive desktop software/more desktop sessions total during covid.
-<br>
-ieng6-ece-01 through 20 are machines specifically for ECE courses.
-<br><br>
-There used to be igpu-### machines which were GPU compute servers that eventually turned into the DSMLP cluster.
-<br><br>
-For home directories, the old style "OCE" paths means your account was setup prior to May 2025 and didn't get migrated to the new format. I don't know the particular history on how that hash layout was developed but it was in use for 30+ years. Accounts used to need to be flagged as "Open Computing Environment" to get persistent storage and compute resources that you can use outside of a specific course, which mattered a lot more when disk and cpu resources were limited. Non OCE accounts used to look like "cs29sp26aa" and were allocated for specific courses and removed after the quarter.
-<br><br>
-New accounts are standardized with the home directory bin being the last 3 digits of your UID. Note your UID is 112263
-<br><br>
-`$ getent passwd etomson`
-<br>
-etomson:*:112263:20:Tomson, Elena:/home/linux/ieng6/students/263/etomson:/bin/bash"
-
-</div>
-
-<div class="note">
-
-SDSC is the San Diego Supercomputer Center which resides near RIMAC on Ridgewalk.
-
-</div>
-
 # Whiteboard activity #1
 
 ## Icebreaker
 The CSE 29 genie, which runs on ieng6, would like to grant you 3 wishes. You may wish for anything you want, except you may not wish recursively (i.e., wish for more wishes). What do you wish for?
 
-<div class="note">
 
-Please write the answers of yourself and one of your group members on your whiteboard.
-
-</div>
 
 ## Warm-up
+
+<div class="exercise">
 
 Draw the memory diagram for the following 2D array on your whiteboard.
 ```c
@@ -82,7 +33,13 @@ for(int i = 0; i < 4; i++){
         arr[i][j] = j + 4*i;
     }
 }
+
 ```
+
+Please write each other's icebreaker answers on your whiteboard as well.
+
+</div>
+
 <img src="./assets/l3_whiteboard_memory.png" alt="whiteboard" width="800">
 
 At approximately 10 mins into the lab, the staff members present will bring the class together to go over the board. If you finish the whiteboard and icebreaker before that time, feel free to read the next section.
