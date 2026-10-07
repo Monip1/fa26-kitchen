@@ -1,11 +1,3 @@
----
-layout: default
-title: Lab 4
-parent: Labs
-nav_order: 5
-permalink: /lab4
----
-
 # Lab 4: Finding memory errors with Valgrind
 In this lab, you'll use Valgrind, a memory error checker, to identify memory management mishaps in programs involving arrays and linked lists. Valgrind is ubiquitous in systems programming workflows, especially for programs written in C and C++. You'll find it valuable for PA 2 and onward, too\!
 
@@ -52,7 +44,7 @@ Draw the memory diagram for the following linked list on your whiteboard. These 
 Before you get right into memory leaks and how to fix them, we have a quality of life improvement.
 Recall that in lab2 you made a pair of ssh keys to allow you to securely access github from your ieng6 account.
 There is another pair of keys we can make which give you the power to never have to type your password when signing into ieng6 again.
-The tutorial for this resides in the last lab: [here](./lab3#identify-yourself-to-ieng6).
+The tutorial for this resides in the last lab: [here](./index#identify-yourself-to-ieng6).
 
 </div>
 

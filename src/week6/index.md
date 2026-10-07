@@ -1,11 +1,3 @@
----
-layout: default
-title: Lab 6
-parent: Labs
-nav_order: 7
-permalink: /lab6
----
-
 # Lab 6: Automating compilation with Makefiles
 
 <div class="note">

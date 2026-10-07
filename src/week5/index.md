@@ -1,11 +1,3 @@
----
-layout: default
-title: Lab 5
-parent: Labs
-nav_order: 6
-permalink: /lab5
----
-
 # Lab 5: Shell scripting, .gitignore, and Mail
 
 <div class="note">

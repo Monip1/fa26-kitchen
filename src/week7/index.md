@@ -1,11 +1,3 @@
----
-layout: default
-title: Lab 7
-parent: Labs
-nav_order: 8
-permalink: /lab7
----
-
 # Lab 7: Pipes and filters in UNIX
 
 <div class="note">

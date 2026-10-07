@@ -1,11 +1,3 @@
----
-layout: default
-title: Lab 8
-parent: Labs
-nav_order: 9
-permalink: /lab8
----
-
 # Lab 8: Git and GitHub at scale
 
 In this lab, you will do a more advanced Git collaboration exercise to learn about forks, pull requests, branches, and how to revert commits. This exercise mimics common collaboration workflows in software engineering. We hope that this exercise will boost your confidence in using Git and prepare you to use it well in future CSE classes and industry\!
