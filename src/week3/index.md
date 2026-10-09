@@ -27,7 +27,7 @@ Please write each other's icebreaker answers on your whiteboard as well.
 
 </div>
 
-<img src="./assets/whiteboardlab3.jpg" alt="whiteboard" width="800">
+<img src="./assets/whiteboardlab3.png" alt="whiteboard" width="800">
 
 ## Color ls
 1. if you did not opt to make your `ls` colorful in [week1](../week1/index#ls---looking-around), now is the time.  
