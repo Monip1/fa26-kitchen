@@ -49,7 +49,7 @@ The order of flags given to `gcc` does not matter. The only space-seperated stri
 
 <div class="exercise">
 
-Using [**this repository**]() navigate to the `Wall` directory and fix the programs. All bugs will be reported by compiliing using the `-Wall` flag
+Using [**this repository**](https://classroom50.org/ucsd-cse29-fall2026/cse29-fa26/assignments/lab3/accept) navigate to the `Wall` directory and fix the programs. All bugs will be reported by compiliing using the `-Wall` flag
 
 </div>
 
