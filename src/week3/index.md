@@ -212,7 +212,7 @@ Then continue using `next` to run through the loop and figure out why `index_of(
 
 <div class="checkoff">
 
-Ask a staff member to check the fix for `index_of_E` on your whiteboard.
+Write the fix for `index_of_E` on your whiteboard and ask a staff member to check it off.
 
 </div>
 
