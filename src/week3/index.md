@@ -42,7 +42,7 @@ Our compiler `gcc` is designed to catch possible errors at compile time and warn
 
 <div class="note">
 
-The order of flags given to `gcc` does not matter. The only space-seperated string where the order matters is if the flag is followed by an argument. `-o` is followed immediately by what the binary file should be named as.
+The order of flags given to `gcc` does not matter. The only case where it does matter is if a flag takes an argument(s). For example, `-o` is followed immediately by what the binary file will be named.
 
 </div>
 
