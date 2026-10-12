@@ -82,11 +82,6 @@ Predict the output for the following strings, "Baby_Alpaca", "CSE29", "Alp" and 
 
 <img src="./assets/l3_whiteboard_alpaca.png" alt="whiteboard_2" width="800">
 
-<div class="checkoff">
-
-Ask a staff member to check the fix for `index_of_E` on your whiteboard.
-
-</div>
 
 ## Compiling for GDB
 
