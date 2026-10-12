@@ -224,6 +224,12 @@ If you'd like, try this with `contains.c` from our previous labs (you can `wget`
 
 ## Segfault and Backtrace
 
+<div class="exercise">
+
+Use the following guide to find and fix the following bug in `charshift.c`.
+
+</div>
+
 Another common type of error is a *segmentation fault* (or just *segfault*). Segmentation faults can happen when we try to access someplace in memory illegally (yes, that’s the technical term). In `charshift.c`, we’ll look at an example of that.
 
 Compile `charshift.c` for GDB and try running `./charshift`. It should immediately crash and give you a `Segmentation fault (core dumped)` error, telling you that some kind of illegal memory access happened. Most unhelpfully, the error message does not care to tell you why or even where it happened. Somewhat helpfully, GDB can at least answer the “where”. **From this lab onward, whenever you see your program segfaulting, you should consider debugging it with GDB.**
