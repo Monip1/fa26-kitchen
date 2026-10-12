@@ -1,5 +1,5 @@
 # Lab 3: Debugging with GDB
-In this lab, you will get hands-on experience using GDB to debug C programs. GDB will become an essential tool for your PA work as this course develops, so lock in\!
+In this lab, you will get hands-on experience using GDB to debug C programs. GDB will become an essential tool for your Project work as this course develops, so lock in\!
 
 ## Lab 3 learning objectives
 
