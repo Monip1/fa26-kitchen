@@ -82,6 +82,12 @@ Predict the output for the following strings, "Baby_Alpaca", "CSE29", "Alp" and 
 
 <img src="./assets/l3_whiteboard_alpaca.png" alt="whiteboard_2" width="800">
 
+<div class="checkoff">
+
+Ask a staff member to check the fix for `index_of_E` on your whiteboard.
+
+</div>
+
 ## Compiling for GDB
 
 In order to use GDB, we have to compile our program with the `-g` flag. This tells the compiler to add some extra information to your executable file, which GDB will use. `index_of_E` was compiled using the following command.
