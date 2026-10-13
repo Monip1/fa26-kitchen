@@ -171,9 +171,9 @@
     --callout-checkoff-bg: rgba(65, 214, 147, 0.2);
     --callout-checkoff-border: #026e57;
     --callout-checkoff-title: #009c7b;
-    --callout-gradescope-bg: rgba(65, 142, 214, 0.2);
-    --callout-gradescope-border: #02186e;
-    --callout-gradescope-title: #005b9c;
+    --callout-gradescope-bg: rgba(15, 203, 237, 0.463);
+    --callout-gradescope-border: #06388d;
+    --callout-gradescope-title: #0c2b80;
     --callout-exercise-bg: rgba(114, 83, 237, 0.2);
     --callout-exercise-border: #381885;
     --callout-exercise-title: #4e26af;
@@ -201,9 +201,9 @@
     --callout-checkoff-bg: rgba(2, 110, 87, 0.2);
     --callout-checkoff-border: #41d693;
     --callout-checkoff-title: #41d693;
-    --callout-gradescope-bg: rgba(2, 43, 110, 0.2);
-    --callout-gradescope-border: #41b3d6;
-    --callout-gradescope-title: #4187d6;
+    --callout-gradescope-bg: rgba(29, 81, 141, 0.713);
+    --callout-gradescope-border: #3c9ae3;
+    --callout-gradescope-title: #39c7e0;
     --callout-exercise-bg: rgba(56, 24, 133, 0.2);
     --callout-exercise-border: #7253ed;
     --callout-exercise-title: #7253ed;
