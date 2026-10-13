@@ -1,5 +1,5 @@
 # Lab 3: Debugging with GDB
-In this lab, you will get hands-on experience using GDB to debug C programs. GDB will become an essential tool for your PA work as this course develops, so lock in\!
+In this lab, you will get hands-on experience using GDB to debug C programs. GDB will become an essential tool for your Project work as this course develops, so lock in\!
 
 ## Lab 3 learning objectives
 
@@ -42,7 +42,7 @@ Our compiler `gcc` is designed to catch possible errors at compile time and warn
 
 <div class="note">
 
-The order of flags given to `gcc` does not matter. The only space-seperated string where the order matters is if the flag is followed by an argument. `-o` is followed immediately by what the binary file should be named as.
+The order of flags given to `gcc` does not matter. The only case where it does matter is if a flag takes an argument(s). For example, `-o` is followed immediately by what the binary file will be named.
 
 </div>
 
@@ -81,6 +81,7 @@ Predict the output for the following strings, "Baby_Alpaca", "CSE29", "Alp" and 
 </div>
 
 <img src="./assets/l3_whiteboard_alpaca.png" alt="whiteboard_2" width="800">
+
 
 ## Compiling for GDB
 
@@ -212,7 +213,7 @@ Then continue using `next` to run through the loop and figure out why `index_of(
 
 <div class="checkoff">
 
-Ask a staff member to check the fix for `index_of_E` on your whiteboard.
+Write the fix for `index_of_E` on your whiteboard and ask a staff member to check it off.
 
 </div>
 
@@ -229,6 +230,12 @@ If you'd like, try this with `contains.c` from our previous labs (you can `wget`
 
 ## Segfault and Backtrace
 
+<div class="exercise">
+
+Use the following guide to find and fix the following bug in `charshift.c`.
+
+</div>
+
 Another common type of error is a *segmentation fault* (or just *segfault*). Segmentation faults can happen when we try to access someplace in memory illegally (yes, that’s the technical term). In `charshift.c`, we’ll look at an example of that.
 
 Compile `charshift.c` for GDB and try running `./charshift`. It should immediately crash and give you a `Segmentation fault (core dumped)` error, telling you that some kind of illegal memory access happened. Most unhelpfully, the error message does not care to tell you why or even where it happened. Somewhat helpfully, GDB can at least answer the “where”. **From this lab onward, whenever you see your program segfaulting, you should consider debugging it with GDB.**
@@ -241,10 +248,10 @@ Since we know that segfaults are caused by illegal memory access, and we know th
 
 ## Debugging practice
 
-<div class="exercise">
+<div class="gradescope">
 
 There are 3 buggy programs in the `gdb` directory with names `buggy*.c`.
-Use what you have learned in this lab to fix these programs.
+Use what you have learned in this lab to fix these programs, then submit them to gradescope.
 
 </div>
 
@@ -284,6 +291,7 @@ Try to log onto your remote account again. **You shouldn’t be prompted for a p
 # Next steps
 
 If you finish with the lab content above you may any do the following:
-* Continue reading and get a sneak-peak on topics covered in lab 4! 👀
-* Work on PA2?
+
+* Work on Problem Set 2
+* Project 1 Resubmission
 
