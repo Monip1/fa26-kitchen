@@ -202,6 +202,12 @@ In addition to shortcuts, inputting no command and pressing `Enter` will automat
 
 </div>
 
+<div class="note">
+
+**Tip:** If your terminal looks a bit messed up, try pressing <kbd>Ctrl</kbd>+<kbd>L</kbd>, which will refresh the window.
+
+</div>
+
 Then continue using `next` to run through the loop and figure out why `index_of()` is buggy. Try printing out the relevant variables as you go through each iteration. Once you figure out why `index_of()` isn’t working, write what the problem was along with how you would fix it on your whiteboard.
 
 <div class="checkoff">
