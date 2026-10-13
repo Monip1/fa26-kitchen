@@ -242,10 +242,10 @@ Since we know that segfaults are caused by illegal memory access, and we know th
 
 ## Debugging practice
 
-<div class="exercise">
+<div class="gradescope">
 
 There are 3 buggy programs in the `gdb` directory with names `buggy*.c`.
-Use what you have learned in this lab to fix these programs.
+Use what you have learned in this lab to fix these programs, then submit them to gradescope.
 
 </div>
 
@@ -285,6 +285,7 @@ Try to log onto your remote account again. **You shouldn’t be prompted for a p
 # Next steps
 
 If you finish with the lab content above you may any do the following:
-* Continue reading and get a sneak-peak on topics covered in lab 4! 👀
-* Work on PA2?
+
+* Work on Problem Set 2
+* Project 1 Resubmission
 
