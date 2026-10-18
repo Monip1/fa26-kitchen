@@ -444,7 +444,7 @@ We can also use two redirections in conjunction with each other to redirect diff
 $ ./problem > problem.txt 2> errors.txt
 ```
 
-<div class="checkoff">
+<div class="gradescope">
 
 Word on the street is that Column 42 isn't the only column in `message.txt` hiding a secret. Time to go find more secrets!
 
@@ -457,7 +457,6 @@ Word on the street is that Column 42 isn't the only column in `message.txt` hidi
 4. Once you find a phrase, save those lines into a file called `grep.txt`. Use `>` for your **first** phrase, then `>>` for every phrase after that. Remember, `>` overwrites the file, so using it again will erase the phrases you already saved!
 5. Find **at least 5** phrases (42 doesn't count, since we already gave that one away). Feel free to find more if you'd like!
 6. Run `cat grep.txt` to make sure all of your phrases made it in, then submit `grep.txt` to Lab 4 on Gradescope.
-<!-- TODO: add where/how students submit grep.txt -->
 
 </div>
 
