@@ -446,11 +446,45 @@ $ ./problem > problem.txt 2> errors.txt
 
 <div class="checkoff">
 
-First, comment out the `fprintf` statement and uncomment the `printf` statement, so that all output redirects to stdout.
-Write a command that outputs all lines that involve the first column of the 2D array into both the terminal display and a file called `out0.txt`.
-As a group, ask a tutor or TA to check your work.
+Column 42 isn't the only column in `message.txt` hiding a secret. Time to go hunting!
+
+1. Open `message.txt` in Vim (`vim message.txt`) and scroll around. It's a wall of random capital letters, one per line. Quit with `:q` when you've seen enough.
+2. Pick a hint from the table below and work out which column number it points to.
+3. `grep` for that number and read the letters from top to bottom. If they spell an English phrase, you found one! If it's garbage letters, double-check your math and try again.
+   ```
+   $ cat message.txt | grep 42
+   ```
+4. Once you find a phrase, save those lines into a file called `grep.txt`. Use `>` for your **first** phrase, then `>>` for every phrase after that. Remember, `>` overwrites the file, so using it again will erase the phrases you already saved!
+   ```
+   $ cat message.txt | grep <first number> > grep.txt
+   $ cat message.txt | grep <next number> >> grep.txt
+   ```
+5. Find **at least 5** phrases (42 doesn't count, since we already gave that one away). Feel free to find more if you'd like!
+6. Run `cat grep.txt` to make sure all of your phrases made it in, then submit `grep.txt` to the autograder.
+<!-- TODO: add where/how students submit grep.txt -->
 
 </div>
+
+### Hints
+
+There are two kinds of hints:
+
+* **Columns 19 to 29:** Each hint is a bitwise expression on hexadecimal numbers. Work out the result, then convert it to decimal to get the column number.
+* **Columns 33 to 49:** Each hint describes a character. The column number is that character's ASCII value in decimal. Run `man ascii` in the terminal to see the ASCII table.
+
+| Hint | Column |
+|------|--------|
+| `0x10 \| 0x03` | ? |
+| `0x1F & 0x36` | ? |
+| `0x03 << 3` | ? |
+| `0x0F ^ 0x15` | ? |
+| `0x3A >> 1` | ? |
+| The C operator that turns `true` into `false` | ? |
+| The character that starts every `#include` | ? |
+| The operator that gives you a variable's address | ? |
+| The character that puts the "C" in CSV | ? |
+| The character that starts every absolute path (and every `//` comment) | ? |
+| The character `'1'` (careful: the character, not the number!) | ? |
 
 <div class="note" data-title="Hint">
 
