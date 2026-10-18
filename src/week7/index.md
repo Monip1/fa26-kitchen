@@ -455,12 +455,8 @@ Word on the street is that Column 42 isn't the only column in `message.txt` hidi
    $ cat message.txt | grep 42
    ```
 4. Once you find a phrase, save those lines into a file called `grep.txt`. Use `>` for your **first** phrase, then `>>` for every phrase after that. Remember, `>` overwrites the file, so using it again will erase the phrases you already saved!
-   ```
-   $ cat message.txt | grep <first number> > grep.txt
-   $ cat message.txt | grep <next number> >> grep.txt
-   ```
 5. Find **at least 5** phrases (42 doesn't count, since we already gave that one away). Feel free to find more if you'd like!
-6. Run `cat grep.txt` to make sure all of your phrases made it in, then submit `grep.txt` to the autograder.
+6. Run `cat grep.txt` to make sure all of your phrases made it in, then submit `grep.txt` to Lab 4 on Gradescope.
 <!-- TODO: add where/how students submit grep.txt -->
 
 </div>
@@ -472,19 +468,21 @@ There are two kinds of hints:
 * **Columns 19 to 29:** Each hint is a bitwise expression on hexadecimal numbers. Work out the result, then convert it to decimal to get the column number.
 * **Columns 33 to 49:** Each hint describes a character. The column number is that character's ASCII value in decimal. Run `man ascii` in the terminal to see the ASCII table.
 
-| Hint | Column |
-|------|--------|
-| `0x10 \| 0x03` | ? |
-| `0x1F & 0x36` | ? |
-| `0x03 << 3` | ? |
-| `0x0F ^ 0x15` | ? |
-| `0x3A >> 1` | ? |
-| The C operator that turns `true` into `false` | ? |
-| The character that starts every `#include` | ? |
-| The operator that gives you a variable's address | ? |
-| The character that puts the "C" in CSV | ? |
-| The character that starts every absolute path (and every `//` comment) | ? |
-| The character `'1'` (careful: the character, not the number!) | ? |
+Check off each hint as you find its phrase. The checkboxes are only for you to keep track: nobody else can see them, and they reset when you reload the page.
+
+| Hint | Found it? |
+|------|:---------:|
+| `0x10 \| 0x03` | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
+| `0x1F & 0x36` | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
+| `0x03 << 3` | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
+| `0x0F ^ 0x15` | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
+| `0x3A >> 1` | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
+| The C operator that turns `true` into `false` | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
+| The character that starts every `#include` | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
+| The operator that gives you a variable's address | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
+| The character that puts the "C" in CSV | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
+| The character that starts every absolute path (and every `//` comment) | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
+| The character `'1'` (careful: the character, not the number!) | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
 
 <div class="note" data-title="Hint">
 
@@ -617,6 +615,43 @@ The square brackets are special characters in grep, so to search for `[` and `]`
         bottom: 0;
         left: 4px;
         color: #bbb;
+    }
+
+    .found-check {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 22px;
+        height: 22px;
+        margin: 0;
+        border: 2px solid var(--links, #4183c4);
+        border-radius: 4px;
+        background-color: transparent;
+        cursor: pointer;
+        display: inline-grid;
+        place-content: center;
+        vertical-align: middle;
+        transition: background-color 0.15s, transform 0.1s;
+    }
+
+    .found-check:hover {
+        transform: scale(1.1);
+    }
+
+    .found-check:checked {
+        background-color: var(--links, #4183c4);
+    }
+
+    .found-check:checked::after {
+        content: "\2713";
+        color: var(--bg, #fff);
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 1;
+    }
+
+    .found-check:focus-visible {
+        outline: 2px solid var(--links, #4183c4);
+        outline-offset: 2px;
     }
 
     .text-flow {
