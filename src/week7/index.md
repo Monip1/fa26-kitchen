@@ -446,11 +446,11 @@ $ ./problem > problem.txt 2> errors.txt
 
 <div class="checkoff">
 
-Column 42 isn't the only column in `message.txt` hiding a secret. Time to go hunting!
+Word on the street is that Column 42 isn't the only column in `message.txt` hiding a secret. Time to go find more secrets!
 
 1. Open `message.txt` in Vim (`vim message.txt`) and scroll around. It's a wall of random capital letters, one per line. Quit with `:q` when you've seen enough.
 2. Pick a hint from the table below and work out which column number it points to.
-3. `grep` for that number and read the letters from top to bottom. If they spell an English phrase, you found one! If it's garbage letters, double-check your math and try again.
+3. `grep` for that number and read the letters from top to bottom. If they spell an English phrase, you found one! If it's garbage letters, try again.
    ```
    $ cat message.txt | grep 42
    ```
