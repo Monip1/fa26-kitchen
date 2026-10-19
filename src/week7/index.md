@@ -450,9 +450,9 @@ Word on the street is that Column 42 isn't the only column in `message.txt` hidi
 
 1. Open `message.txt` in Vim (`vim message.txt`) and scroll around. It's a wall of random capital letters, one per line. Quit with `:q!` when you've seen enough, so that nothing you typed by accident gets saved. If you think you changed `message.txt` by accident, run `git restore message.txt` to get the original back.
 2. Pick a hint from the table below and work out which column number it points to.
-3. `grep` for that number and read the letters from top to bottom. If they spell an English phrase, you found one! If it's garbage letters, try again.
+3. `grep` for that column number **inside square brackets**, then read the letters from top to bottom. If they spell an English phrase, you found one! If it's garbage letters, try again. The brackets matter: plain `grep 24` also matches column `124`, and the two columns' letters get mixed together. See the hint below the table for how to search for brackets.
    ```
-   $ cat message.txt | grep 42
+   $ cat message.txt | grep "\[42\]"
    ```
 4. Once you find a phrase, save those lines into a file called `grep.txt`. Use `>` for your **first** phrase, then `>>` for every phrase after that. Remember, `>` overwrites the file, so using it again will erase the phrases you already saved!
 5. Find **at least 5** phrases (42 doesn't count, since we already gave that one away). Feel free to find more if you'd like! `grep.txt` should contain **only** the lines for your phrases: don't include column 42, garbage columns, blank lines, or anything else, or the autograder will mark it wrong.
@@ -465,7 +465,7 @@ Word on the street is that Column 42 isn't the only column in `message.txt` hidi
 There are two kinds of hints:
 
 * **Columns 19 to 29:** Each hint is a bitwise expression on hexadecimal numbers. Work out the result, then convert it to decimal to get the column number.
-* **Columns 33 to 49:** Each hint describes a character. The column number is that character's ASCII value in decimal. Run `man ascii` in the terminal to see the ASCII table.
+* **Columns 33 and up:** Each hint describes a character. The column number is that character's ASCII value in decimal. Run `man ascii` in the terminal to see the ASCII table.
 
 Check off each hint as you find its phrase. The checkboxes are only for you to keep track: nobody else can see them, and they reset when you reload the page.
 
@@ -482,10 +482,11 @@ Check off each hint as you find its phrase. The checkboxes are only for you to k
 | The character that puts the "C" in CSV | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
 | The character that starts every absolute path (and every `//` comment) | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
 | The character `'1'` (careful: the character, not the number!) | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
+| The character that stands for your home directory | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
 
 <div class="note" data-title="Hint">
 
-The square brackets are special characters in grep, so to search for `[` and `]`, you must use the escape character. For example, if you wanted to search for `"[5]"`, you would use grep like so: `grep "\[5\]"`
+The square brackets are special characters in grep, so to search for `[` and `]`, you must use the escape character. For example, if you wanted to search for `"[42]"`, you would use grep like so: `grep "\[42\]"`
 
 </div>
 

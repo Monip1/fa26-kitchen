@@ -234,6 +234,13 @@
 .exercise::before,
 .owntime::before,
 .midterm::before {
+    /* undo mdBook's built-in .warning:before "ⓘ" badge (general.css) */
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    text-align: left;
+    background-color: transparent;
     display: block;
     font-size: 0.75em;
     font-weight: bold;
