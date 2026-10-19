@@ -1,676 +1,356 @@
-# Lab 7: Pipes and filters in UNIX
+# Lab 4: Finding memory errors with Valgrind
+In this lab, you'll use Valgrind, a memory error checker, to identify memory management mishaps in programs involving arrays and linked lists. Valgrind is ubiquitous in systems programming workflows, especially for programs written in C and C++. You'll find it valuable for PA 2 and onward, too\!
 
-<div class="note">
+## Lab 4 learning objectives
 
-You may find our solutions to Lab 6 in our [solutions repository](https://github.com/CSE29Spring2026/lab-answer-keys). For now, let's focus on lab 7.
+* Recognize the purpose of Valgrind in C programming
+* Interpret output from Valgrind for memory-related problems
+* Recognize Valgrind outputs for direct leaks, indirect leaks, use after free, and double free
+* Use Valgrind to guide memory error fixing
 
-</div>
-
-In this lab, you will get to know the commands `less` and `grep`, and experiment with input and
-output redirection.
-
-## Lab 7 learning objectives
-
-* Get more comfortable and efficient using the command line
-* Use `less` and `grep` to view and search through text files
-* Recognize and use pipe and redirection operators
+![Illustration of 2D arrays and linked lists in memory](./assets/l4_pointers_meme.png)
 
 # Icebreaker
 
-**Clone our [starter code](https://github.com/CSE29Spring2026/lab7-starter) into your account on `ieng6`.**
+If you could choose a superpower to have, what would it be? What would you do with it?
+Who’s your favorite superhero/villain, if you have any?
 
-Can you guess what part of campus each of these photos was taken? Work with your groupmates\! Google Maps is allowed\!
 
+<div class="note">
 
-<figure>
-    <img src="./assets/lab7_campus1.png" alt="Photo of muir field" width="500">
-    <img src="./assets/lab7_campus2.png" alt="Photo of sixth" width="500">
-    <img src="./assets/lab7_campus3.png" alt="Photo of Rady's" width="500">
-    <img src="./assets/lab7_campus4.png" alt="Photo of econ" width="500">
-</figure>
-
-<div class="important">
-
-Please write the answers on your whiteboard!
+Please write the answers on your whiteboard. No check-off is needed!
 
 </div>
 
-# Warmup: UNIX Golf
+Draw the memory diagram for the following 2D array on your whiteboard.
 
-<img src="./assets/indie_tree.png" alt="diagram for warmup directory" width="500">
+```c
+int ** arr = malloc (4*sizeof(int *));
+for(int i = 0; i < 4; i++){
+    arr[i] = malloc(3*sizeof(int));
+}
+for(int i = 0; i < 4; i++){
+    for(int j = 0; j < 3; j++){
+        arr[i][j] = j + 4*i;
+    }
+}
 
-Consider “surf” as our starting directory and start there (current pwd). Complete each task in as few keystrokes as possible. Write your answers on your whiteboard.
+```
 
-1. Travis listened to Noah Kahan before he was big (totally). Move Noah Kahan to the east_coast directory, and rename him to Noah_Kahan_2024.txt.
-2. Travis forgot to add Hozier! Add Hozier.txt to less_indie.
-3. Travis only likes like one or two song from Skeggs. Remove Skeggs.txt
+## Warm-up
+
+Draw the memory diagram for the following linked list on your whiteboard. These function calls are similar to your PA, but we have simplified it for this activity. Show the week, days, and the events of each day.
+```c
+   week_t finals = week_t("June 11th 2026 10am"); //7 days each week
+   add_event(&finals, "June 12th 2026 10am", "June 12th 2026 11am", "Study");
+   add_event(&finals, "June 12th 2026 12pm", "June 12th 2026 2pm", "Taco Bell");
+   add_event(&finals, "June 15th 2026 3pm", "June 15th 2026 6pm", "Larp");
+   remove_event(&finals, "Study");
+   add_event(&finals, "June 15th 2026 7pm", "June 15th 2026 8pm", "Talk to Claude");
+   add_event(&finals, "June 16th 2026 10am", "June 16th 2026 12pm", "Fail Exam");
+   add_event(&finals, "June 16th 2026 1pm", "June 16th 2026 2pm", "Cry");
+   add_event(&finals, "June 15th 2026 1pm", "June 15th 2026 2pm", "Love CSE29");
+   reschedule_event(&finals, "Cry", "June 16th 2026 1pm", "June 16th 2026 5pm");
+```
+<img src="./assets/linked_list.png" alt="whiteboard" width="800">
 
 <div class="quality">
 
-As you continue to use vim, you may want to consider tools to enhance your experience. Below are several options:
-
-Vundle -- a plugin manager for vim <https://github.com/vundlevim/vundle.vim>
-
-vimawesome -- a site with plugins you can add with the help of vundle <https://vimawesome.com/>
-
-These would take longer to customize so feel free to take a few minutes to look through these but do continue on without much delay.
+Before you get right into memory leaks and how to fix them, we have a quality of life improvement.
+Recall that in lab2 you made a pair of ssh keys to allow you to securely access github from your ieng6 account.
+There is another pair of keys we can make which give you the power to never have to type your password when signing into ieng6 again.
+The tutorial for this resides in the last lab: [here](./index#identify-yourself-to-ieng6).
 
 </div>
 
-# Searching and Filtering Program Output
+# Part 1: Help! My program leaks…
 
-In this lab, we’ll walk you through some helpful UNIX commands that are commonly used to save and filter program output.
-There are multiple ways to achieve the same result, and we’ll demonstrate advantages and disadvantages of each.
+Please clone the [GitHub repository](https://github.com/CSE29Spring2026/lab4-starter) for this lab's starter code onto `ieng6` in your `cse29` directory. It contains code for a few programs that leak memory, and in this lab, we'll use Valgrind to detect these leaks and help fix them. In this repository you will find a `Valgrind` directory, start here.
 
-In the starter code, you are given a `problem.c` source code file. This program creates a large 2D array, fills it with numbers, and prints them out.
-Fortunately, whoever wrote this was thoughtful enough to write code to check for an out-of-bounds error.
-Unfortunately, whoever wrote this was not thoughtful enough to debug the program.
-Fortunately, you don’t need to debug this program; we’re going to use this program as an example of how the following UNIX commands can be used to parse a lot of program output easily.
+Let's start with `leak.c`:
 
-Compile and run `problem` to see exactly what "a lot of program output" means.
-
-```
-$ make problem
-$ ./problem
-```
-Every so often there’s an error message, but it’s separated by all the expected program output. For programs with more errors and more output, you could imagine how we wouldn’t want to keep scrolling up the terminal to read. There are multiple ways in which we can filter out everything but the error messages.
-
-## Say Less
-
-In previous PAs, we’ve already used the *indirection* (`<`) and *redirection* (`>`) operators. These are used to feed input into a program, or redirect the output of a program into a file. Let’s first save the output of the program to a text file:
-
-```
-$ ./problem > problem.txt
+```bash
+$ gcc leak.c -g -Wall -o leak
 ```
 
-Redirection overwrites any content of the destination file with the output. There also exists the append (`>>`) operator, which works similarly to redirection, but appends the output to the end of the destination file instead of overwriting.
+Remember `-g` from last week? This flag instructs GCC to add debugging symbols to the compiled executable. These symbols enable GDB to look up and show your source code during debugging. They also enable Valgrind to show you line numbers in its error backtraces.
 
-```
-$ ./problem >> problem.txt
-```
+Take a moment to review `leak.c` and predict what it should print, then run `./leak`. Although running the program gives no visible errors, the program actually produced some memory leaks as a result of us not properly freeing the allocated memory. The *Valgrind* program allows us to see how much memory is still being used when the program exits, and therefore leaked. Like with GDB, you pass in the program to inspect as an argument to valgrind. 
 
-You can use `cat` to view the contents of the file, but this is no better than letting the program output directly to the terminal. Instead, we can say `less` to start a program to display a portion of the file and navigate freely through it. It’s like `cat`, but shows less at a time.
-
-```
-$ less problem.txt
+```bash
+$ valgrind ./leak
 ```
 
-<div class="note">
+We see a suggestion from valgrind to add `--leak-check=full` flag to instruct Valgrind to report the locations where leaked memory had been allocated:
 
-The `less` command succeeds the `more` command, which does the same thing but does not support backwards navigation. In this sense, `less` is like `more`, but also (as `man less` duly notes) `less` is the opposite of `more`.
+```bash
+$ valgrind --leak-check=full ./leak
+```
+
+Valgrind provides a “heap summary” of how much memory is still being used at exit, and a “leak summary” which details the different types of leaks that have occurred. When Valgrind reports anything in a leak summary, that means you have a memory leak! Memory leaks are especially harmful in long-running programs, where the amount of available memory gradually reduces over a long time, thereby also reducing the overall performance of the program or the computer in general.
+
+Because we supplied the `--leak-check=full` flag, Valgrind also printed the stack trace at the instant where each chunk of leaked memory was allocated. **You might be inclined to think that the problem lies around the line number it references, but this is usually not the case!** Valgrind is just pointing out where the leaked memory got allocated. You, the programmer, decide where it is supposed to be freed. Sometimes, the appropriate place for a `free` call can be far away from its `malloc` call in your source code.
+
+## Types of Memory Errors
+
+Unlike real life (plumbing) leaks, it's okay to leave the (memory) leak in `leak.c` alone for now; we'll come back to it later.
+
+Memory leaks are especially harmful in long-running programs, where the amount of available memory gradually reduces over a long time, thereby also reducing the overall performance of the program or the computer in general.
+
+In `memory_errors.c`, we demonstrate some common situations in which memory errors can occur. Rather than manually writing the compilation command, we've provided a Makefile for you to use. This will be helpful since we have quite a few files to compile in this lab. To compile a program, use the `make` command followed by the name of the file to compile without the `.c` suffix. For example, to compile `memory_errors.c` into the `memory_errors` binary file, use this command:
+```bash
+$ make memory_errors
+```
+
+In order to see more details of the leaked memory, make sure to add the `--leak-check=full` flag.
+
+```bash
+$ valgrind --leak-check=full ./memory_errors
+```
+With this flag, the Valgrind heap summary will also report the locations where leaked memory had been allocated, since we compiled the program with the `-g` flag.
+
+Let's go over each function in `memory_errors.c` in more detail, and fix each of them:
+- `memory_leak()`: In general, memory leaks occur when we allocate memory and do not free the memory before the program exits. Here, we fix the memory leak by calling `free()` on the pointer returned by `malloc()` which points to the allocated memory.
+- `free_after_set()`: In this case, we lose the pointer to the allocated memory when we set it to `NULL`, therefore calling `free(p)` does not do anything. In general, we consider it good practice to set a freed pointer to `NULL`, but it actually needs to be freed first! We can fix this by making sure to call `free()` on the pointer before setting the pointer to `NULL`, instead of after.
+- `double_free()`: This one isn't actually a memory leak, but it's an error that can occur with improper usage of `free()`, which is why it's here. Calling `free()` on a pointer that has already been freed is considered undefined behavior, meaning that it should not be expected to work properly. This program gives you a really messy memory error when you try to run it. Valgrind will also report an "invalid free" error above the heap summary. In this case, it's apparent why the double free error occurs and how to fix it, but in other cases it may be more obscure.
+- `reuse_freed()`: Also not a memory leak, but a case in which we try to access memory that was already freed. Valgrind reports this error as an "invalid write" above the heap summary. Again, it's good practice to set a freed pointer to `NULL` immediately after it's been freed.
+- `double_malloc()`: This can accidentally occur when you intend to allocate two blocks of memory to be used one after the other with the same pointer, but forget to free the first block. What should be done here to fix this leak?
+
+<div class="owntime">
+
+Once you've implemented the fixes, compile and re-run the program with Valgrind to confirm that there are no longer any memory leaks or errors. It should report that "all heap blocks were freed -- no leaks are possible". Yippee! Although if there are still memory leaks/errors, try again, then yippee.
 
 </div>
 
-The one subcommand you need to know is to type `h` while in this program to display a list of subcommands. Some especially helpful subcommands include `q` to quit and `f`/`b` to move forward/backward one window. You may also notice that you can use `j` and `k` to move forward or backward by one line, just like in Vim. The subcommand we want to use to filter out all lines that do not have an error is to type "&" followed by the word "error", then press Enter. `less` will insert a slash ("/") in between to indicate that what follows is a pattern to match. This method of filtering is convenient if you don’t want to clutter the terminal interface, but requires that the output exists in a file already.
+## Types of Memory Leaks
+
+You might have noticed in the leak summary of Valgrind that there are different types of memory leaks. The distinction between these leaks isn't too important for our purposes, but may help you identify how leaks are happening in a more complex program.
+
+In `leak_types.c`, we demonstrate each of the different types in separate functions. There's no need to fix these leaks; just compile and run Valgrind on the program to see how Valgrind reports different types.
+```bash
+$ make leak_types
+$ valgrind --leak-check=full ./leak_types
+```
+Notice how the heap summary gives you information on where each memory error occurs. Inspect the source code to see how each type is caused.
+
+- Definitely lost: Besides myself, memory leaks are also considered "definitely lost" when the pointer to the memory becomes inaccessible. This can happen when the pointer is deleted when a function ends and its stack frame is deleted, or when the pointer is set to another value.
+- Indirectly lost: Blocks of memory are considered "indirectly lost" when there exists a pointer in another leaked memory to the block. In this case, the memory pointed to by `pp` (i.e. `*pp`) is definitely lost, and the memory pointed to by `*pp` (i.e. `**pp`) is indirectly lost.
+- Possibly lost: "Possibly lost" memory leaks occur when we have a pointer to some part of the leaked memory, but not to the base of the memory block, likely because the pointer was modified. In this case, we allocate an array of integers, then move the pointer to point to the middle of the array.
+- Still reachable: Memory leaks are "still reachable" when the pointer is not lost when program exits, but the memory is still unfreed. This can occur when a global variable contains a pointer to leaked memory.
+- Suppressed: Users can specify the flag `--suppressions=<filename>` to Valgrind to intentionally ignore leaks that are known to be harmless or unavoidable. If you want to learn how to use this flag, you can check out this [StackOverflow post](https://stackoverflow.com/questions/13692890/suppress-potential-memory-leak-in-valgrind), although in our (at least one old tutor and at least one old TA) experience this flag is seldom used, if at all.
+
+## Valgrind on Arrays
+
+Now let’s put what you’ve learned into practice. In the lab repository, `leak.c` and `losing_track.c` have memory leaks. Try to identify and fix the problems in each program. Feel free to work with those around you\!
+
+In `leak.c`, there is a function that performs matrix addition on two 2D arrays. While the functionality may appear correct, a run of valgrind will tell you that memory isn’t freed properly. For reference, here is a diagram of how matrix addition works:
+
+![Matrix addition visualization](./assets/l4matrix_addition.png)
 
 <div class="checkoff">
 
-Once you have filtered the lines in `problem.txt` such that only the "error" lines remain, as a team, interpret the error and explain it to a tutor or TA.
+Please check in with your teammates to make sure everyone understands `leak.c` and it's problem and solution. If you have any questions now is a good time to ask a staff member as a group for any clarifications.
 
 </div>
 
-## Search with `grep`
+In `losing_track.c`, there is a function that returns the lower-cased version of the [query string](https://en.wikipedia.org/wiki/Query_string) of a url **without modifying the original string**. This is the portion after the question mark in http urls that are often used to specify parameters for a website. We want to return this portion without modifying the original URL. Like previously mentioned, this function appears to work properly, but does not manage memory properly. This error is particularly nasty because this implementation **loses track** of its allocated memory. Let's take a deeper look into what this means. 
 
-The `grep` command is most commonly used to search for lines of a file that match some string. `grep` takes in two arguments: the "pattern" to match, and a file to read from.
+When we first initialize `query`, we point to the beginning of the string, and therefore have access to our whole chunk of memory. Our memory looks like this:
 
-```
-$ grep error problem.txt
-```
+![image](./assets/l4_query.png)
 
-This command directly outputs to the terminal, which can be acceptable if you expect the output to be short, and helpful if you don’t want to run the search as a subcommand within another program, as with `less`.
 
-Try practicing filtering file contents with `message.txt`, using either `less` or `grep`. This file contains the output of another command, which created a large array, assigned random capital character values, and printed it out. For some strange reason, the output shows that some characters were written way out of bounds at column index 42, but it’s hard to tell what’s happened when each line is separated by all the other output. Use `less` or `grep` to search for all lines that contain the string "42". Are you [surprised](https://www.youtube.com/watch?v=dQw4w9WgXcQ) by what you find?
+However, after we convert the string to lower case, use `ptr` to traverse through the string, and return `ptr`, we no longer have access to the beginning of the string, and therefore can't free the chunk of memory!
 
-# Flow Like Water
+![image](./assets/l4_query2.png)
 
-## Piping
+<div class="exercise">
 
-Both of these methods require you to create a file which contains the output of a file. This is generally pretty easy to do, but can be undesirable if you have a lot of output that you don’t want to be saved into a really large file (or are indecisive about naming files). The solution to circumvent this is to use *pipes*.
-
-~~Within industry, piping is a system of pipes used to convey fluids (liquids and gases) from one location to another.~~ Within UNIX, the pipe operator (`|`) is used to directly feed output from one program as input into another program. We can pipe directly from the `problem` program into either `less` or `grep` to accomplish the same result as running these commands on the `problem.txt` file.
-
-```
-$ ./problem | less
-$ ./problem | grep error
-```
-
-We can compound indirection, redirection, and pipe operators to create helpful commands. Understanding how these operators work in conjunction with each other can be understood as an analogy to actual pipes, rendered below as cool animations.
-
-By default, print statements in programs output directly to the terminal interface. So this command:
-
-```
-$ ./problem
-```
-
-looks like this:
-
-<div class="flowchart">
-    <div class="program">
-        ./problem
-    </div>
-    <div class="flow-to-terminal">
-        <div class="text-flow">
-            <span>arr[0][0] = 0</span>
-            <span>arr[0][1] = 1</span>
-            <span>arr[0][2] = 2</span>
-            <span>arr[0][3] = 3</span>
-            <span>arr[0][4] = 4</span>
-            <span>arr[0][5] = 5</span>
-        </div>
-    </div>
-    <div class="terminal">
-        Terminal
-    </div>
-</div>
-
-By using the redirection operator, we install an elbow pipe to redirect the flow of output into a file. The output no longer flows into the terminal.
-
-```
-$ ./problem > problem.txt
-```
-
-<div class="flowchart">
-    <div class="program">
-        ./problem
-    </div>
-    <div class="redirect">
-        <div class="text-flow">
-            <span>arr[0][0] = 0</span>
-            <span>arr[0][1] = 1</span>
-            <span>arr[0][2] = 2</span>
-            <span>arr[0][3] = 3</span>
-            <span>arr[0][4] = 4</span>
-            <span>arr[0][5] = 5</span>
-        </div>
-    </div>
-    <div class="file">
-        <div class="text">problem.txt</div>
-        <div class="folded-corner"></div>
-    </div>
-    <div class="terminal" style="margin-left: 2rem">
-        Terminal
-    </div>
-</div>
-
-By using the pipe operator, we install a coupling between the output and input of two programs. Without any other pipes at the end, the
-output of the second program flow into the terminal.
-
-```
-$ ./problem | grep error
-```
-
-<div class="flowchart">
-    <div class="program">
-        ./problem
-    </div>
-    <div class="pipe">
-        <div class="text-flow">
-            <span>arr[0][0] = 0</span>
-            <span>arr[0][1] = 1</span>
-            <span>arr[0][2] = 2</span>
-            <span>arr[0][3] = 3</span>
-            <span>arr[0][4] = 4</span>
-            <span>arr[0][5] = 5</span>
-        </div>
-    </div>
-    <div class="program">
-        <div class="text">grep error</div>
-    </div>
-    <div class="flow-to-terminal">
-        <div class="text-flow">
-            <span>error: arr[0][50] out of bounds</span>
-            <span>error: arr[1][50] out of bounds</span>
-            <span>error: arr[2][50] out of bounds</span>
-        </div>
-    </div>
-    <div class="terminal">
-        Terminal
-    </div>
-</div>
-
-By using both piping and redirection, we can chain multiple commands and file writing actions. In this command, we run the `problem` program, filter its output with `grep`, and output the filtered lines into a file. This file now contains the error messages from `problem`, and can serve as an error log. Does this output to the terminal as well?
-
-```
-$ ./problem | grep error > errors.txt
-```
-
-<div class="flowchart">
-    <div class="program">
-        ./problem
-    </div>
-    <div class="pipe">
-        <div class="text-flow">
-            <span>arr[0][0] = 0</span>
-            <span>arr[0][1] = 1</span>
-            <span>arr[0][2] = 2</span>
-            <span>arr[0][3] = 3</span>
-            <span>arr[0][4] = 4</span>
-            <span>arr[0][5] = 5</span>
-        </div>
-    </div>
-    <div class="program">
-        <div class="text">grep error</div>
-    </div>
-    <div class="redirect">
-        <div class="text-flow">
-            <span>error: arr[0][50] out of bounds</span>
-            <span>error: arr[1][50] out of bounds</span>
-            <span>error: arr[2][50] out of bounds</span>
-        </div>
-    </div>
-    <div class="file">
-        <div class="text">errors.txt</div>
-        <div class="folded-corner"></div>
-    </div>
-    <div class="terminal" style="margin-left: 30px">
-        Terminal
-    </div>
-</div>
-
-## Having some `tee` and drinking it, too
-
-Redirection lets us write to a file. Not having redirection lets us directly see the output in the terminal. Why don’t we have both?
-
-By using the `tee` command, we can simultaneously write output to a file and and continue flowing data rightward, usually to the terminal. `tee` is a command, not an operator like redirection and piping, so we must pipe into `tee` first. `tee` takes a filename as an argument, which it outputs to.
-
-```
-$ ./problem | tee problem.txt
-```
-
-<div class="flowchart">
-    <div class="program">
-        ./problem
-    </div>
-    <div class="pipe">
-        <div class="text-flow">
-            <span>arr[0][0] = 0</span>
-            <span>arr[0][1] = 1</span>
-            <span>arr[0][2] = 2</span>
-            <span>arr[0][3] = 3</span>
-            <span>arr[0][4] = 4</span>
-            <span>arr[0][5] = 5</span>
-        </div>
-    </div>
-    <div>
-        <div class="program" style="height: 140px">
-            <div class="text">tee problem.txt</div>
-        </div>
-    </div>
-    <div>
-        <div class="flowchart" style="margin-bottom: 5px">
-            <div class="write">
-                <div class="text-flow">
-                    <span>arr[0][0] = 0</span>
-                    <span>arr[0][1] = 1</span>
-                    <span>arr[0][2] = 2</span>
-                    <span>arr[0][3] = 3</span>
-                    <span>arr[0][4] = 4</span>
-                    <span>arr[0][5] = 5</span>
-                </div>
-            </div>
-            <div class="file">
-                <div class="text">problem.txt</div>
-                <div class="folded-corner"></div>
-            </div>
-        </div>
-        <div class="flowchart">
-            <div class="flow-to-terminal">
-                <div class="text-flow">
-                    <span>arr[0][0] = 0</span>
-                    <span>arr[0][1] = 1</span>
-                    <span>arr[0][2] = 2</span>
-                    <span>arr[0][3] = 3</span>
-                    <span>arr[0][4] = 4</span>
-                    <span>arr[0][5] = 5</span>
-                </div>
-            </div>
-            <div class="terminal">
-                Terminal
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="note">
-
-The tee command shares its name with the tee pipe in plumbing. Ironically, tee is not rendered as a tee pipe in this analogy. Did we really research plumbing terminology for this lab writeup? Yes.
+Describe the problem and how you would fix it. Work with your teammates and write this on your whiteboard. 
+Do leave yourself space to add 2 more similar descriptions and fixes.
 
 </div>
 
-We can continue to construct longer pipe systems to feed output through multiple commands. This command runs `problem`, filters its output with `grep`, then outputs to both a file and the terminal.
+<div class="owntime">
 
-```
-$ ./problem | grep error | tee errors.txt
-```
+Given time, you may implement the solution and check your work however implementing your solution is **OPTIONAL**. If you would like to implement your your solution, note that given this is a very involved change, **please** modify the method as much as you like!
 
-<div class="flowchart">
-    <div class="program">
-        ./problem
-    </div>
-    <div class="pipe">
-        <div class="text-flow">
-            <span>arr[0][0] = 0</span>
-            <span>arr[0][1] = 1</span>
-            <span>arr[0][2] = 2</span>
-            <span>arr[0][3] = 3</span>
-            <span>arr[0][4] = 4</span>
-            <span>arr[0][5] = 5</span>
-        </div>
-    </div>
-    <div class="program">
-        <div class="text">grep error</div>
-    </div>
-    <div class="pipe">
-        <div class="text-flow">
-            <span>error: arr[0][50] out of bounds</span>
-            <span>error: arr[1][50] out of bounds</span>
-            <span>error: arr[2][50] out of bounds</span>
-        </div>
-    </div>
-    <div>
-        <div class="program" style="height: 140px">
-            <div class="text">tee errors.txt</div>
-        </div>
-    </div>
-    <div>
-        <div class="flowchart" style="margin-bottom: 5px">
-            <div class="write">
-                <div class="text-flow">
-                    <span>error: arr[0][50] out of bounds</span>
-                    <span>error: arr[1][50] out of bounds</span>
-                    <span>error: arr[2][50] out of bounds</span>
-                </div>
-            </div>
-            <div class="file">
-                <div class="text">errors.txt</div>
-                <div class="folded-corner"></div>
-            </div>
-        </div>
-        <div class="flowchart">
-            <div class="flow-to-terminal">
-                <div class="text-flow">
-                    <span>error: arr[0][50] out of bounds</span>
-                    <span>error: arr[1][50] out of bounds</span>
-                    <span>error: arr[2][50] out of bounds</span>
-                </div>
-            </div>
-            <div class="terminal">
-                Terminal
-            </div>
-        </div>
-    </div>
-</div>
-
-In the starter code, we've given you a compiled `select` program and `lotr.txt`. We use this command to select specific columns from an input file that is in the form of a `csv`, which stands for **c**omma **s**eparated **v**alues and is commonly used for things like spreadsheets. `select`'s first argument is how many columns are in the provided `csv` and the following numbers are which columns it will print:
-
-```
-$ ./select -c 4 1 2 4 < lotr.txt
-```
-Notice that the indirection operator (`<`) goes after the command, rather than before it. While it would be very convenient for us to imagine data flowing from left to right, UNIX requires that the first word be a command or executable. So we comply and pretend that the input flows from right to left initially, then continues rightward into any redirects or pipes.
-
-By using redirection and piping in conjunction with the `select` program we've developed previously, we can extend the abilities of program to not only print out a CSV file, but also to create new CSV files and files with rows that match some condition. Try using redirection and piping in addition to the example command above to achieve these results:
-- Save the output to a file named `select_lotr.txt`
-- Filter the output to rows that correspond to hobbits (i.e. lines that contain the string "Hobbit") and save this filtered output to a file named `hobbit_weapons.txt`. Optionally, also print out the filtered output to the terminal.
-- Could you do both of the above in all one command?
-
-## Output Streams
-
-In the examples above, we use redirection and piping to manipulate the *standard output* (`stdout`) of a program. By default, `printf()` outputs to this `stdout` stream, which we illustrate above. What these diagrams do not show (and will not show, please don’t make me try drawing this) is that there actually exists another output stream for *standard error* (`stderr`).
-
-To use `stderr`, we use an alternative to `printf()`, `fprintf()`, and specify that it should output to the `stderr` stream. In `problem.c`, this line is given to you and commented out. Uncomment this line, and comment the line above (the original print statement). Recompile and run the program.
-
-```
-$ make problem
-$ ./problem
-```
-
-The output looks the same as before. The default destination for both `stdout` and `stderr` streams is the terminal, but this can be redirected. Try redirecting output to `problem.txt` as we did before. What’s different this time?
-
-```
-$ ./problem > problem.txt
-```
-
-By default, redirection only operates on `stdout`, leaving `stderr` to continue to output to the terminal. We modify the redirection to operate only on `stderr`, leaving `stdout` in the terminal:
-
-```
-$ ./problem 2> errors.txt
-```
-
-UNIX uses `1>` implicitly as the default redirection operator when we just use `>`. We can read this as "redirect to the stream with file descriptor 1", where the stream with file descriptor 1 is `stdout`.
-
-We can also use two redirections in conjunction with each other to redirect different streams to different files in one command.
-
-```
-$ ./problem > problem.txt 2> errors.txt
-```
-
-<div class="gradescope">
-
-Word on the street is that Column 42 isn't the only column in `message.txt` hiding a secret. Time to go find more secrets!
-
-1. Open `message.txt` in Vim (`vim message.txt`) and scroll around. It's a wall of random capital letters, one per line. Quit with `:q!` when you've seen enough, so that nothing you typed by accident gets saved. If you think you changed `message.txt` by accident, run `git restore message.txt` to get the original back.
-2. Pick a hint from the table below and work out which column number it points to.
-3. `grep` for that number and read the letters from top to bottom. If they spell an English phrase, you found one! If it's garbage letters, try again.
-   ```
-   $ cat message.txt | grep 42
-   ```
-4. Once you find a phrase, save those lines into a file called `grep.txt`. Use `>` for your **first** phrase, then `>>` for every phrase after that. Remember, `>` overwrites the file, so using it again will erase the phrases you already saved!
-5. Find **at least 5** phrases (42 doesn't count, since we already gave that one away). Feel free to find more if you'd like! `grep.txt` should contain **only** the lines for your phrases: don't include column 42, garbage columns, blank lines, or anything else, or the autograder will mark it wrong.
-6. Run `cat grep.txt` to make sure all of your phrases made it in and nothing else snuck in, then submit `grep.txt` to Lab 4 on Gradescope.
+*HINT: the problem of the current implementation is that in the string we return, we don't keep track of the beginning of the string. How can you change this code so that the string we return has its pointer pointing to the beginning?*
 
 </div>
 
-### Hints
 
-There are two kinds of hints:
+## Valgrind on Linked Lists
 
-* **Columns 19 to 29:** Each hint is a bitwise expression on hexadecimal numbers. Work out the result, then convert it to decimal to get the column number.
-* **Columns 33 to 49:** Each hint describes a character. The column number is that character's ASCII value in decimal. Run `man ascii` in the terminal to see the ASCII table.
+As we prepare for PA 2, let's see how Valgrind can help us discover memory problems surrounding linked list implementations. **Compile `list.c` and run it with Valgrind using the same flags from above.** In this case, it should report that 32 bytes of memory have been leaked. Follow the stack trace shown by Valgrind to contextualize yourself with the "story" of the lifetime of this chunk of memory. When did it get allocated? When do you think it should've been freed? How can you fix it?
 
-Check off each hint as you find its phrase. The checkboxes are only for you to keep track: nobody else can see them, and they reset when you reload the page.
+A common misconception is that we can free memory by redirecting pointers to that memory to NULL, the null pointer. You can draw a memory diagram to see that this won't actually free that memory. Edit `list.c` so that the `main` function calls `free_list` instead of setting `ourlist` to `NULL`. Did this fix the leak?
 
-| Hint | Found it? |
-|------|:---------:|
-| `0x10 \| 0x03` | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
-| `0x1F & 0x36` | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
-| `0x03 << 3` | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
-| `0x0F ^ 0x15` | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
-| `0x3A >> 1` | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
-| The C operator that turns `true` into `false` | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
-| The character that starts every `#include` | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
-| The operator that gives you a variable's address | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
-| The character that puts the "C" in CSV | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
-| The character that starts every absolute path (and every `//` comment) | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
-| The character `'1'` (careful: the character, not the number!) | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
+Once you recompile and re-run with Valgrind, you should see a different error: `Invalid read of size 8`. This time around, Valgrind has a richer story to tell about this chunk of memory. Read the series of backtraces from the bottom line upward to see the events that took place in chronological order along with where they were triggered. Use this story to help understand the nature of the memory problem and figure out how to fix it. You can also pull out GDB if you'd like.
 
-<div class="note" data-title="Hint">
+<div class="exercise">
 
-The square brackets are special characters in grep, so to search for `[` and `]`, you must use the escape character. For example, if you wanted to search for `"[5]"`, you would use grep like so: `grep "\[5\]"`
+Once you fix this error, re-compile and re-run the `list` program with Valgrind, and make sure that Valgrind reports no errors and that "no leaks are possible". Add the problem and solution to the whiteboard.
 
 </div>
 
-<style>
-    .flowchart {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
+This is an example of "**use after free**", accessing a chunk of memory after you have freed it. The program might still have worked prior to your most recent fix, but because it accessed and relied on data inside a chunk of memory after it was freed, the program was subject to *undefined behavior*—it could crash, corrupt other memory it owns, or do whatever it wants! Thankfully, Valgrind can detect most instances of undefined behavior and help you eliminate it.
 
-    .program {
-        padding: 16px;
-        border-radius: 6px;
-        background-color: #444;
-        border: 2px solid #000;
-        color: #fff;
-        position: relative;
-        text-align: center;
-        font-size: 16px;
-        font-weight: bold;
-        font-family: monospace;
-        display: flex;
-        align-items: center;
-    }
+"**Double free**" is a specific kind of "use after free" where a program tries to free a chunk of memory that has previously been freed. Let's see how Valgrind reports instances of "double free". Duplicate the call to `free_list` in `main`, and recompile and rerun it with Valgrind.
 
-    .terminal {
-        padding: 2px 40px 40px 2px;
-        border: 2px solid #333;
-        background-color: #ddd;
-        font-size: 16px;
-        font-family: monospace;
-    }
+In addition to `Invalid read of size 8`, where `free_list` attempts to access the `next` member of a freed node, Valgrind also reports `Invalid free() / delete / delete[] / realloc()` arising from the first `free()` call inside `free_list`. Now you know!
 
-    .file {
-        padding: 20px;
-        border: 2px solid #333;
-        background-color: #c8bfa6;
-        position: relative;
-        text-align: center;
-        font-size: 16px;
-        font-weight: bold;
-        font-family: monospace;
-        clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 14px, calc(100% - 14px) 0);
-    }
+## Valgrind and uninitialized values
 
-    .folded-corner {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 10px;
-        height: 10px;
-        background-color: #333;
-        clip-path: polygon(0 0, 0 100%, 100% 100%);
-        z-index: 1;
-    }
+Another source of undefined behavior is reading from uninitialized memory. Valgrind can detect this, too! **Compile `writesong.c` using the same flags as above, but now, run Valgrind with the following:**
 
-    .folded-corner::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 50px;
-        height: 50px;
-        background-color: #fff;
-        clip-path: polygon(0 0, 0 100%, 100% 100%);
-        transform: translate(-5px, 5px);
-        z-index: 2;
-    }
+```
+$ valgrind --track-origins=yes ./writesong
+```
 
-    .pipe {
-        width: 180px;
-        height: 42px;
-        background-color: #333;
-        overflow: hidden;
-        position: relative;
-        color: #fff;
-    }
+The program should write a simple song to `mysong.txt` using file I/O operations you will also encounter in PA 2. However, Valgrind reports several instances of "Conditional jump or move depends on uninitialised value(s)" and "Use of uninitialised value", and because we included the `--track-origins=yes` flag, it shows us where each uninitialized value was declared. The reports seem to repeat, indicating that an uninitialized value was used in a loop. Read the contents of `writesong.c` to figure out the problematic variable and initialize it properly. Verify that Valgrind no longer reports these errors when you run the program.
 
-    .pipe::after {
-        content: "pipe";
-        position: absolute;
-        bottom: 0;
-        left: 4px;
-        color: #bbb;
-    }
+<div class="exercise">
 
-    .flow-to-terminal {
-        width: 180px;
-        height: 32px;
-        background-color: #ddd;
-        overflow: hidden;
-        position: relative;
-        display: flex;
-        align-items: center;
-    }
+You should now be able to tell if you've fixed the memory problem on your own! Add the problem identified and how you fixed it to your whiteboard.
 
-    .redirect {
-        width: 180px;
-        height: 42px;
-        background-color: #655d46;
-        overflow: hidden;
-        position: relative;
-        color: #fff;
-    }
+</div>
 
-    .redirect::after {
-        content: "redirection";
-        position: absolute;
-        bottom: 0;
-        left: 4px;
-        color: #bbb;
-    }
+<div class="checkoff">
 
-    .write {
-        width: 180px;
-        height: 42px;
-        background-color: #655d46;
-        overflow: hidden;
-        position: relative;
-        color: #fff;
-    }
+Make sure to call over a staff member to go over your plan for how to fix the memory leak in `losing_track.c`, `list.c`, and `writesong.c` that are on your whiteboard.
 
-    .write::after {
-        content: "direct file I/O";
-        position: absolute;
-        bottom: 0;
-        left: 4px;
-        color: #bbb;
-    }
+</div>
 
-    .found-check {
-        appearance: none;
-        -webkit-appearance: none;
-        width: 22px;
-        height: 22px;
-        margin: 0;
-        border: 2px solid var(--links, #4183c4);
-        border-radius: 4px;
-        background-color: transparent;
-        cursor: pointer;
-        display: inline-grid;
-        place-content: center;
-        vertical-align: middle;
-        transition: background-color 0.15s, transform 0.1s;
-    }
+As we have seen, Valgrind is useful for discovering memory bugs in your program. This will be especially useful in PA 2, where you will be graded on proper memory management as you query and sort your linked list and array. Alongside Valgrind, we cannot understate the usefulness of **drawing memory diagrams** in helping you reason about memory management and fix memory issues, especially for linked lists. They make memory management much more intuitive, so embrace them!
 
-    .found-check:hover {
-        transform: scale(1.1);
-    }
 
-    .found-check:checked {
-        background-color: var(--links, #4183c4);
-    }
+# Part 2: Exposing bugs via automated testing
 
-    .found-check:checked::after {
-        content: "\2713";
-        color: var(--bg, #fff);
-        font-size: 16px;
-        font-weight: bold;
-        line-height: 1;
-    }
+In this section, you will put your GDB and Valgrind skills into practice by finding and fixing bugs in an aviation-themed linked list program. You'll also learn to write unit tests using assert statements to expose bugs. We hope that our introduction to testing helps you with writing your own tests in PA 2\!
 
-    .found-check:focus-visible {
-        outline: 2px solid var(--links, #4183c4);
-        outline-offset: 2px;
-    }
 
-    .text-flow {
-        position: absolute;
-        white-space: nowrap;
-        font-size: 16px;
-        font-family: monospace;
-        animation: flow 15s linear infinite;
-        display: flex;
-        flex-direction: row-reverse;
-        gap: 2rem;
-    }
+## Negative, tester, the pattern is full…
 
-    @keyframes flow {
-        0% {
-            transform: translateX(-100%);
-        }
-        100% {
-            left: 100%;
-        }
-    }
+You will be testing some bad implementations of some common linked list functions and finding out what’s wrong with them. Some of these implementations have memory leaks, others may be logically incorrect, and some of them just straight-up crash on certain inputs. It’s up to you to use all the tools in your debugging arsenal and all the knowledge you’ve gained to pick out the exact problem(s). Head to the `Testing` directory which is adjacent to `Valgrind`. Check out the `flights.c` file to take a look at the code you’ll be critiquing.
 
-</style>
+We will stick to the following step-by-step process to remove defects from this file:
+
+1. Write tests that *expose* an existing bug by failing, which can take the form of:
+   1. An "Assertion failed" message
+   2. Memory errors when the test is executed with Valgrind
+   3. A program that never terminates
+2. Use Valgrind and GDB to inspect how the tests failed
+3. Implement a fix such that the tests pass
+
+## Bad Free Path
+
+Our recent lectures have mentioned the `assert` function. Given some argument `arg`, it checks if `arg` is true. If true (nonzero), it returns normally, and the code after the call to `assert` proceeds. If false (zero), it crashes the program immediately with an error message that includes the line number of the failing call to `assert`. While we can use the `assert` function to verify assumptions in linked list procedures, it is also essential in automated tests. `assert` function calls in automated tests check for an expected outcome. For example, a test may conceptually sound like:
+
+> If I create an empty list, and I then call `add_item_front` on this list with `5`, then (I assert that) the list should now contain one node with `data` equal to `5`.
+
+Let's start with `bad_free_path_1`. Around line 101 in `flights.c`, we have written an example test for you. Compile `flights.c` with the `-g` flag, and run it with Valgrind. Identify and make your fixes to make our test pass with no errors from Valgrind. Feel free to write more tests to check more cases.
+
+**💡 Drawing diagrams is very useful for wrapping your head around linked lists. If you're stuck, draw a diagram! There's a reason why almost every staff member relies on a drawing of nodes and connections when explaining linked list operations.**
+
+
+
+<div class="owntime">
+
+**Test-First Development**
+<br>*Feel free to skip this note and come back to it later.*
+
+Most programming courses in higher education adopt a "Test-Last" approach, where we first write the implementation and then write tests to verify its correctness. What if we flip this order? The Agile programming community has advocated for *Test-First Development* (TFD), where whenever we want to develop a new feature, we first write tests (that would obviously fail), and we then write the implementation with the goal of making the tests pass. While this sounds counter-intuitive, following it in a disciplined manner has several benefits for software engineering:
+
+1. TFD promotes high *test coverage*, meaning tests exercise many (if not all) parts of your implementation code
+2. TFD encourages you to *refactor* your code, i.e., restructure it for performance, maintainability, etc. without worrying that you might break something because you can easily find out by running your tests
+3. Some argue that TFD makes programming more fun and rewarding. Writing a test is like giving yourself a challenge, and seeing it pass for the first time is gratifying. On the other hand, writing tests last can seem like a chore.
+
+However, TFD is criticized for its counter-intuitiveness, repeated context switching between testing and implementing, and being unsuitable for input/output applications. While we are not in a position to officially recommend Test-First Development, we want you to try it with your next PA and see if you like it.
+
+</div>
+
+Now that we have seen how an assert works for writing a few test cases and catching bugs, we shall write our own. We have given you 2 broken functions, `bad_remove_element` and `bad_insert_element_at_pos`.
+
+## Bad Remove Element
+
+There are 2 problems with `bad_remove_element` in `flights.c`. One will be caught by Valgrind, and the other we will have to find using asserts. Write assert statements to test this function, including one which should fail. Some test cases we usually want to consider when dealing with lists are what happens at the beginning, the end, and somewhere in between. Here's an example test you could write:
+
+1. Create a path LAX→SFO→PDX
+2. Use `bad_remove_element` to remove the first item, LAX
+3. Assert that the first item of the list is now SFO
+4. Assert that the second item of the list is now PDX
+
+
+Now that we have successfully found in which case the program does not give us the desired behavior, it is easier to pinpoint where in the code there is a problem. For the second problem, keep in mind that for every `malloc` there must also be a `free` and vice versa. Use this to help you fix the function.
+
+
+## Bad Insert Element
+
+At this point, you are probably getting bored of the uninspired section names. What we hope you haven’t gotten bored of is writing tests, because that is what you will be doing yet again.
+
+The `bad_insert_element_at_pos` function takes in a `path`, the name of a new airport `name`, and an `int pos`. It should insert a new airport with the given name, into the path, at the given position. For example, if we are given the path LAX→TPE→PEK, and we pass in “SIN” for the name, and 1 as the pos, we would expect the path to become LAX→SIN→TPE→PEK. Note that the index of SIN is now 1\. If `pos` is equal to 0, the function should update the value of `*path` to communicate the address of the new first node to the function caller. For another example, starting with LAX→TPE→PEK, and passing in 3 as the pos, and “HND” for the name, we would expect LAX→TPE→PEK→HND.
+
+Use these examples to help you write tests that expose the bugs in `bad_insert_element_at_pos`.
+
+
+After finding the bug, now you should be able to debug the code and implement a working solution.
+
+# Next steps
+
+If you finish with the lab content above you may any do the following:
+* Go back to the "On your own time!" sections and do them.
+* Continue reading and work on the buffer overflow task that was also available last week. Surprise! it was a lab5 preview all along.
+* Work on PA2
+
+
+# Lab 5 Preview: Hacking
+## 5.1. Background
+
+Imagine that you're a less ethical student than I'm sure you actually are. You
+overhear from some other students in lab that there's a binary available on the
+pi-cluster that can show you your grades on assignments before we formally
+release them. You hear quieter whispers that someone found a way to use it to
+_change_ their grade. Given our less-than-ethical assumption about your state
+of mind, you might be tempted to exploit this for yourself.  
+
+## 5.2. The Plot Thickens
+
+You see some code open on the professor's laptop during office hours.  You do
+your best to commit it to memory and write it down (remember, you're acting
+quite unethically in this story), because it strikes you that the code was
+something regarding assignment scores.  
+![gradebook source code](./assets/gradebook_src.png)
+
+Using this information, you decide to give yourself and A with a score 
+to match while maintaining a real due date.  
+**HINT**
+When important values are adjacent on the stack, overflowing an array with
+values that you control can let you assign into other stack-allocated values.
+
+
+GDB commands that may be useful for this activity:
+
+-   `(gdb) info locals`
+
+-   `(gdb) info args`
+
+-   `(gdb) print VALUE (or p VALUE)` You can print any variable or expression, e.g.
+
+-   `print x`, `p arr[5]`, `p ((x & 0b1111) << 3)`
+
+-   You can also specify a format to print in
+
+-   `print/t` (binary), `print/x` (hex), `print/d` (decimal)
+
+-   `(gdb) x ADDRESS` This prints out memory at an address, e.g. strings / arrays / pointers
+
+-   `(gdb) x/16cb str1` This prints the first 16 bytes of `str1` as characters
+
+-   `(gdb) x/20xb str2` This prints 20 bytes of `str2` in hex
+
+-   `(gdb) x/4dw  arr` This prints 4 "words" (i.e. `int32s`) of `arr`, as decimal numbers
+
+-   You can use the following [reference card](https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf) for reference on gdb commands, and format commands for x and print.
+
+
