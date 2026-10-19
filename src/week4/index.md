@@ -56,7 +56,7 @@ Fortunately, you don’t need to debug this program; we’re going to use this p
 Compile and run `problem` to see exactly what "a lot of program output" means.
 
 ```
-$ make problem
+$ gcc -g -o problem problem.c
 $ ./problem
 ```
 Every so often there’s an error message, but it’s separated by all the expected program output. For programs with more errors and more output, you could imagine how we wouldn’t want to keep scrolling up the terminal to read. There are multiple ways in which we can filter out everything but the error messages.
@@ -429,6 +429,14 @@ We can also use two redirections in conjunction with each other to redirect diff
 ```
 $ ./problem > problem.txt 2> errors.txt
 ```
+
+<div class="checkoff">
+
+> First, comment out the `fprintf` statement and uncomment the `printf` statement, so that all output redirects to stdout.
+> Write a command that outputs all lines that involve the first column of the 2D array into both the terminal display and a file called `out0.txt`.
+> Then, ask a tutor or TA to check your work. Put a screenshot of *your command* into your lab report, and submit it on Gradescope.
+
+</div>
 
 <div class="gradescope">
 
