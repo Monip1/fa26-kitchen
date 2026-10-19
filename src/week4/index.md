@@ -82,7 +82,7 @@ The one subcommand you need to know is to type `h` while in this program to disp
 
 <div class="checkoff">
 
-Once you have filtered the lines in `problem.txt` such that only the "error" lines remain, as a team, interpret the error and explain it to a tutor or TA.
+Once you have filtered the lines in `problem.txt` such that only the "error" lines remain, as a team, write the error on your whiteboard. Call over a TA/tutor to get checked off.
 
 </div>
 
