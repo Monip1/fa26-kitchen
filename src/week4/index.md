@@ -397,7 +397,7 @@ In the examples above, we use redirection and piping to manipulate the *standard
 To use `stderr`, we use an alternative to `printf()`, `fprintf()`, and specify that it should output to the `stderr` stream. In `problem.c`, this line is given to you and commented out. Uncomment this line, and comment the line above (the original print statement). Recompile and run the program.
 
 ```
-$ make problem
+$ gcc -g -o problem problem.c
 $ ./problem
 ```
 
@@ -423,7 +423,7 @@ $ ./problem > problem.txt 2> errors.txt
 
 <div class="checkoff">
 
-> First, comment out the `fprintf` statement and uncomment the `printf` statement, so that all output redirects to stdout.
+> First, comment back out the `fprintf` statement and uncomment the `printf` statement, so that all output redirects to stdout.
 > Write a command that outputs all lines that involve the first column of the 2D array into both the terminal display and a file called `out0.txt`.
 > Then, ask a tutor or TA to check your work. Put a screenshot of *your command* into your lab report, and submit it on Gradescope.
 
