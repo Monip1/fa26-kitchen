@@ -450,8 +450,8 @@ Word on the street is that Column 42 isn't the only column in `message.txt` hidi
 
 There are two kinds of hints:
 
-* **Columns 19 to 29:** Each hint is a bitwise expression on hexadecimal numbers. Work out the result, then convert it to decimal to get the column number.
-* **Columns 33 to 49:** Each hint describes a character. The column number is that character's ASCII value in decimal. Run `man ascii` in the terminal to see the ASCII table.
+* **Rows 1 to 5:** Each hint is a bitwise expression on hexadecimal numbers. Work out the result, then convert it to decimal to get the column number.
+* **Rows 6 to 11:** Each hint describes a character. The column number is that character's ASCII value in decimal. Run `man ascii` in the terminal to see the ASCII table.
 
 Check off each hint as you find its phrase. The checkboxes are only for you to keep track: nobody else can see them, and they reset when you reload the page.
 
@@ -467,6 +467,7 @@ Check off each hint as you find its phrase. The checkboxes are only for you to k
 | The operator that gives you a variable's address | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
 | The character that puts the "C" in CSV | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
 | The character that starts every absolute path (and every `//` comment) | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
+| The character that stands for the home directory | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
 | The character `'1'` (careful: the character, not the number!) | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
 
 <div class="note" data-title="Hint">
