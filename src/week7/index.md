@@ -60,12 +60,16 @@ Draw the memory diagram for the following linked list on your whiteboard. These 
 ```
 <img src="./assets/linked_list.png" alt="whiteboard" width="800">
 
+
 <div class="quality">
 
-Before you get right into memory leaks and how to fix them, we have a quality of life improvement.
-Recall that in lab2 you made a pair of ssh keys to allow you to securely access github from your ieng6 account.
-There is another pair of keys we can make which give you the power to never have to type your password when signing into ieng6 again.
-The tutorial for this resides in the last lab: [here](./index#identify-yourself-to-ieng6).
+As you continue to use vim, you may want to consider tools to enhance your experience. Below are several options:
+
+Vundle -- a plugin manager for vim <https://github.com/vundlevim/vundle.vim>
+
+vimawesome -- a site with plugins you can add with the help of vundle <https://vimawesome.com/>
+
+These would take longer to customize so feel free to take a few minutes to look through these but do continue on without much delay.
 
 </div>
 
