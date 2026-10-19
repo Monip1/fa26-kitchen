@@ -54,7 +54,7 @@ Every so often there’s an error message, but it’s separated by all the expec
 
 ## Say Less
 
-In previous PAs, we’ve already used the *indirection* (`<`) and *redirection* (`>`) operators. These are used to feed input into a program, or redirect the output of a program into a file. Let’s first save the output of the program to a text file:
+In previous Projects, we’ve already used the *indirection* (`<`) and *redirection* (`>`) operators. These are used to feed input into a program, or redirect the output of a program into a file. Let’s first save the output of the program to a text file:
 
 ```
 $ ./problem > problem.txt
