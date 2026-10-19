@@ -2,7 +2,7 @@
 
 In this lab, you will get to know the commands `less` and `grep`, and experiment with input and output redirection.
 
-## Lab 7 learning objectives
+## Lab 4 learning objectives
 
 * Get more comfortable and efficient using the command line
 * Use `less` and `grep` to view and search through text files
@@ -20,7 +20,7 @@ Who’s your favorite superhero/villain, if you have any?
 
 <div class="note">
 
-Please write the answers on your whiteboard. No check-off is needed!
+Please write your names and answers on your whiteboard. No check-off is needed!
 
 </div>
 
