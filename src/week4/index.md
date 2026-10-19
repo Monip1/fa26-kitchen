@@ -456,7 +456,7 @@ Word on the street is that Column 42 isn't the only column in `message.txt` hidi
 There are two kinds of hints:
 
 * **Rows 1 to 5:** Each hint is a bitwise expression on hexadecimal numbers. Work out the result, then convert it to decimal to get the column number.
-* **Rows 6 to 11:** Each hint describes a character. The column number is that character's ASCII value in decimal. Run `man ascii` in the terminal to see the ASCII table.
+* **Rows 6 to 12:** Each hint describes a character. The column number is that character's ASCII value in decimal. Run `man ascii` in the terminal to see the ASCII table.
 
 Check off each hint as you find its phrase. The checkboxes are only for you to keep track: nobody else can see them, and they reset when you reload the page.
 
