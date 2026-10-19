@@ -448,7 +448,7 @@ $ ./problem > problem.txt 2> errors.txt
 
 Word on the street is that Column 42 isn't the only column in `message.txt` hiding a secret. Time to go find more secrets!
 
-1. Open `message.txt` in Vim (`vim message.txt`) and scroll around. It's a wall of random capital letters, one per line. Quit with `:q` when you've seen enough.
+1. Open `message.txt` in Vim (`vim message.txt`) and scroll around. It's a wall of random capital letters, one per line. Quit with `:q!` when you've seen enough, so that nothing you typed by accident gets saved. If you think you changed `message.txt` by accident, run `git restore message.txt` to get the original back.
 2. Pick a hint from the table below and work out which column number it points to.
 3. `grep` for that number and read the letters from top to bottom. If they spell an English phrase, you found one! If it's garbage letters, try again.
    ```
