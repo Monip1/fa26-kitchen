@@ -1,13 +1,6 @@
-# Lab 7: Pipes and filters in UNIX
+# Lab 4: Pipes and filters in UNIX
 
-<div class="note">
-
-You may find our solutions to Lab 6 in our [solutions repository](https://github.com/CSE29Spring2026/lab-answer-keys). For now, let's focus on lab 7.
-
-</div>
-
-In this lab, you will get to know the commands `less` and `grep`, and experiment with input and
-output redirection.
+In this lab, you will get to know the commands `less` and `grep`, and experiment with input and output redirection.
 
 ## Lab 7 learning objectives
 
@@ -17,21 +10,17 @@ output redirection.
 
 # Icebreaker
 
-**Clone our [starter code](https://github.com/CSE29Spring2026/lab7-starter) into your account on `ieng6`.**
-
-Can you guess what part of campus each of these photos was taken? Work with your groupmates\! Google Maps is allowed\!
+**Clone our starter code from [Classroom 50](https://classroom50.org/ucsd-cse29-fall2026/cse29-fa26/assignments/lab-4/accept) into your account on `ieng6`.**
 
 
-<figure>
-    <img src="./assets/lab7_campus1.png" alt="Photo of muir field" width="500">
-    <img src="./assets/lab7_campus2.png" alt="Photo of sixth" width="500">
-    <img src="./assets/lab7_campus3.png" alt="Photo of Rady's" width="500">
-    <img src="./assets/lab7_campus4.png" alt="Photo of econ" width="500">
-</figure>
+# Icebreaker
 
-<div class="important">
+If you could choose a superpower to have, what would it be? What would you do with it?
+Who’s your favorite superhero/villain, if you have any?
 
-Please write the answers on your whiteboard!
+<div class="note">
+
+Please write the answers on your whiteboard. No check-off is needed!
 
 </div>
 

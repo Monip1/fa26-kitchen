@@ -10,17 +10,23 @@ In this lab, you'll use Valgrind, a memory error checker, to identify memory man
 
 ![Illustration of 2D arrays and linked lists in memory](./assets/l4_pointers_meme.png)
 
-# Icebreaker
-
-If you could choose a superpower to have, what would it be? What would you do with it?
-Who’s your favorite superhero/villain, if you have any?
+Can you guess what part of campus each of these photos was taken? Work with your groupmates\! Google Maps is allowed\!
 
 
-<div class="note">
+<figure>
+    <img src="./assets/lab7_campus1.png" alt="Photo of muir field" width="500">
+    <img src="./assets/lab7_campus2.png" alt="Photo of sixth" width="500">
+    <img src="./assets/lab7_campus3.png" alt="Photo of Rady's" width="500">
+    <img src="./assets/lab7_campus4.png" alt="Photo of econ" width="500">
+</figure>
 
-Please write the answers on your whiteboard. No check-off is needed!
+<div class="important">
+
+Please write the answers on your whiteboard!
 
 </div>
+
+
 
 Draw the memory diagram for the following 2D array on your whiteboard.
 
