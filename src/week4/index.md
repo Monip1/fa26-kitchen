@@ -438,6 +438,12 @@ $ ./problem > problem.txt 2> errors.txt
 
 </div>
 
+<div class="note" data-title="Hint">
+
+The square brackets are special characters in grep, so to search for `[` and `]`, you must use the escape character. For example, if you wanted to search for `"[5]"`, you would use grep like so: `grep "\[5\]"`
+
+</div>
+
 <div class="gradescope">
 
 Word on the street is that Column 42 isn't the only column in `message.txt` hiding a secret. Time to go find more secrets!
@@ -478,11 +484,7 @@ Check off each hint as you find its phrase. The checkboxes are only for you to k
 | The character that stands for the home directory | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
 | The character `'1'` (careful: the character, not the number!) | <input type="checkbox" class="found-check" autocomplete="off" aria-label="Found it"> |
 
-<div class="note" data-title="Hint">
 
-The square brackets are special characters in grep, so to search for `[` and `]`, you must use the escape character. For example, if you wanted to search for `"[5]"`, you would use grep like so: `grep "\[5\]"`
-
-</div>
 
 <style>
     .flowchart {
