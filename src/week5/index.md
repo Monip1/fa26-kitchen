@@ -6,7 +6,7 @@ You may find our solutions to Lab 3 and Lab 4 in our [solutions repository](TODO
 
 </div>
 
-In this lab, you'll use Valgrind, a memory error checker, to identify memory management mishaps in programs involving arrays and linked lists. Valgrind is ubiquitous in systems programming workflows, especially for programs written in C and C++. You'll find it valuable for PA 2 and onward, too\!
+In this lab, you'll use Valgrind, a memory error checker, to identify memory management mishaps in programs involving arrays and linked lists. Valgrind is ubiquitous in systems programming workflows, especially for programs written in C and C++. You'll find it valuable for future Projects, too\!
 
 ## Lab 4 learning objectives
 
