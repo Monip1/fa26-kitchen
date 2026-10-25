@@ -63,585 +63,249 @@ To scroll **d**own in the file, <u>hold</u> the `Ctrl` key and press `d`.
 
 To scroll **u**p in the file, <u>hold</u> the `Ctrl` key and press `u`.
 
-### Custom Configuration
-So far, we have seen that Vim commands can be manually typed in an open Vim window, however this can quickly become repetitive if you commonly want to execute the same commands every time you open a new Vim window.
+# Part 1: Help! My program leaks…
 
-Alternatively, we can tell Vim to execute a certain set of commands automatically every time we open a Vim window in the future. For example, we can type a command to enable syntax highlighting in Vim, which will add syntax-specific coloring to your code and will vastly improve your experience reading through code in Vim.  Another Vim nicety we might want to enable is adding line numbers to the file. There are many, many different commands and settings that we can enable and configure to create our own personal Vim experience, which will make writing code in Vim much more enjoyable!
+Please clone the [GitHub repository](https://github.com/CSE29Spring2026/lab4-starter) for this lab's starter code onto `ieng6` in your `cse29` directory. It contains code for a few programs that leak memory, and in this lab, we'll use Valgrind to detect these leaks and help fix them. In this repository you will find a `Valgrind` directory, start here.
 
-We will do this by putting these commands directly into a Vim runtime configuration file, called a `.vimrc` file.
-
-<div class="note">
-
-The `.` prefix means that it is a hidden file in UNIX, also commonly called a *dotfile*.  This means that these files will not display, by default, when listing the contents of a directory (using the `ls` command).
-
-</div>
-
-By convention, you will create the `.vimrc` file in your home directory:  `~/.vimrc`
-
-<div class="note">
-
-Remember: the tilde character `~` is a shorthand for the current user's (your) home directory in UNIX.
-
-</div>
-
-#### Create your .vimrc
-Using Vim, create an empty `.vimrc` file in your home directory on your `ieng6` account:
-```
-$ vim ~/.vimrc
-```
-
-Then copy the following lines into your empty `.vimrc` file, as shown in the code snippet below:
-```
-syntax on
-set number
-set belloff=all
-set showtabline=2   " always show buffer tabs
-set tabstop=4
-set noexpandtab   " ensures tabs do not expand to spaces
-set autoindent
-set smartindent
-inoremap { {<CR>}<Esc>ko
-set backspace=indent,eol,start
-```
-
-The effect of each of these commands is summarized briefly below:
-- `syntax on`: enable syntax highlighting
-- `set number`: display line numbers in Vim
-- `set belloff=all`: disable Vim bell sounds
-- `set showtabline=2`: always show buffer tabs
-- `set tabstop=4`: set tabs to be four spaces
-- `set noexpandtab`: does not expand tabs to space
-- `set autoindent`: apply indentation to next line based on current line
-- `set smartindent`: apply indentation with respect to code syntax
-- `inoremap { {<CR>}<Esc>ko`: autocompletion of curly braces for ease of use
-
-<div class="note">
-
-If you find yourself ever working with python, you may want to switch `set noexpandtab` to `set expandtab`. Python cannot handle having mixed tabs and spaces and will error with the message [`TabError: inconsistent use of tabs and spaces in indentation`](./assets/l5_python.png).
-If you have `set noexpandtab` set and edit a python file that uses spaces, this will occur. For our future purposes we need to have real tab characters for when we learn about Makefiles!
-
-</div>
-
-<div class="warning">
-
-In general, you should not paste a command into your `.vimrc` if you are not sure what it is doing. But you can *definitely* trust us! :D
-
-</div>
-
-These are our suggestions for `.vimrc` settings that we think would be helpful for you in this class. If you feel like you don't like some of these features, feel free to remove the corresponding lines in the `.vimrc` file. These configuration files are usually customized to each programmer's preferences&mdash;figure out what works well for you!
-
-# What the Shell?
-
-> The other day, I was working on a class assignment that had me running a bunch
-> of stress test diagnostics for a cloud system. Each test took about a minute
-> to run, and I had to run a bunch of these.
->
-> One of my partners asked “why not write a shell script?” And so I did. What
-> would have been twenty-five times of typing the same command with different
-> numbers turned into a single script I could run once and then go about my day.
-> Now, that script probably took more than 25 minutes to write, but that's
-> beside the point.
-
-Today, you will use shell scripting to organize a messy file system.
-
-Start by cloning our [starter repo](https://github.com/CSE29Spring2026/lab5-scripting)
-into your ieng6 account, as usual. Next, **change into the `minihome` directory**
-and take a look at its contents. This directory structure should hopefully look
-familiar to you!
-
-Before we get started though, let’s talk about shell scripting and the
-executable bit.
-
-A **shell script**, as its name suggests, is a script that runs a series of
-shell commands that accomplishes some tasks. These scripts can get very
-complicated depending on the task being automated, but even simple shell
-scripts can save lots of time. In the coming weeks, you may want to *write a shell script that runs all the tests in PA 3*, for example.
-
-
-## Task 0: Run a script
-
-<div style="padding: 0 8px; border: 2px solid #cc0004; color: #cc0004">
-
-💡 **KEY POINT**: Any command that you can run on the command line can be
-an instruction in a shell script.
-
-</div>
-
-* Fill the provided `task_1.sh` file with some commands that you know like `echo`, `ls`, or `pwd`. Each command should be on a new line.
-* To mark the file as executable, run `chmod +x task_1.sh`.
-* Try running `./task_1.sh` in your command line, and you should see the output of each command in the order you added them to the shell script.
-
-<div class="note">
-
-The `#!/bin/bash` at the top specifies that this script should be parsed using
-the bash program at the directory `/bin/`. The leading `#!` is called a
-"shebang" and signals the start of this directive. A Python script, for example,
-could have `#!/usr/bin/python3` as its first line instead.
-
-</div>
-
-Here’s an example you can try. Put the following content in `task_1.sh`:
+Let's start with `leak.c`:
 
 ```bash
-#!/bin/bash
-
-echo "Hello!"
-echo "Goodbye!"
+$ gcc leak.c -g -Wall -o leak
 ```
 
-And then, run it. If you see _Permission denied_ and don't know what to do, go
-read the [executable bit](./lab2#aside-the-executable-bit) section from lab 2.
+Remember `-g` from last week? This flag instructs GCC to add debugging symbols to the compiled executable. These symbols enable GDB to look up and show your source code during debugging. They also enable Valgrind to show you line numbers in its error backtraces.
 
-```
-$ ./task_1.sh
-Hello!
-Goodbye!
-```
-
-As it turns out, all that is needed to complete the above task is to run a
-couple of commands sequentially. Here are a couple of knowledge bits that could
-be helpful:
-
-<div class="note">
-
-**The wildcard pattern `*`**
-
-In shell scripting, the `*` character acts as a way to target all files and directories. For example, if you ran `cat *`, you would print out the contents of all the files in your current working directory (you would likely also get error messages from trying to view the contents of folders in your directory).  Furthermore, the `*` character can also be used to match specific patterns. For example, if you ran `cat *.txt`, you would print out the contents of all the files in your working directory that have the `.txt` extension.
-
-</div>
-
-<div class="note">
-
-**The `mv` command**
-
-The move command, as its name suggests, can be used to move files into directories. For example, you can use it like so:
+Take a moment to review `leak.c` and predict what it should print, then run `./leak`. Although running the program gives no visible errors, the program actually produced some memory leaks as a result of us not properly freeing the allocated memory. The *Valgrind* program allows us to see how much memory is still being used when the program exits, and therefore leaked. Like with GDB, you pass in the program to inspect as an argument to valgrind. 
 
 ```bash
-mv a.txt Books
+$ valgrind ./leak
 ```
 
-This will move a.txt into the Books directory. You can also move multiple files at once like so: `mv a.txt b.txt Books`, which will move a.txt and b.txt into the Books directory.
+We see a suggestion from valgrind to add `--leak-check=full` flag to instruct Valgrind to report the locations where leaked memory had been allocated:
+
+```bash
+$ valgrind --leak-check=full ./leak
+```
+
+Valgrind provides a “heap summary” of how much memory is still being used at exit, and a “leak summary” which details the different types of leaks that have occurred. When Valgrind reports anything in a leak summary, that means you have a memory leak! Memory leaks are especially harmful in long-running programs, where the amount of available memory gradually reduces over a long time, thereby also reducing the overall performance of the program or the computer in general.
+
+Because we supplied the `--leak-check=full` flag, Valgrind also printed the stack trace at the instant where each chunk of leaked memory was allocated. **You might be inclined to think that the problem lies around the line number it references, but this is usually not the case!** Valgrind is just pointing out where the leaked memory got allocated. You, the programmer, decide where it is supposed to be freed. Sometimes, the appropriate place for a `free` call can be far away from its `malloc` call in your source code.
+
+## Types of Memory Errors
+
+Unlike real life (plumbing) leaks, it's okay to leave the (memory) leak in `leak.c` alone for now; we'll come back to it later.
+
+Memory leaks are especially harmful in long-running programs, where the amount of available memory gradually reduces over a long time, thereby also reducing the overall performance of the program or the computer in general.
+
+In `memory_errors.c`, we demonstrate some common situations in which memory errors can occur. Rather than manually writing the compilation command, we've provided a Makefile for you to use. This will be helpful since we have quite a few files to compile in this lab. To compile a program, use the `make` command followed by the name of the file to compile without the `.c` suffix. For example, to compile `memory_errors.c` into the `memory_errors` binary file, use this command:
+```bash
+$ make memory_errors
+```
+
+In order to see more details of the leaked memory, make sure to add the `--leak-check=full` flag.
+
+```bash
+$ valgrind --leak-check=full ./memory_errors
+```
+With this flag, the Valgrind heap summary will also report the locations where leaked memory had been allocated, since we compiled the program with the `-g` flag.
+
+Let's go over each function in `memory_errors.c` in more detail, and fix each of them:
+- `memory_leak()`: In general, memory leaks occur when we allocate memory and do not free the memory before the program exits. Here, we fix the memory leak by calling `free()` on the pointer returned by `malloc()` which points to the allocated memory.
+- `free_after_set()`: In this case, we lose the pointer to the allocated memory when we set it to `NULL`, therefore calling `free(p)` does not do anything. In general, we consider it good practice to set a freed pointer to `NULL`, but it actually needs to be freed first! We can fix this by making sure to call `free()` on the pointer before setting the pointer to `NULL`, instead of after.
+- `double_free()`: This one isn't actually a memory leak, but it's an error that can occur with improper usage of `free()`, which is why it's here. Calling `free()` on a pointer that has already been freed is considered undefined behavior, meaning that it should not be expected to work properly. This program gives you a really messy memory error when you try to run it. Valgrind will also report an "invalid free" error above the heap summary. In this case, it's apparent why the double free error occurs and how to fix it, but in other cases it may be more obscure.
+- `reuse_freed()`: Also not a memory leak, but a case in which we try to access memory that was already freed. Valgrind reports this error as an "invalid write" above the heap summary. Again, it's good practice to set a freed pointer to `NULL` immediately after it's been freed.
+- `double_malloc()`: This can accidentally occur when you intend to allocate two blocks of memory to be used one after the other with the same pointer, but forget to free the first block. What should be done here to fix this leak?
+
+<div class="owntime">
+
+Once you've implemented the fixes, compile and re-run the program with Valgrind to confirm that there are no longer any memory leaks or errors. It should report that "all heap blocks were freed -- no leaks are possible". Yippee! Although if there are still memory leaks/errors, try again, then yippee.
 
 </div>
 
-## Task 1: Books and Music
+## Types of Memory Leaks
 
-With these tidbits, you are now ready to write your (possibly) first ever shell script\! **Your first task will be to write a shell script to organize the text and mp3 files in `minihome` into the `Books` and `Music` directories.** Please work on this with your groupmates if you so wish. As a reminder, you can use the `ls -R` command you all discovered back in lab 1 to test if your files ended up in the right place. While testing your script, you may end up accidentally messing up your directory structure. If this happens, we have provided you with a `reset_task_1.sh` script in the **minihome** directory which you can run to reset the .txt and .mp3 files. This will leave your .sh files intact, however, so don’t worry about losing your progress.
+You might have noticed in the leak summary of Valgrind that there are different types of memory leaks. The distinction between these leaks isn't too important for our purposes, but may help you identify how leaks are happening in a more complex program.
+
+In `leak_types.c`, we demonstrate each of the different types in separate functions. There's no need to fix these leaks; just compile and run Valgrind on the program to see how Valgrind reports different types.
+```bash
+$ make leak_types
+$ valgrind --leak-check=full ./leak_types
+```
+Notice how the heap summary gives you information on where each memory error occurs. Inspect the source code to see how each type is caused.
+
+- Definitely lost: Besides myself, memory leaks are also considered "definitely lost" when the pointer to the memory becomes inaccessible. This can happen when the pointer is deleted when a function ends and its stack frame is deleted, or when the pointer is set to another value.
+- Indirectly lost: Blocks of memory are considered "indirectly lost" when there exists a pointer in another leaked memory to the block. In this case, the memory pointed to by `pp` (i.e. `*pp`) is definitely lost, and the memory pointed to by `*pp` (i.e. `**pp`) is indirectly lost.
+- Possibly lost: "Possibly lost" memory leaks occur when we have a pointer to some part of the leaked memory, but not to the base of the memory block, likely because the pointer was modified. In this case, we allocate an array of integers, then move the pointer to point to the middle of the array.
+- Still reachable: Memory leaks are "still reachable" when the pointer is not lost when program exits, but the memory is still unfreed. This can occur when a global variable contains a pointer to leaked memory.
+- Suppressed: Users can specify the flag `--suppressions=<filename>` to Valgrind to intentionally ignore leaks that are known to be harmless or unavoidable. If you want to learn how to use this flag, you can check out this [StackOverflow post](https://stackoverflow.com/questions/13692890/suppress-potential-memory-leak-in-valgrind), although in our (at least one old tutor and at least one old TA) experience this flag is seldom used, if at all.
+
+## Valgrind on Arrays
+
+Now let’s put what you’ve learned into practice. In the lab repository, `leak.c` and `losing_track.c` have memory leaks. Try to identify and fix the problems in each program. Feel free to work with those around you\!
+
+In `leak.c`, there is a function that performs matrix addition on two 2D arrays. While the functionality may appear correct, a run of valgrind will tell you that memory isn’t freed properly. For reference, here is a diagram of how matrix addition works:
+
+![Matrix addition visualization](./assets/l4matrix_addition.png)
 
 <div class="checkoff">
 
-Please write what you did for `task_1.sh` on your whiteboard and check in with your teammates.
+Please check in with your teammates to make sure everyone understands `leak.c` and it's problem and solution. If you have any questions now is a good time to ask a staff member as a group for any clarifications.
 
 </div>
 
-Our minihome is now looking a lot cleaner. But maybe we can go further. The length of these books seems a bit varied, no? It would be nice if we were able to sort these books into **short stories** and **novels**. This will be your next task. One requirement for your script is that you should be able to supply an **argument** for the cutoff between a novel and a short story. Before you begin the task, **first change into the `Books` directory**.
+In `losing_track.c`, there is a function that returns the lower-cased version of the [query string](https://en.wikipedia.org/wiki/Query_string) of a url **without modifying the original string**. This is the portion after the question mark in http urls that are often used to specify parameters for a website. We want to return this portion without modifying the original URL. Like previously mentioned, this function appears to work properly, but does not manage memory properly. This error is particularly nasty because this implementation **loses track** of its allocated memory. Let's take a deeper look into what this means. 
 
-Here are some knowledge bits that could be useful:
+When we first initialize `query`, we point to the beginning of the string, and therefore have access to our whole chunk of memory. Our memory looks like this:
 
-## Shell scripting - variables
+![image](./assets/l4_query.png)
 
-You can declare and use variables like so in shell scripting:
 
-```bash
-# Contents of demo.sh
-#!/bin/bash
-num=5
-fruit="apples"
-echo $num $fruit
-```
+However, after we convert the string to lower case, use `ptr` to traverse through the string, and return `ptr`, we no longer have access to the beginning of the string, and therefore can't free the chunk of memory!
 
-```
-$ ./demo.sh
-5 apples
-```
+![image](./assets/l4_query2.png)
 
-To reference a variable, you simply put a dollar sign in front of it.
-Note that this still works inside double-quoted strings, so `echo "$num $fruit"` would have achieved the same effect in the script above. To print out `$num $fruit` literally, you would need to either use single quotes (`'$num $fruit'`) or escape the dollar signs (`"\$num \$fruit"`).
+<div class="exercise">
 
-## Shell scripting \- accessing command line arguments
-
-To access the `n`th command line argument, use `$n` in your script. For example, the 1st command line argument would be accessed with `$1`. Note that the 0th command line argument is the name of the command you executed. Here is a demonstration:
-
-```bash
-# Contents of demo.sh
-#!/bin/bash
-echo $1 $2
-```
-
-```
-$ ./demo.sh 5 apples and more
-5 apples
-```
-
-Note that a string wrapped in quotes counts as one argument. For example, in: `$ ./demo.sh 2 "PA 2"`  We have `$1` equal to `2` and `$2` equal to `PA 2`.
-
-## Shell scripting \- if statements
-
-The basic structure of an if statement in shell scripting is as follows:
-
-```bash
-if [ condition ]; then
-    # Commands if condition is true
-else
-    # Commands if condition is false
-fi
-```
-
-Here is an example of a script that takes in a number from the user, and prints out whether or not it is greater than 5:
-
-```bash
-# Contents of demo.sh
-if [ $1 -gt 5 ]; then
-    echo "Number is greater than 5"
-else
-    echo "Number is 5 or less"
-fi
-```
-
-```
-$ ./demo.sh 10
-Number is greater than 5
-```
-
-As you can see, most operators (save for string equality) in bash scripts are different from what you would see in most other programming languages; they look like a hyphen followed by an mnemonic string. Here, the `-gt` comparison operator checks if `$1` is greater than 5\. Though you likely won’t need them for this task, here is a decently comprehensive list of the different types of conditional operators you can find in shell scripting:
-
-**File/directory existence:**
-
-```bash
-if [ -f filename ]; then   # Check if file exists
-if [ -d directory ]; then  # Check if directory exists
-if [ -e filename ]; then   # Check if file or directory exists
-if [ -s filename ]; then   # Check if file exists and is not empty
-if [ -x filename ]; then   # Check if file is executable
-```
-
-**String comparison:**
-
-```bash
-if [ "$str1" = "$str2" ]; then   # Strings are equal
-if [ "$str1" != "$str2" ]; then  # Strings are not equal
-if [ -z "$str1" ]; then          # String is empty
-if [ -n "$str1" ]; then          # String is not empty
-```
-
-**Numerical comparison:**
-
-```bash
-if [ "$num1" -eq "$num2" ]; then   # Numbers are equal
-if [ "$num1" -ne "$num2" ]; then   # Numbers are not equal
-if [ "$num1" -gt "$num2" ]; then   # num1 is greater than num2
-if [ "$num1" -lt "$num2" ]; then   # num1 is less than num2
-if [ "$num1" -ge "$num2" ]; then   # num1 is greater than or equal to num2
-if [ "$num1" -le "$num2" ]; then   # num1 is less than or equal to num2
-```
-
-## Shell scripting \- for loops
-
-In Bash, there are many different types of loops, each having their use cases. Here, we’ll introduce one of those loops: the for loop. The basic syntax is as follows:
-
-```bash
-for item in [list of items]; do
-  # do something with $item
-done
-```
-
-Here are some examples of how you can use a for loop:
-
-* Looping through variables:
-
-  ```bash
-  for var in item1 item2 item3; do
-    echo "$var"
-  done
-  ```
-
-* Looping through a range of numbers:
-
-  ```bash
-  for i in {1..5}; do
-    echo "Number: $i"
-  done
-  ```
-
-* Looping through files in a directory:
-
-  ```bash
-  for file in *.txt; do
-    echo "Processing $file"
-  done
-  ```
-
-## The `wc` command
-
-Here, `wc` does not stand for water closet, but rather word count. Passing it a text file will print out the number of lines, words, and characters in that file followed by the name of that file. For example:
-```
-$ wc alice.txt
-3757  29564 174357 alice.txt
-```
-To print out just the number of lines, words, and characters, You can use the `-l`, `-w`, and `-c` options respectively:
-
-```
-$ wc -l alice.txt
-3757 alice.txt
-$ wc -w alice.txt
-29564 alice.txt
-$ wc -c alice.txt
-174357 alice.txt
-```
-
-If you don’t want the name of the file after, and only wanted the number for whatever reason, you can redirect the contents of the file in to the `wc` command like so:
-
-```
-$ wc < alice.txt
-3757  29564 174357
-$ wc -l < alice.txt
-3757
-```
-
-Neat!
-
-## Shell scripting - command substitution
-You can run a command and assign its output (as a string) to a variable using `var=$(command)`. For example:
-
-```bash
-lines=$(wc -l < sample.txt)
-echo $lines
-```
-
-This would store the number of lines in `sample.txt` into `lines` and print it.
-
-## Task 2: Novels and Short Stories
-
-With the above knowledge, you can now write a script to sort text files into the `Novels` and `Short_Stories` folder based on their word length **from scratch**. In `task_2.sh`, we have provided you a base script to work off of, with blanks for you to fill. There is also a `reset_task_2.sh` script, should you wish to restart. To test if your script works, 20000 works well as an argument for differentiating between Novels and Short Stories. Good luck, and have fun\!
-
-
-Once you have **made sure** that both of your scripts work, we may now proceed to the fun part. First change back to the `minihome` directory, run the `reset_task_3.sh` script to undo the changes from both task 1 and task 2\. Next, run the `task_3.sh` script. This is a pre-written script that will run your tasks 1 and 2 in succession. This means that in **one command**, you can sort all of your files into `Books`, `Novels`, `Short_Stories`, and `Music` folders\!
-
-Confirm that all the text files are in the `Novel` folder (we used a lower threshold), and all the mp3 files are in the `Music` folder, and run the `reset_task_3.sh` script. **Make sure your script works before running the next step\!**
-
-Let’s pretend our user has done a lot of internet browsing and downloaded a lot of files. Run the `simulate_downloads.sh` script.
-
-That’s a lot of txt and mp3 files\! Normally it would take quite a while to sort these out, but luckily, we have our script\! Run `task_3.sh`, and hopefully you should see all of the files get sorted. What normally would have taken perhaps an hour can now be done in an instant\!
-
-# What should Git ignore?
-
-You may have used the `git add .` in the past. By default, this means Git should track everything it finds in your repository directory. **But you don't always want to track everything\!** Here are a few things you shouldn't track in Git in most cases:
-
-1. **Machine code**, such as in object files (`.o` files) and executables
-
-   There are three reasons why you shouldn't track machine code in Git:
-   * Git is inefficient at handling large binary files
-   * Machine code differs from machine to machine, so they are often useless to your collaborators
-   * Binary file conflicts are cumbersome—there's no way to integrate conflicts together
-
-   As a general rule, **you should never use Git to track the outputs of a compilation or transpilation process**. In C projects with Makefiles, the targets defined in the Makefile usually represent the outputs of a compilation process.
-
-2. **Secret credentials**
-
-   Many hosted services have public repositories for the source code of the server. The server needs to authenticate itself to get write access to the database, for example. But the keys for such authentication cannot be public or else anyone can tamper with the database\!
-
-3. **Most hidden files** (files whose names start with `.`, like Vim swapfiles)
-
-   Do not track your Vim swapfile\! Imagine this: You have a terminal prompt and Vim side-by-side. Because Vim is currently running, there is a swapfile in the repository directory. You then commit and push your swapfile to GitHub. Your collaborator pulls it from GitHub without Vim running and tries to edit it with Vim. Because there's a swapfile, Vim gives them a warning, thinking that another Vim process might be editing the file simultaneously even though they don't have Vim running. This is counterproductive\!
-
-## How do we tell Git to ignore them?
-
-`.gitignore` is the exact name of a special file that Git reads to determine which files to skip when looking for untracked files. If a file's name matches any line in `.gitignore`, it is ignored. For example, if a `.gitignore` file contains:
-
-```
-*.o
-```
-
-Then Git should ignore all files that end with `.o`. In this context, `*` is a wildcard that matches any sequence of characters.
-
-<div class="note">
-
-It would be nice if we could write an expression that matches all executable files without an extension. As it turns out, we don't know of a neat way to do this. You could copy the list of targets from your Makefile as an alternative. You could also write a shell script that enumerates all the executable files and writes their names into `.gitignore`. Beware that the wildcard in Makefiles is `%`, while the wildcard in `.gitignore` files is `*`.
+Describe the problem and how you would fix it. Work with your teammates and write this on your whiteboard. 
+Do leave yourself space to add 2 more similar descriptions and fixes.
 
 </div>
 
-## What if they are already being tracked?
+<div class="owntime">
 
-You may have committed and pushed these files to Git in the past. To fix this, you can have Git untrack them without removing the actual files themselves by running:
+Given time, you may implement the solution and check your work however implementing your solution is **OPTIONAL**. If you would like to implement your your solution, note that given this is a very involved change, **please** modify the method as much as you like!
 
-<code>
-  $ git rm --cached
-  <span contenteditable class="code-replace-me">path to file to untrack</span>
-</code>
+*HINT: the problem of the current implementation is that in the string we return, we don't keep track of the beginning of the string. How can you change this code so that the string we return has its pointer pointing to the beginning?*
 
-For example, if you have committed `stack.o` and want to untrack it without deleting it entirely, you would run `git rm --cached stack.o`.
+</div>
 
-## Write your own `.gitignore`
 
-Some of the files in our starter repository should not have been tracked. First, **change back from `minihome` back to the root of your starter repo.** Run `ls -a` to list all the files (including hidden ones), use your best judgment to decide which ones shouldn't have been tracked, and instruct Git to untrack those files without removing them. Then, write an appropriate `.gitignore` file. To check your work, run `git status`. The files you untracked should not appear in the list of "untracked files", and when you run `git add .`, they should not become tracked again. Don't hesitate to work with your group and ask for help\!
+## Valgrind on Linked Lists
 
-<div class="note">
+As we prepare for PA 2, let's see how Valgrind can help us discover memory problems surrounding linked list implementations. **Compile `list.c` and run it with Valgrind using the same flags from above.** In this case, it should report that 32 bytes of memory have been leaked. Follow the stack trace shown by Valgrind to contextualize yourself with the "story" of the lifetime of this chunk of memory. When did it get allocated? When do you think it should've been freed? How can you fix it?
 
-- Even though `.gitignore` is technically a hidden file, you should track `.gitignore` itself. This prevents your collaborators from tracking the files you don't want to track.
-- You might have noticed the `.git` directory. This is Git's hidden workspace,
-  where it stores your repository's commit history and branches. Git will
-  never track `.git` by default, as this would end up requiring infinite
-  space. Therefore, you don't need to put it in `.gitignore`.
+A common misconception is that we can free memory by redirecting pointers to that memory to NULL, the null pointer. You can draw a memory diagram to see that this won't actually free that memory. Edit `list.c` so that the `main` function calls `free_list` instead of setting `ourlist` to `NULL`. Did this fix the leak?
+
+Once you recompile and re-run with Valgrind, you should see a different error: `Invalid read of size 8`. This time around, Valgrind has a richer story to tell about this chunk of memory. Read the series of backtraces from the bottom line upward to see the events that took place in chronological order along with where they were triggered. Use this story to help understand the nature of the memory problem and figure out how to fix it. You can also pull out GDB if you'd like.
+
+<div class="exercise">
+
+Once you fix this error, re-compile and re-run the `list` program with Valgrind, and make sure that Valgrind reports no errors and that "no leaks are possible". Add the problem and solution to the whiteboard.
+
+</div>
+
+This is an example of "**use after free**", accessing a chunk of memory after you have freed it. The program might still have worked prior to your most recent fix, but because it accessed and relied on data inside a chunk of memory after it was freed, the program was subject to *undefined behavior*—it could crash, corrupt other memory it owns, or do whatever it wants! Thankfully, Valgrind can detect most instances of undefined behavior and help you eliminate it.
+
+"**Double free**" is a specific kind of "use after free" where a program tries to free a chunk of memory that has previously been freed. Let's see how Valgrind reports instances of "double free". Duplicate the call to `free_list` in `main`, and recompile and rerun it with Valgrind.
+
+In addition to `Invalid read of size 8`, where `free_list` attempts to access the `next` member of a freed node, Valgrind also reports `Invalid free() / delete / delete[] / realloc()` arising from the first `free()` call inside `free_list`. Now you know!
+
+## Valgrind and uninitialized values
+
+Another source of undefined behavior is reading from uninitialized memory. Valgrind can detect this, too! **Compile `writesong.c` using the same flags as above, but now, run Valgrind with the following:**
+
+```
+$ valgrind --track-origins=yes ./writesong
+```
+
+The program should write a simple song to `mysong.txt` using file I/O operations you will also encounter in PA 2. However, Valgrind reports several instances of "Conditional jump or move depends on uninitialised value(s)" and "Use of uninitialised value", and because we included the `--track-origins=yes` flag, it shows us where each uninitialized value was declared. The reports seem to repeat, indicating that an uninitialized value was used in a loop. Read the contents of `writesong.c` to figure out the problematic variable and initialize it properly. Verify that Valgrind no longer reports these errors when you run the program.
+
+<div class="exercise">
+
+You should now be able to tell if you've fixed the memory problem on your own! Add the problem identified and how you fixed it to your whiteboard.
 
 </div>
 
 <div class="checkoff">
 
-Please write what you added to your `.gitignore` on your whiteboard.
+Make sure to call over a staff member to go over your plan for how to fix the memory leak in `losing_track.c`, `list.c`, and `writesong.c` that are on your whiteboard.
 
 </div>
 
-# <a href="http://www.aolsucks.org/aolsound.htm" target="_blank">You've got Mail!</a>
+As we have seen, Valgrind is useful for discovering memory bugs in your program. This will be especially useful in PA 2, where you will be graded on proper memory management as you query and sort your linked list and array. Alongside Valgrind, we cannot understate the usefulness of **drawing memory diagrams** in helping you reason about memory management and fix memory issues, especially for linked lists. They make memory management much more intuitive, so embrace them!
 
-The mail command, unlike other commands we’ve taught you in this lab and previous ones, is especially unique: literally no one\* uses this\! As such, this section is not relevant to any course material. But the idea of sending each other mail via the terminal, all 1970s-core, is too appealing to pass up on.
 
-_\* By “literally no one”, I mean “literally no one, except for at least one person at this university”, so I’ve been told._
+# Part 2: Exposing bugs via automated testing
 
-Throughout this section, we’ll use `myname` and `friendname` to refer to your and your partner’s UCSD username, respectively. This is the username you use for your UCSD email, and the one you use to log into ieng6.
+In this section, you will put your GDB and Valgrind skills into practice by finding and fixing bugs in an aviation-themed linked list program. You'll also learn to write unit tests using assert statements to expose bugs. We hope that our introduction to testing helps you with writing your own tests in PA 2\!
 
-In order for mail to work, you and whoever you are mailing to must be on the same cluster on ieng6. You do not need to know what a cluster is, but you do need to know how to SSH into a specific one on ieng6. If each line of your command prompt starts with this:
 
-```
-[myname@ieng6-640]:~:500$
-```
+## Negative, tester, the pattern is full…
 
-Then `ieng6-640` is the cluster you are logged into. In order to SSH into a specific cluster, exit out of your current SSH session, and in your local machine terminal, type:
+You will be testing some bad implementations of some common linked list functions and finding out what’s wrong with them. Some of these implementations have memory leaks, others may be logically incorrect, and some of them just straight-up crash on certain inputs. It’s up to you to use all the tools in your debugging arsenal and all the knowledge you’ve gained to pick out the exact problem(s). Head to the `Testing` directory which is adjacent to `Valgrind`. Check out the `flights.c` file to take a look at the code you’ll be critiquing.
 
-<code>
-  $ ssh
-  <span contenteditable class="code-replace-me">myname</span>@ieng6-640.ucsd.edu
-</code>
+We will stick to the following step-by-step process to remove defects from this file:
 
-And enter your password as usual. Make sure both you and your partner are on cluster 640\.
+1. Write tests that *expose* an existing bug by failing, which can take the form of:
+   1. An "Assertion failed" message
+   2. Memory errors when the test is executed with Valgrind
+   3. A program that never terminates
+2. Use Valgrind and GDB to inspect how the tests failed
+3. Implement a fix such that the tests pass
 
-<div class="important">
+## Bad Free Path
 
-In the following instructions, you will use the `mail` command, but it is not
-available on the `ieng6-2xx` servers. Please make sure to **log out of `ieng6`**
-and **then** sign into **`ieng6-640.ucsd.edu`**! This specific cluster runs an older
-operating system that still has the `mail` command.
+Our recent lectures have mentioned the `assert` function. Given some argument `arg`, it checks if `arg` is true. If true (nonzero), it returns normally, and the code after the call to `assert` proceeds. If false (zero), it crashes the program immediately with an error message that includes the line number of the failing call to `assert`. While we can use the `assert` function to verify assumptions in linked list procedures, it is also essential in automated tests. `assert` function calls in automated tests check for an expected outcome. For example, a test may conceptually sound like:
 
-</div>
+> If I create an empty list, and I then call `add_item_front` on this list with `5`, then (I assert that) the list should now contain one node with `data` equal to `5`.
 
-Once you and your partner are in the same cluster, try using the mail command to begin composing an e-mail (electronic mail). Either command below works:
+Let's start with `bad_free_path_1`. Around line 101 in `flights.c`, we have written an example test for you. Compile `flights.c` with the `-g` flag, and run it with Valgrind. Identify and make your fixes to make our test pass with no errors from Valgrind. Feel free to write more tests to check more cases.
 
-```
-$ mail friendname@ieng6-640.ucsd.edu
-$ mail friendname@ieng6-640
-```
+**💡 Drawing diagrams is very useful for wrapping your head around linked lists. If you're stuck, draw a diagram! There's a reason why almost every staff member relies on a drawing of nodes and connections when explaining linked list operations.**
 
-This will prompt you with `Subject:` so you can type your email’s subject. The subject is only one line of test, so when you press Enter you are now typing the contents of your mail. When done writing your message, press `Ctrl+D` to finish and send.
 
-Now, your partner can use the `mail` command by itself to see that they have received mail\! It will have a number next to it as it enumerates messages every time you open the mail shell. Type this number and press `Enter` to see the message.
 
-Now that you have mail and therefore can enter the mail shell, you can type `?` to get a list of commands that you can use.
+<div class="owntime">
 
-```
-type <message list>          type messages
-next                         goto and type next message
-from <message list>          give head lines of messages
-headers                      print out active message headers
-delete <message list>        delete messages
-undelete <message list>      undelete messages
-save <message list> folder   append messages to folder and mark as saved
-copy <message list> folder   append messages to folder without marking them
-write <message list> file    append message texts to file, save attachments
-preserve <message list>      keep incoming messages in mailbox even if saved
-Reply <message list>         reply to message senders
-reply <message list>         reply to message senders and all recipients
-mail addresses               mail to specific recipients
-file folder                  change to another folder
-quit                         quit and apply changes to folder
-xit                          quit and discard changes made to folder
-!                            shell escape
-cd <directory>               chdir to directory or home if none given
-list                         list names of all available commands
+**Test-First Development**
+<br>*Feel free to skip this note and come back to it later.*
 
-A <message list> consists of integers, ranges of same, or other criteria
-separated by spaces.  If omitted, Mail uses the last message typed.
-```
+Most programming courses in higher education adopt a "Test-Last" approach, where we first write the implementation and then write tests to verify its correctness. What if we flip this order? The Agile programming community has advocated for *Test-First Development* (TFD), where whenever we want to develop a new feature, we first write tests (that would obviously fail), and we then write the implementation with the goal of making the tests pass. While this sounds counter-intuitive, following it in a disciplined manner has several benefits for software engineering:
 
-Note that when the help dialog says “folder”, this is a bit of a misnomer. The “folder” is actually the filename that the command will use. For the `save` and `copy` commands, you can give it a valid path to a file and it will save or copy the contents of the email into the file. The path is relative to wherever you opened the mail shell.
+1. TFD promotes high *test coverage*, meaning tests exercise many (if not all) parts of your implementation code
+2. TFD encourages you to *refactor* your code, i.e., restructure it for performance, maintainability, etc. without worrying that you might break something because you can easily find out by running your tests
+3. Some argue that TFD makes programming more fun and rewarding. Writing a test is like giving yourself a challenge, and seeing it pass for the first time is gratifying. On the other hand, writing tests last can seem like a chore.
 
-You will likely not need to use all of these commands but at least a few are worth noting:
-
-* `type <message list>` can be used to print out the contents of selected messages. For example, `type 3 4` prints out the contents of messages 3 and 4\.
-* `headers` will print out the list of enumerated messages along with their senders, subjects, and statuses.
-* You can respond to a message with `Reply <message list>`, which will open a response to the message to type in a reply. Again, you can finish and send with `Ctrl+D`. For example, `Reply 5` opens a response to message 5\.
-
-There also exists another method to send mail from outside the mail shell, using the pipe operator we learned earlier. This command also makes use of the `echo` command, which outputs its argument to stdout. Sounds redundant, but it’s intended to be used in this way to input strings into other commands, or to be used as print statements in bash scripts.
-
-<code>
-  $ echo
-  <span contenteditable class="code-replace-me">"email body here"</span>
-  | mail -s
-  <span contenteditable class="code-replace-me">"subject here"</span>
-  <span contenteditable class="code-replace-me">friendname</span>@ieng6-640.ucsd.edu
-</code>
-
-## Trading Pokemon
-
-We can also use email to send attachments in the form of files. In this section, we’ll trade Pokemon with each other via mail. We will use the `pokeget.sh` script provided in your lab starter code for fun to generate some files with Pokemon in them. First, let one person be the sender, and the other will be the receiver. After you can successfully send and receive Pokemon from one to the other, swap roles and try sending one the other way.
-
-### Sender
-
-Use the below command to generate a ".pk" file with the name of the Pokemon you picked. For example, if you picked Pikachu, \#25, you would call this file `pikachu.pk`. Alternatively, if you want the receiver to not know what the Pokemon is until they open the file, you can call it `mystery.pk`. Feel free to replace `25` with the [National Dex number](https://www.pokemon.com/us/pokedex) of any Pokemon.
-
-```
-./pokeget.sh 25 > pikachu.pk
-```
-
-If the `pokeget.sh` script seems to take more than a few seconds to finish running, try using `Ctrl + C` to interrupt the program and try running the same command again.
-
-Once you have a ".pk" file, use the following command to send it to your partner, using the `-a` option. Replace "pikachu.pk" with the name of your Pokemon file if it is different.
-
-<code>
-  $ echo
-  <span contenteditable class="code-replace-me">"email body here"</span>
-  |
-  mail -s
-  <span contenteditable class="code-replace-me">"subject here"</span>
-  -a
-  <span contenteditable class="code-replace-me">pikachu.pk</span>
-  <span contenteditable class="code-replace-me">friendname</span>@ieng6-640.ucsd.edu
-</code>
-
-### Receiver
-
-Open up your mail shell with the mail command. You should have a new email if the sender did their job properly. Type the following command to save the email you received as a file, with `n` replaced by the ID number of the email. Note that the “&” is the prompt, and does not need to be typed, just like “$” in the terminal.
-
-```
-& save n pokemon.mail
-```
-
-Extracting the attachment in a readable form from the email itself is quite involved, so please use the provided script to get your Pokemon:
-
-```
-./extract_pokemon.sh pokemon.mail > pokemon.pk
-cat pokemon.pk
-```
-
-<div class="note">
-
-If you get an error running `extract_pokemon.sh` that mentions something about a bad interpreter, this is likely because the file hasn't been formatted for unix correctly yet. Run `sed -i 's/\r$//' extract_pokemon.sh` to reformat the file and try again.
+However, TFD is criticized for its counter-intuitiveness, repeated context switching between testing and implementing, and being unsuitable for input/output applications. While we are not in a position to officially recommend Test-First Development, we want you to try it with your next PA and see if you like it.
 
 </div>
 
+Now that we have seen how an assert works for writing a few test cases and catching bugs, we shall write our own. We have given you 2 broken functions, `bad_remove_element` and `bad_insert_element_at_pos`.
 
-If everything went well, you should get the Pokemon your partner sent you\! Have a bit of fun with this and send each other some cool Pokemon.
+## Bad Remove Element
 
-<div class="checkoff">
+There are 2 problems with `bad_remove_element` in `flights.c`. One will be caught by Valgrind, and the other we will have to find using asserts. Write assert statements to test this function, including one which should fail. Some test cases we usually want to consider when dealing with lists are what happens at the beginning, the end, and somewhere in between. Here's an example test you could write:
 
-Please spend a couple minutes drawing the pokemon you received from your neighbor.
-You can take turns drawing and reading through the next part.
+1. Create a path LAX→SFO→PDX
+2. Use `bad_remove_element` to remove the first item, LAX
+3. Assert that the first item of the list is now SFO
+4. Assert that the second item of the list is now PDX
 
-</div>
 
-<h1 id="hacking" style="color: #00ff41 !important; background-color: #0d0d0d; font-family: 'Courier New', Courier, monospace; padding: 10px 20px;text-shadow: 0 0 8px #00ff41, 0 0 20px #00ff41; border-radius: 4px; letter-spacing: 4px;">HACKING</h1>
+Now that we have successfully found in which case the program does not give us the desired behavior, it is easier to pinpoint where in the code there is a problem. For the second problem, keep in mind that for every `malloc` there must also be a `free` and vice versa. Use this to help you fix the function.
 
-This is the same file you may or may not have started in lab 3 and can be found in [**this** github classroom](https://classroom.github.com/a/7dYavFbQ) in the `gradebook` directory.
 
-## Background
+## Bad Insert Element
+
+At this point, you are probably getting bored of the uninspired section names. What we hope you haven’t gotten bored of is writing tests, because that is what you will be doing yet again.
+
+The `bad_insert_element_at_pos` function takes in a `path`, the name of a new airport `name`, and an `int pos`. It should insert a new airport with the given name, into the path, at the given position. For example, if we are given the path LAX→TPE→PEK, and we pass in “SIN” for the name, and 1 as the pos, we would expect the path to become LAX→SIN→TPE→PEK. Note that the index of SIN is now 1\. If `pos` is equal to 0, the function should update the value of `*path` to communicate the address of the new first node to the function caller. For another example, starting with LAX→TPE→PEK, and passing in 3 as the pos, and “HND” for the name, we would expect LAX→TPE→PEK→HND.
+
+Use these examples to help you write tests that expose the bugs in `bad_insert_element_at_pos`.
+
+
+After finding the bug, now you should be able to debug the code and implement a working solution.
+
+# Next steps
+
+If you finish with the lab content above you may any do the following:
+* Go back to the "On your own time!" sections and do them.
+* Continue reading and work on the buffer overflow task that was also available last week. Surprise! it was a lab5 preview all along.
+* Work on PA2
+
+
+# Lab 5 Preview: Hacking
+## 5.1. Background
 
 Imagine that you're a less ethical student than I'm sure you actually are. You
 overhear from some other students in lab that there's a binary available on the
@@ -650,7 +314,7 @@ release them. You hear quieter whispers that someone found a way to use it to
 _change_ their grade. Given our less-than-ethical assumption about your state
 of mind, you might be tempted to exploit this for yourself.  
 
-## The Plot Thickens
+## 5.2. The Plot Thickens
 
 You see some code open on the professor's laptop during office hours.  You do
 your best to commit it to memory and write it down (remember, you're acting
@@ -689,94 +353,4 @@ GDB commands that may be useful for this activity:
 
 -   You can use the following [reference card](https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf) for reference on gdb commands, and format commands for x and print.
 
-## The Finale
 
-There are now 2 fun optional activities you can complete:
-
-* Mass mailing, where you send your pokemon to a mailing list of recipients who would be delighted to have your pokemon
-* Pokemon `.bash_profile`, how to add pokemon to print whenever you open your terminal.
-
-You can do either or neither in any order, they are here for your own practice and amusement.
-
-## Mass mailing <span class="label label-purple">Optional</span>
-
-Another useful function in scripting is the while loop. For example, running:
-
-```bash
-while read character; do
-    echo "$character is a transformer"
-done <transformers.txt
-```
-
-Given that `transformers.txt` contains:
-
-```
-Optimus Prime
-Bumblebee
-Grimlock
-Kickback
-Hardshell
-Starscream
-Megatron
-Metroplex
-Ironhide
-```
-
-Will print:
-
-```
-Optimus Prime is a transformer
-Bumblebee is a transformer
-Grimlock is a transformer
-Kickback is a transformer
-Hardshell is a transformer
-Starscream is a transformer
-Megatron is a transformer
-Metroplex is a transformer
-Ironhide is a transformer
-```
-
-Given this and the command to send mail:
-
-<code>
-  $ echo
-  <span contenteditable class="code-replace-me">"email body here"</span>
-  |
-  mail -s
-  <span contenteditable class="code-replace-me">"subject here"</span>
-  -a
-  <span contenteditable class="code-replace-me">filename</span>
-  <span contenteditable class="code-replace-me">friendname</span>@ieng6-640.ucsd.edu
-</code>
-
-Where `-a filename` will attach the file with `filename` to the email, **send everyone in `recipients.txt` your Pokemon**. Please send this to the list in `recipients.txt` **no more than once**. To test your loop, you may want to make a file of your groupmates' emails in the same format of `recipients.txt`. Note that you may also send mail to yourself.
-
-## Adding Pokemon to `.bash_profile` <span class="label label-purple">Optional</span>
-
-If you would like your Pokemon to appear when you open ieng6, you may do the following.
-
-If you would like 1 Pokemon, add the line <code>cat <span contenteditable class="code-replace-me">~/path/to/pokemon.pk</span></code> (replace the path with the entire path to your Pokemon file, starting with `~`) to the end of the `.bash_profile` file in your home directory.
-
-If you would like 2 Pokemon, add the line <code>paste <span contenteditable class="code-replace-me">~/path/to/pokemon/bigPoke.pk</span> <span contenteditable class="code-replace-me">~/path/to/pokemon/smallPoke.pk</span></code> (replace the path with the actual path to your Pokemon file) to the end of the `.bash_profile` file in your home directory. Note that if you paste the smaller Pokemon first, the larger one will be cut in half. You are welcome to try to troubleshoot this.
-
-If you want to do the same thing on your own computer, you can add this same line to your `.bash_profile` or `.bashrc` file. Just make sure to download the referenced `.pk` files using `pokeget.sh` and edit the paths as needed!
-
-## Other Real world Script examples:
-
-A [real life script](https://github.com/kizhikevich/violating_ripe_probes/blob/main/atlas_pipeline/run_atlas_pipeline.sh) by [Katherine Izhikevich](https://kizhikevich.github.io/) and [Ben Du](https://www.bencdu.com/)    which run several python scripts to retrieve and sort through data.
-
-The script Elena made to print out pokemon randomly when she opens ieng6 [pokemon.sh](./pokemon.sh) (complete with commented out old path variables before she figured out how to pick randomly from an arbitrary amount of directories.)
-
-The script Elena made to print out Joe quotes also upon opening ieng6. [juotes.sh](./juotes.sh) Note that the file is full of lines that look like 
-```
-Feb 10 -|Energy is priceless, but so is uninterrupted descriptions of structs.
-Sept25 2025 @10:16? -|I'm thankful to the computer engineering wizards that provided the magic sand to do this
-```
-
-The script Brendan made to automatically zip and re-install python addons for the 3D software Blender. [blender_addon_updater.sh](./blender_addon_updater.sh)
-
-> Note: Understanding scripts.  
-> Bash scripting is no small undertaking to understand. It's basically a whole new programming language with it's own syntax and rules, and while this lab covers a ton of the basics, there is a whole truckload of other things. While you do not know everything there is to know about bash-scripting, you do have a foundation of knowledge and *internet access*. Both google searching and asking ChatGPT *can* be super helpful for 2 things: understanding a script, and making one.  
-> Wonder what mapfile is? googling this gets an AI overview describing it *and* a link to a man page. This may lead you to the thought "oh right the man pages, maybe I should check it on my computer".  
-> pokemon.sh was made with much help from ChatGPT. Elena had a starting point but was unfamiliar with how to get prefixes, suffixes, or how exactly to randomly pick between folders. So, she used ChatGPT how she might switch the file extension from .mail to .pk. Prompts included "how would I remove a prefix" and "how do i pick randomly from a list" to piece together the script.  
-> It is also noteworthy that GenAI models will be good at things they have a lot of training on. Common things like what we find in pokemon.sh they will get correct a lot. **Things they are not as well trained on they may very well get wrong and they will do it confidently**. So, please do be careful.
