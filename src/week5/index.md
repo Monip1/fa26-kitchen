@@ -1,4 +1,4 @@
-# Lab 5: Shell scripting, .gitignore, and Mail
+# Lab 5: Finding memory errors with Valgrind
 
 <div class="note">
 
