@@ -14,6 +14,8 @@ In this lab, you'll use Valgrind, a memory error checker, to identify memory man
 * Interpret output from Valgrind for memory-related problems
 * Recognize Valgrind outputs for direct leaks, indirect leaks, use after free, and double free
 * Use Valgrind to guide memory error fixing
+* Recognize the value of automated tests in software development
+* Write automated tests using assert statements
 
 
 # Icebreaker
