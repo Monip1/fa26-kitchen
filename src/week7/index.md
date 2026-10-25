@@ -1,12 +1,13 @@
 # Lab 4: Shell scripting, .gitignore, and Mail
-In this lab, you'll use Valgrind, a memory error checker, to identify memory management mishaps in programs involving arrays and linked lists. Valgrind is ubiquitous in systems programming workflows, especially for programs written in C and C++. You'll find it valuable for PA 2 and onward, too\!
+In this lab, you will organize some nostalgic files using shell scripting, write
+your own `.gitignore`, and send mail messages with Pokemon. You have the entire lab period for this. Have fun!
 
-## Lab 4 learning objectives
+## Lab 5 learning objectives
 
-* Recognize the purpose of Valgrind in C programming
-* Interpret output from Valgrind for memory-related problems
-* Recognize Valgrind outputs for direct leaks, indirect leaks, use after free, and double free
-* Use Valgrind to guide memory error fixing
+* Understand the utility and overall mechanism of shell scripting
+* Determine which files should not be tracked by Git and list them in `.gitignore`
+* Trade Pokemon by sending and receiving mail on `ieng6`!
+
 
 ![Illustration of 2D arrays and linked lists in memory](./assets/l4_pointers_meme.png)
 

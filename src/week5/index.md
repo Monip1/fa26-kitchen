@@ -2,18 +2,19 @@
 
 <div class="note">
 
-You may find our solutions to Lab 3 and Lab 4 in our [solutions repository](https://github.com/CSE29Spring2026/lab-answer-keys). For now, let's focus on lab 5.
+You may find our solutions to Lab 3 and Lab 4 in our [solutions repository](TODO). For now, let's focus on lab 5.
 
 </div>
 
-In this lab, you will organize some nostalgic files using shell scripting, write
-your own `.gitignore`, and send mail messages with Pokemon. You have the entire lab period for this. Have fun!
+In this lab, you'll use Valgrind, a memory error checker, to identify memory management mishaps in programs involving arrays and linked lists. Valgrind is ubiquitous in systems programming workflows, especially for programs written in C and C++. You'll find it valuable for PA 2 and onward, too\!
 
-## Lab 5 learning objectives
+## Lab 4 learning objectives
 
-* Understand the utility and overall mechanism of shell scripting
-* Determine which files should not be tracked by Git and list them in `.gitignore`
-* Trade Pokemon by sending and receiving mail on `ieng6`!
+* Recognize the purpose of Valgrind in C programming
+* Interpret output from Valgrind for memory-related problems
+* Recognize Valgrind outputs for direct leaks, indirect leaks, use after free, and double free
+* Use Valgrind to guide memory error fixing
+
 
 # Icebreaker
 
