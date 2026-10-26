@@ -2,7 +2,7 @@
 
 <div class="note">
 
-You may find our solutions to Lab 3 and Lab 4 in our [solutions repository](TODO). For now, let's focus on lab 5.
+You may find our solutions to Lab 3 and Lab 4 in our [solutions repository](https://github.com/ucsd-cse29-fall2026/lab_solutions). For now, let's focus on lab 5.
 
 </div>
 
