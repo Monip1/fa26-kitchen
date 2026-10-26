@@ -256,7 +256,7 @@ We will stick to the following step-by-step process to remove defects from this 
 
 ## Bad Clear Schedule
 
-Our recent lectures have mentioned the `assert` function. Given some argument `arg`, it checks if `arg` is true. If true (nonzero), it returns normally, and the code after the call to `assert` proceeds. If false (zero), it crashes the program immediately with an error message that includes the line number of the failing call to `assert`. While we can use the `assert` function to verify assumptions in linked list procedures, it is also essential in automated tests. `assert` function calls in automated tests check for an expected outcome. For example, a test may conceptually sound like:
+Given some argument `arg`, it checks if `arg` is true. If true (nonzero), it returns normally, and the code after the call to `assert` proceeds. If false (zero), it crashes the program immediately with an error message that includes the line number of the failing call to `assert`. While we can use the `assert` function to verify assumptions in linked list procedures, it is also essential in automated tests. `assert` function calls in automated tests check for an expected outcome. For example, a test may conceptually sound like:
 
 > If I create an empty list, and I then call `add_course` on this list with `(29, 4)`, then (I assert that) the list should now contain one course with `course_id` equal to `29` and `units` equal to `4`.
 
