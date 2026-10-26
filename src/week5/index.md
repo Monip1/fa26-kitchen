@@ -233,9 +233,20 @@ As we have seen, Valgrind is useful for discovering memory bugs in your program.
 In this section, you will put your GDB and Valgrind skills into practice by finding and fixing bugs in an aviation-themed linked list program. You'll also learn to write unit tests using assert statements to expose bugs. We hope that our introduction to testing helps you with writing your own tests in PA 2\!
 
 
-## Negative, tester, the pattern is full…
+## Unpaid SWE Internship Experience
 
-You will be testing some bad implementations of some common linked list functions and finding out what’s wrong with them. Some of these implementations have memory leaks, others may be logically incorrect, and some of them just straight-up crash on certain inputs. It’s up to you to use all the tools in your debugging arsenal and all the knowledge you’ve gained to pick out the exact problem(s). Head to the `Testing` directory which is adjacent to `Valgrind`. Check out the `flights.c` file to take a look at the code you’ll be critiquing.
+Congratulations on landing your first internship! It's been a long road filled with leetcode sessions, piles of rejections, and empty containers of your caffienated drink of choice, but it must all be worth it for this experience. Your first assignment jsut came in from your boss:
+
+> Hello, dear Intern, I am the lead for our organization’s new and improved Course Registration and Appointment Platform! It’s practically a perfect system (except for a couple teeny tiny bugs) and has all the bells and whistles ready to ship (like a working weekly calendar)! However, there are those little bugs that do need fixing, and sitting around all day really tires me out, so I’m tasking YOU with handling those bugs. This is your first assignment, so try not to dissapoint!
+><div align="right">
+
+Sincerely,
+Ben Schwarmer
+
+</div>
+
+You will be testing some bad implementations of some functions and finding out what’s wrong with them. Some of these implementations have memory leaks, others may be logically incorrect, and some of them just straight-up crash on certain inputs. It’s up to you to use all the tools in your debugging arsenal and all the knowledge you’ve gained to pick out the exact problem(s). Head to the `Testing` directory which is adjacent to `Valgrind`. Check out the `schedule.c` file to take a look at the code you’ll be critiquing.
+
 
 We will stick to the following step-by-step process to remove defects from this file:
 
@@ -246,13 +257,13 @@ We will stick to the following step-by-step process to remove defects from this 
 2. Use Valgrind and GDB to inspect how the tests failed
 3. Implement a fix such that the tests pass
 
-## Bad Free Path
+## Bad Clear Schedule
 
 Our recent lectures have mentioned the `assert` function. Given some argument `arg`, it checks if `arg` is true. If true (nonzero), it returns normally, and the code after the call to `assert` proceeds. If false (zero), it crashes the program immediately with an error message that includes the line number of the failing call to `assert`. While we can use the `assert` function to verify assumptions in linked list procedures, it is also essential in automated tests. `assert` function calls in automated tests check for an expected outcome. For example, a test may conceptually sound like:
 
-> If I create an empty list, and I then call `add_item_front` on this list with `5`, then (I assert that) the list should now contain one node with `data` equal to `5`.
+> If I create an empty list, and I then call `add_course` on this list with `(29, 4)`, then (I assert that) the list should now contain one course with `course_id` equal to `29` and `units` equal to `4`.
 
-Let's start with `bad_free_path_1`. Around line 101 in `flights.c`, we have written an example test for you. Compile `flights.c` with the `-g` flag, and run it with Valgrind. Identify and make your fixes to make our test pass with no errors from Valgrind. Feel free to write more tests to check more cases.
+Let's start with `test_clear_schedule_1`. Around line 131 in `schedule.c`, we have written an example test for you. Compile `schedule.c` with the `-g` flag, and run it with Valgrind. Identify and make your fixes to make our test pass with no errors from Valgrind. Feel free to write more tests to check more cases.
 
 **💡 Drawing diagrams is very useful for wrapping your head around linked lists. If you're stuck, draw a diagram! There's a reason why almost every staff member relies on a drawing of nodes and connections when explaining linked list operations.**
 
@@ -273,28 +284,31 @@ However, TFD is criticized for its counter-intuitiveness, repeated context switc
 
 </div>
 
-Now that we have seen how an assert works for writing a few test cases and catching bugs, we shall write our own. We have given you 2 broken functions, `bad_remove_element` and `bad_insert_element_at_pos`.
+Now that we have seen how an assert works for writing a few test cases and catching bugs, we shall write our own. We have given you 2 broken functions, `bad_drop_course` and `bad_copy_schedule`.
 
-## Bad Remove Element
+## Bad Drop Course
 
-There are 2 problems with `bad_remove_element` in `flights.c`. One will be caught by Valgrind, and the other we will have to find using asserts. Write assert statements to test this function, including one which should fail. Some test cases we usually want to consider when dealing with lists are what happens at the beginning, the end, and somewhere in between. Here's an example test you could write:
+There are 2 problems with `bad_drop_course` in `schedule.c`. One will be caught by Valgrind, and the other we will have to find using asserts. Write assert statements to test this function, including one which should fail. Some test cases we usually want to consider when dealing with lists are what happens at the beginning, the end, and somewhere in between. Here's an example test you could write:
 
-1. Create a path LAX→SFO→PDX
-2. Use `bad_remove_element` to remove the first item, LAX
-3. Assert that the first item of the list is now SFO
-4. Assert that the second item of the list is now PDX
-
-
-Now that we have successfully found in which case the program does not give us the desired behavior, it is easier to pinpoint where in the code there is a problem. For the second problem, keep in mind that for every `malloc` there must also be a `free` and vice versa. Use this to help you fix the function.
+1. Create a schedule and add courses 12, 21, and 29 (with 4 units each).
+2. Use `bad_drop_course` to drop the first course, 12
+3. Assert that the first item of the list is now 21
+4. Assert that the second item of the list is now 29
+5. Assert that the third item of the list is NULL
 
 
-## Bad Insert Element
+
+Now that we have successfully found in which case the program does not give us the desired behavior, it is easier to pinpoint where in the code there is a problem.
+
+
+## Bad Copy Schedule
 
 At this point, you are probably getting bored of the uninspired section names. What we hope you haven’t gotten bored of is writing tests, because that is what you will be doing yet again.
 
-The `bad_insert_element_at_pos` function takes in a `path`, the name of a new airport `name`, and an `int pos`. It should insert a new airport with the given name, into the path, at the given position. For example, if we are given the path LAX→TPE→PEK, and we pass in “SIN” for the name, and 1 as the pos, we would expect the path to become LAX→SIN→TPE→PEK. Note that the index of SIN is now 1\. If `pos` is equal to 0, the function should update the value of `*path` to communicate the address of the new first node to the function caller. For another example, starting with LAX→TPE→PEK, and passing in 3 as the pos, and “HND” for the name, we would expect LAX→TPE→PEK→HND.
+The `bad_copy_schedule` function should take in a schedule and return a pointer to a deep copy of it. This means that if we were to add or drop a course from either the schedule or the copy, it should not affect the other. For example, if we are given the schedule [12, 21, 29], and we copy it, the copy should look like [12, 21, 29]. If we drop a course (say 21) from the original schedule, it should look like [12, 29, NULL] while the copy stays the same. For another example, say you have that same schedule and copy it again. Then if we use `clear_schedule` on the copy, it should be empty while the original schedule is unchanged.
 
-Use these examples to help you write tests that expose the bugs in `bad_insert_element_at_pos`.
+
+Use these examples to help you write tests that expose the bugs in `bad_copy_schedule`.
 
 
 After finding the bug, now you should be able to debug the code and implement a working solution.
