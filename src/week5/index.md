@@ -8,7 +8,7 @@ You may find our solutions to Lab 3 and Lab 4 in our [solutions repository](TODO
 
 In this lab, you'll use Valgrind, a memory error checker, to identify memory management mishaps in programs involving arrays and linked lists. Valgrind is ubiquitous in systems programming workflows, especially for programs written in C and C++. You'll find it valuable for future Projects, too\!
 
-## Lab 4 learning objectives
+## Lab 5 learning objectives
 
 * Recognize the purpose of Valgrind in C programming
 * Interpret output from Valgrind for memory-related problems
@@ -68,7 +68,7 @@ To scroll **u**p in the file, <u>hold</u> the `Ctrl` key and press `u`.
 
 # Part 1: Help! My program leaks…
 
-Please clone the [GitHub repository](https://github.com/CSE29Spring2026/lab4-starter) for this lab's starter code onto `ieng6` in your `cse29` directory. It contains code for a few programs that leak memory, and in this lab, we'll use Valgrind to detect these leaks and help fix them. In this repository you will find a `Valgrind` directory, start here.
+Please clone the [Classroom 50 Assignment](https://github.com/CSE29Spring2026/lab4-starter) for this lab's starter code onto `ieng6` in your `cse29` directory. It contains code for a few programs that leak memory, and in this lab, we'll use Valgrind to detect these leaks and help fix them. In this repository you will find a `Valgrind` directory, start here.
 
 Let's start with `leak.c`:
 
