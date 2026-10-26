@@ -237,7 +237,8 @@ In this section, you will put your GDB and Valgrind skills into practice by find
 
 Congratulations on landing your first internship! It's been a long road filled with leetcode sessions, piles of rejections, and empty containers of your caffienated drink of choice, but it must all be worth it for this experience. Your first assignment jsut came in from your boss:
 
-> Hello, dear Intern, I am the lead for our organization’s new and improved Course Registration and Appointment Platform! It’s practically a perfect system (except for a couple teeny tiny bugs) and has all the bells and whistles ready to ship (like a working weekly calendar)! However, there are those little bugs that do need fixing, and sitting around all day really tires me out, so I’m tasking YOU with handling those bugs. This is your first assignment, so try not to dissapoint! <div align="right">Sincerely,
+> Hello, dear Intern, I am the lead for our organization’s new and improved Course Registration and Appointment Platform! It’s practically a perfect system (except for a couple teeny tiny bugs) and has all the bells and whistles ready to ship (like a working weekly calendar)! However, there are those little bugs that do need fixing, and sitting around all day really tires me out, so I’m tasking YOU with handling those bugs. This is your first assignment, so try not to dissapoint! <div align="right">
+> Sincerely,
 > Ben Schwarmer
 </div>
 
