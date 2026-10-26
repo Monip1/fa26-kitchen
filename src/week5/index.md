@@ -225,7 +225,7 @@ Make sure to call over a staff member to go over your plan for how to fix the me
 
 </div>
 
-As we have seen, Valgrind is useful for discovering memory bugs in your program. This will be especially useful in projects where you will be graded on proper memory management as you query and sort various data. Alongside Valgrind, we cannot understate the usefulness of **drawing memory diagrams** in helping you reason about memory management and fix memory issues, especially for linked lists. They make memory management much more intuitive, so embrace them!
+As we have seen, Valgrind is useful for discovering memory bugs in your program. This will be especially useful in projects where you will be graded on proper memory management as you query and sort various data. Alongside Valgrind, we cannot understate the usefulness of **drawing memory diagrams** in helping you reason about memory management and fix memory issues. They make memory management much more intuitive, so embrace them!
 
 
 # Part 2: Exposing bugs via automated testing
