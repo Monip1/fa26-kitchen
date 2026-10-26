@@ -317,7 +317,7 @@ Notes on the autograder:
 - Students have to add the missing frees to the example test, because the leak check covers it too.
 - The structs and function names must not change. (edited)
 
-You must also fill out this [mid-quarter survey](https://forms.gle/k3MH73hDgMXvuycT6).
+**You must also fill out this [mid-quarter survey](https://forms.gle/k3MH73hDgMXvuycT6).**
 
 
 </div>
