@@ -68,7 +68,7 @@ To scroll **u**p in the file, <u>hold</u> the `Ctrl` key and press `u`.
 
 # Part 1: Help! My program leaks…
 
-Please clone the [Classroom 50 Assignment](https://github.com/CSE29Spring2026/lab4-starter) for this lab's starter code onto `ieng6` in your `cse29` directory. It contains code for a few programs that leak memory, and in this lab, we'll use Valgrind to detect these leaks and help fix them. In this repository you will find a `Valgrind` directory, start here.
+Please clone the [Classroom 50 Assignment](https://classroom50.org/ucsd-cse29-fall2026/cse29-fa26/assignments/lab-5/accept) for this lab's starter code onto `ieng6` in your `cse29` directory. It contains code for a few programs that leak memory, and in this lab, we'll use Valgrind to detect these leaks and help fix them. In this repository you will find a `Valgrind` directory, start here.
 
 Let's start with `leak.c`:
 
