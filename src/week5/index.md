@@ -6,7 +6,7 @@ You may find our solutions to Lab 3 and Lab 4 in our [solutions repository](TODO
 
 </div>
 
-In this lab, you'll use Valgrind, a memory error checker, to identify memory management mishaps in programs involving arrays and linked lists. Valgrind is ubiquitous in systems programming workflows, especially for programs written in C and C++. You'll find it valuable for future Projects, too\!
+In this lab, you'll use Valgrind, a memory error checker, to identify memory management mishaps in programs involving arrays and pointers. Valgrind is ubiquitous in systems programming workflows, especially for programs written in C and C++. You'll find it valuable for future Projects, too\!
 
 ## Lab 5 learning objectives
 
@@ -225,12 +225,12 @@ Make sure to call over a staff member to go over your plan for how to fix the me
 
 </div>
 
-As we have seen, Valgrind is useful for discovering memory bugs in your program. This will be especially useful in PA 2, where you will be graded on proper memory management as you query and sort your linked list and array. Alongside Valgrind, we cannot understate the usefulness of **drawing memory diagrams** in helping you reason about memory management and fix memory issues, especially for linked lists. They make memory management much more intuitive, so embrace them!
+As we have seen, Valgrind is useful for discovering memory bugs in your program. This will be especially useful in projects where you will be graded on proper memory management as you query and sort various data. Alongside Valgrind, we cannot understate the usefulness of **drawing memory diagrams** in helping you reason about memory management and fix memory issues, especially for linked lists. They make memory management much more intuitive, so embrace them!
 
 
 # Part 2: Exposing bugs via automated testing
 
-In this section, you will put your GDB and Valgrind skills into practice by finding and fixing bugs in an aviation-themed linked list program. You'll also learn to write unit tests using assert statements to expose bugs. We hope that our introduction to testing helps you with writing your own tests in PA 2\!
+In this section, you will put your GDB and Valgrind skills into practice by finding and fixing bugs in an scheduling program. You'll also learn to write unit tests using assert statements to expose bugs. We hope that our introduction to testing helps you with writing your own tests in your projects\!
 
 
 ## Unpaid SWE Internship Experience
