@@ -26,7 +26,7 @@ from last quarter was: _What is your favorite letter?_ which I encourage you to 
 
 <img src="./assets/l5_icebreaker.png" alt="icebreaker" width="600">  
 
-<div class="checkoff">
+<div class="exercise">
 
 Please make sure that everyone in your group answers the icebreaker and writes their name on the whiteboard. We will come around to collect pictures for attendance soon\!
 
@@ -150,7 +150,7 @@ In `leak.c`, there is a function that performs matrix addition on two 2D arrays.
 
 ![Matrix addition visualization](./assets/l4matrix_addition.png)
 
-<div class="checkoff">
+<div class="important">
 
 Please check in with your teammates to make sure everyone understands `leak.c` and it's problem and solution. If you have any questions now is a good time to ask a staff member as a group for any clarifications.
 
@@ -219,9 +219,9 @@ You should now be able to tell if you've fixed the memory problem on your own! A
 
 </div>
 
-<div class="important">
+<div class="checkoff">
 
-Make sure to call over a staff member to go over your plan for how to fix the memory leak in `losing_track.c`, `list.c`, and `writesong.c` that are on your whiteboard.
+Make sure to call over a staff member to go over your plan for how to fix the memory leak in `losing_track.c`, `log.c`, and `writesong.c` that are on your whiteboard.
 
 </div>
 
