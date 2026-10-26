@@ -309,6 +309,19 @@ Use these examples to help you write tests that expose the bugs in `bad_copy_sch
 
 After finding the bug, now you should be able to debug the code and implement a working solution.
 
+<div class="gradescope">
+
+Submit your repository to gradescope!  
+Notes on the autograder:  
+- Tests must go in the four test functions; anything written in main is ignored.
+- Students have to add the missing frees to the example test, because the leak check covers it too.
+- The structs and function names must not change. (edited)
+
+You must also fill out this [mid-quarter survey](https://forms.gle/k3MH73hDgMXvuycT6).
+
+
+</div>
+
 # Next steps
 
 If you finish with the lab content above you may any do the following:
