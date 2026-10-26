@@ -219,7 +219,7 @@ You should now be able to tell if you've fixed the memory problem on your own! A
 
 </div>
 
-<div class="checkoff">
+<div class="important">
 
 Make sure to call over a staff member to go over your plan for how to fix the memory leak in `losing_track.c`, `list.c`, and `writesong.c` that are on your whiteboard.
 
