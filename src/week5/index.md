@@ -311,6 +311,8 @@ After finding the bug, now you should be able to debug the code and implement a 
 
 <div class="gradescope">
 
+**You must also fill out this [mid-quarter survey](https://forms.gle/k3MH73hDgMXvuycT6).**
+
 Submit your repository to gradescope!  
 Notes on the autograder:  
 - Tests must go in the four test functions; anything written in main is ignored.
