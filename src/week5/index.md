@@ -204,7 +204,7 @@ This is an example of "**use after free**", accessing a chunk of memory after yo
 
 "**Double free**" is a specific kind of "use after free" where a program tries to free a chunk of memory that has previously been freed. Let's see how Valgrind reports instances of "double free". Duplicate the call to `free_log` in `main`, and recompile and rerun it with Valgrind.
 
-In addition to `Invalid read of size 8`, where `free_log` attempts to access the `next` member of a freed node, Valgrind also reports `Invalid free() / delete / delete[] / realloc()` arising from the first `free()` call inside `free_log`. Now you know!
+In addition to `Invalid read of size 8`, where `free_log` attempts to access the `title` and `content` member of a freed `struct day`, Valgrind also reports `Invalid free() / delete / delete[] / realloc()` arising from the first `free()` call inside `free_log`. Now you know!
 
 ## Valgrind and uninitialized values
 
