@@ -318,9 +318,9 @@ After finding the bug, now you should be able to debug the code and implement a 
 
 Submit your repository to gradescope!  
 Notes on the autograder:  
-- Tests must go in the four test functions; anything written in main is ignored.
-- Students have to add the missing frees to the example test, because the leak check covers it too.
-- The structs and function names must not change. (edited)
+- Tests must go in the three test functions; anything written in main is ignored.
+- You must add the missing frees to the example test, because we will check for memory leaks.
+- The structs and function names must not change.
 
 **You must also fill out this [mid-quarter survey](https://forms.gle/k3MH73hDgMXvuycT6).**
 
