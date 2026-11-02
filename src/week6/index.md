@@ -329,9 +329,9 @@ Let's go back to the `headers` directory from the [Header Guards section](#heade
 # Next steps
 
 If you finish with the lab content above you may any do the following:
-* Go finish the [pokemon mailtime](./lab5#youve-got-mail) from last week!
-* Work on PA3
-* Work on HW5
+* Do the lab 7 preview below.
+* Work on Project 3
+* Learn something new about unix/ systems and share with people around you.
 
 # Lab 7 Preview: Hacking
 {: style="color: #00ff41 !important; background-color: #0d0d0d; font-family: 'Courier New', Courier, monospace; padding: 10px 20px;text-shadow: 0 0 8px #00ff41, 0 0 20px #00ff41; border-radius: 4px; letter-spacing: 4px;"}
