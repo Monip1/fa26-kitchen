@@ -320,9 +320,9 @@ $ ./script.sh > out.txt &
 for example, will write to our output file and do so in the background, meaning you can use your terminal in the meantime. You can check on this periodically by using `cat` to see `out.txt`, go ahead and see what it has immediately after starting your background process.
 
 
-### Part 4: Makefile challenge in `headers` directory
+### Part 4: Makefile challenge 
 
-Let's go back to the `headers` directory from the [Header Guards section](#header-guards) and open the `Makefile` there, which is partially completed. Complete the `Makefile` according to the requirements listed inside it. Feel free to copy code segments from above. Once you're done, try `make` to see your Makefile in action\!
+Go to the `part4` directory and open the `Makefile` there, which is partially completed. Complete the `Makefile` according to the requirements listed inside it. Feel free to copy code segments from above. Once you're done, try `make` to see your Makefile in action\!
 
 
 
