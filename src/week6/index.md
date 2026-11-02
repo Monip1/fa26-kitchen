@@ -324,6 +324,10 @@ for example, will write to our output file and do so in the background, meaning 
 
 Go to the `part4` directory and open the `Makefile` there, which is partially completed. Complete the `Makefile` according to the requirements listed inside it. Feel free to copy code segments from above. Once you're done, try `make` to see your Makefile in action\!
 
+<div class="gradescope">
+
+Submit your finished repository to Gradescope!
+</div>
 
 
 # Next steps
