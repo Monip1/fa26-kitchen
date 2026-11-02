@@ -324,37 +324,7 @@ for example, will write to our output file and do so in the background, meaning 
 
 Let's go back to the `headers` directory from the [Header Guards section](#header-guards) and open the `Makefile` there, which is partially completed. Complete the `Makefile` according to the requirements listed inside it. Feel free to copy code segments from above. Once you're done, try `make` to see your Makefile in action\!
 
-## A Bit of Practice
 
-One of the important skills of PA3 that you will need to know is bit manipulation. That’s what we’re going to practice today\!
-
-In `bitstrings.c`, you’ll find a series of bitstrings along with incomplete assert statements. Your job will be to fill each instance of `_` with the correct bitwise operator to make the assert pass.
-
-For your reference, here is a code snippet with usages of common bitwise operators you may find useful, taken from GeeksForGeeks:
-
-```c
-// a = 5(00000101), b = 9(00001001)
-unsigned char a = 5, b = 9;
-
-// The result is 00000001 (AND)
-printf("a = %d, b = %d\n", a, b);
-printf("a&b = %d\n", a & b);
-
-// The result is 00001101 (OR)
-printf("a|b = %d\n", a | b);
-
-// The result is 00001100 (XOR)
-printf("a^b = %d\n", a ^ b);
-
-// The result is 11111010 (NOT)
-printf("~a = %d\n", a = ~a);
-
-// The result is 00010010 (left shift)
-printf("b<<1 = %d\n", b << 1);
-
-// The result is 00000100 (right shift)
-printf("b>>1 = %d\n", b >> 1);
-```
 
 # Next steps
 
