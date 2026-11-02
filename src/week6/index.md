@@ -334,6 +334,8 @@ If you finish with the lab content above you may any do the following:
 * Work on HW5
 
 # Lab 7 Preview: Hacking
+{: style="color: #00ff41 !important; background-color: #0d0d0d; font-family: 'Courier New', Courier, monospace; padding: 10px 20px;text-shadow: 0 0 8px #00ff41, 0 0 20px #00ff41; border-radius: 4px; letter-spacing: 4px;"}
+
 ## 7.1. Background
 
 Imagine that you're a less ethical student than I'm sure you actually are. You
