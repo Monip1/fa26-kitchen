@@ -2,17 +2,15 @@
 
 <div class="note">
 
-You may find our solutions to Lab 5 in our [solutions repository](https://github.com/CSE29Spring2026/lab-answer-keys). For now, let's focus on lab 6.
+You may find our solutions to Lab 5 in our [solutions repository](https://github.com/ucsd-cse29-fall2026/lab_solutions). For now, let's focus on lab 6.
 
 </div>
 
-In this lab, you will fix compiler errors by adding a header guard, learn about the syntax of Makefiles, write a couple Makefile rules, and do a short exercise with bitwise operations.
+In this lab, you will review structs, fix a memory leak, learn about the syntax of Makefiles and write a couple Makefile rules.
 
 
 ## Lab 6 learning objectives
 
-* Recognize the purpose of header files
-* Understand the need for header guards
 * Interpret and understand Makefile syntax
 * Write a simple Makefile rule with dependencies and a recipe
 * Review the behavior of bitwise operations
@@ -29,93 +27,33 @@ Please make sure that everyone in your group answers the icebreaker and writes t
 </div>
 
 
-Please fill out [this mid-quarter survey](https://forms.gle/g8f2AB31dDx9Mgyb8)
-
 ## Warmup
-The warmup for this lab will be projected on the screen. The slides will be posted [HERE](https://docs.google.com/presentation/d/1vAJTyrzpIeim9xQBhIwmX8LRtB35VYUmn8ufaIRY3Xk/edit?usp=sharing) once all labs have concluded.  
-Information you will need to complete this warmup can be found in the [PA3 writeup](https://cse29spring2026.github.io/pa3#implementing-vmalloc)
+The warmup for this lab will be projected on the screen. The slides will be posted [HERE]() once all labs have concluded.  
 
-### Managing SSH Keys
-In this class, we mostly use the `ieng6` server. However, in the future you might have access to multiple servers for which you want to create separate SSH keys. To help us keep track of our SSH keys, we can create a configuration file called an SSH config file.
 
-Exit the `ieng6` server one more time, and create this SSH config file inside your `.ssh` directory that is in your home directory on your computer.
-```
-$ vim ~/.ssh/config
-```
+# Part 1: Search and Makefiles
 
-<div class="note">
+You are given a Makefile with the default set to compile the provided program. You should only need to run `make` to compile.  
+To run `search`, you *must* provide an argument of the substring to search for, ie:  
+`./search alpaca < rockyou_clean.txt` will search through the `rockyou_clean.txt` file line by line, printing out lines containing "alpaca". Note this file can be found at `/home/linux/ieng6/CSE029_FA26_001/public/rockyou_clean.txt`
 
-If on windows you can do `notepad ~/.ssh/config`  
-It may create the file as `config.txt` and you will need to rename it to `config`
+The program prints "Malloc returned NULL" if it's malloc call ever returns NULL. 
 
-</div>
+As `ieng6` is a very large and powerful machine, the limit on how much of it you can use is very high --- but *not infinite*. Let us now test the limits of `ieng6`. 
 
-Copy the following lines and paste them into the `config` you just created and opened.
-```
-Host ieng6
-    HostName ieng6.ucsd.edu
-    User <username>
-    IdentityFile ~/.ssh/id_rsa
-```
+<div class="exercise">
 
-<div class="note">
-
-The default place for the private key is `~/.ssh/id_rsa` so this particular `IdentityFile` line is unnecessary. If when you use `ssh-keygen` you *do* specify a filename for your keys, this is how you would use it for a particular host. (you could have named it `key-to-ieng6` and then you would simply put the path to that new private key in the config)
+Using `rockyou_clean.txt`'s even longer cousin, `long_rock.txt` which can be found here `/home/linux/ieng6/CSE029_FA26_001/public/long_rock.txt`. Increase the requested size in the malloc call until you receive the message "Killed" when searching for a word in the file.
 
 </div>
 
-
-Replace `<username>` with your `ieng6` username.  The `IdentityFile` field specifies the filename for the private key created to access the given server.
-
-Now try to login to your `ieng6` account again. This time, you can type the `ssh` command in a shorthand form using the name provided in the `ssh` config file after `Host`, which is `ieng6` in this case.
-```
-$ ssh ieng6
-```
-This configuration file can contain many entries to manage access to multiple sets of `ssh` keys for various servers that you might have access to in the future. And it will save you some typing also. How nice!
-
-
-(clone the GitHub repo from here: <https://github.com/CSE29Spring2026/lab6-starter>)
-
-# Part 1: Header Guards and Makefiles
-
-## Header Guards
-
-```c
-#ifndef EXAMPLE_H
-#define EXAMPLE_H
-
-struct example {
-    char *str;
-};
-
-#endif
-```
-
-Header guards prevent the content within them from being processed multiple times by the compiler.
-This can be problematic if the header file intends to *define* any symbol, not just *declare* them.
-In the example above, the header guard ensures that `struct example` is defined at most once.
-Let's illustrate the utility of header guards with a concrete example.
-
-After cloning the Github classroom repository onto `ieng6`, `cd` into `headers` and inspect the contents of the five `.c` and `.h` files inside. These files together represent 3 "modules" with the following dependency graph:
-
-![header_diagram](./assets/l6_header_dep.svg)
-
-When the compiler reads `test.c`, its preprocessor will process `span.h` twice: once through the direct arrow pointing to `span.h` and once through `queries.h`, which also points to `span.h`. As a result, the contents of `span.h` will be "pasted" into the source file twice. Since `span.h` contains a struct *definition* for `struct string_span`, this definition will be repeated twice. Try the following compilation command to see what this causes:
-
-```
-$ gcc span.c queries.c test.c -Wall -o test
-```
-
-The compiler seems to be confused by the duplicated definition for `struct string_span`, which is the first error it reports. 
-
-**To Do**: Use what you have learned about header guards to fix this compiler error! Please note that by convention, everything in a header file is wrapped in a header guard.
-
+We receive this "Killed" message when ieng6 determines we are demanding too much of it. It has the user limit (`ulimit`) set to unlimited. Run `ulimit -a` to see the data segment is set as such. We can set this to be more limited by running `ulimit -d 100000`. Now if we run our search program on the long input again we should see Malloc return NULL. To reset your limit, reconnect to ieng6.
 
 ## Makefiles
 
 ### Part 0: Recipes and Dependencies
 
-**Exit the `headers` directory and enter the `part0` directory.** We have given you an example `Makefile` that illustrates its basic structure. A Makefile mostly consists of "rules", which have the form:
+**Enter the `part0` directory.** We have given you an example `Makefile` that illustrates its basic structure. A Makefile mostly consists of "rules", which have the form:
 
 ```make
 target: dependencies

@@ -28,6 +28,83 @@ Please write the answers on your whiteboard!
 </div>
 
 
+The warmup for this lab will be projected on the screen. The slides will be posted [HERE](https://docs.google.com/presentation/d/1vAJTyrzpIeim9xQBhIwmX8LRtB35VYUmn8ufaIRY3Xk/edit?usp=sharing) once all labs have concluded.  
+Information you will need to complete this warmup can be found in the [PA3 writeup](https://cse29spring2026.github.io/pa3#implementing-vmalloc)
+
+
+
+### Managing SSH Keys
+In this class, we mostly use the `ieng6` server. However, in the future you might have access to multiple servers for which you want to create separate SSH keys. To help us keep track of our SSH keys, we can create a configuration file called an SSH config file.
+
+Exit the `ieng6` server one more time, and create this SSH config file inside your `.ssh` directory that is in your home directory on your computer.
+```
+$ vim ~/.ssh/config
+```
+
+<div class="note">
+
+If on windows you can do `notepad ~/.ssh/config`  
+It may create the file as `config.txt` and you will need to rename it to `config`
+
+</div>
+
+Copy the following lines and paste them into the `config` you just created and opened.
+```
+Host ieng6
+    HostName ieng6.ucsd.edu
+    User <username>
+    IdentityFile ~/.ssh/id_rsa
+```
+
+<div class="note">
+
+The default place for the private key is `~/.ssh/id_rsa` so this particular `IdentityFile` line is unnecessary. If when you use `ssh-keygen` you *do* specify a filename for your keys, this is how you would use it for a particular host. (you could have named it `key-to-ieng6` and then you would simply put the path to that new private key in the config)
+
+</div>
+
+
+Replace `<username>` with your `ieng6` username.  The `IdentityFile` field specifies the filename for the private key created to access the given server.
+
+Now try to login to your `ieng6` account again. This time, you can type the `ssh` command in a shorthand form using the name provided in the `ssh` config file after `Host`, which is `ieng6` in this case.
+```
+$ ssh ieng6
+```
+This configuration file can contain many entries to manage access to multiple sets of `ssh` keys for various servers that you might have access to in the future. And it will save you some typing also. How nice!
+
+## Header Guards
+
+```c
+#ifndef EXAMPLE_H
+#define EXAMPLE_H
+
+struct example {
+    char *str;
+};
+
+#endif
+```
+
+Header guards prevent the content within them from being processed multiple times by the compiler.
+This can be problematic if the header file intends to *define* any symbol, not just *declare* them.
+In the example above, the header guard ensures that `struct example` is defined at most once.
+Let's illustrate the utility of header guards with a concrete example.
+
+After cloning the Github classroom repository onto `ieng6`, `cd` into `headers` and inspect the contents of the five `.c` and `.h` files inside. These files together represent 3 "modules" with the following dependency graph:
+
+![header_diagram](./assets/l6_header_dep.svg)
+
+When the compiler reads `test.c`, its preprocessor will process `span.h` twice: once through the direct arrow pointing to `span.h` and once through `queries.h`, which also points to `span.h`. As a result, the contents of `span.h` will be "pasted" into the source file twice. Since `span.h` contains a struct *definition* for `struct string_span`, this definition will be repeated twice. Try the following compilation command to see what this causes:
+
+```
+$ gcc span.c queries.c test.c -Wall -o test
+```
+
+The compiler seems to be confused by the duplicated definition for `struct string_span`, which is the first error it reports. 
+
+**To Do**: Use what you have learned about header guards to fix this compiler error! Please note that by convention, everything in a header file is wrapped in a header guard.
+
+
+
 
 Draw the memory diagram for the following 2D array on your whiteboard.
 
