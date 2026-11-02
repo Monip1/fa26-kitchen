@@ -333,8 +333,8 @@ If you finish with the lab content above you may any do the following:
 * Work on PA3
 * Work on HW5
 
-# Lab 5 Preview: Hacking
-## 5.1. Background
+# Lab 7 Preview: Hacking
+## 7.1. Background
 
 Imagine that you're a less ethical student than I'm sure you actually are. You
 overhear from some other students in lab that there's a binary available on the
@@ -343,7 +343,7 @@ release them. You hear quieter whispers that someone found a way to use it to
 _change_ their grade. Given our less-than-ethical assumption about your state
 of mind, you might be tempted to exploit this for yourself.  
 
-## 5.2. The Plot Thickens
+## 7.2. The Plot Thickens
 
 You see some code open on the professor's laptop during office hours.  You do
 your best to commit it to memory and write it down (remember, you're acting
