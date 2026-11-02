@@ -67,6 +67,8 @@ To reset your limit, reconnect to ieng6.
 
 Have each person in your group search for a different string in `long_rock.txt` using `valgrind`, how many bytes does it report as being in use. Do your answers make sense?
 
+Add this to your whiteboard as shown above and call over a staff member to check you off.
+
 </div>
 
 
