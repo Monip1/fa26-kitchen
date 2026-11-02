@@ -272,7 +272,6 @@ When we use `gcc` to manually compile programs, we typically compile directly fr
 
 The linking process resolves symbol references between object files, meaning that functions defined in one file can be used in another. In `part3`, a long program with 50000 adder functions (each of which adds the integer in its name to the parameter and returns it) is given in `adders.c`. The corresponding header file, `adders.h`, contains function declarations to be shared between source files. Then, in `main.c`, we print the return value of `run_adders`, which calls all of the adder functions and sums their results.  
 
-![](./assets/one-million-functions.png)
 
 We can use the following `gcc` commands to create then link the object files (we will run the `time` command so it will tell us how long each of these commands took to run):
 
