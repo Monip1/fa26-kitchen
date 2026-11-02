@@ -45,9 +45,17 @@ As `ieng6` is a very large and powerful machine, the limit on how much of it you
 
 Using `rockyou_clean.txt`'s even longer cousin, `long_rock.txt` which can be found here `/home/linux/ieng6/CSE029_FA26_001/public/long_rock.txt`. Increase the requested size in the malloc call until you receive the message "Killed" when searching for a word in the file.
 
+
 </div>
 
 We receive this "Killed" message when ieng6 determines we are demanding too much of it. It has the user limit (`ulimit`) set to unlimited. Run `ulimit -a` to see the data segment is set as such. We can set this to be more limited by running `ulimit -d 100000`. Now if we run our search program on the long input again we should see Malloc return NULL. To reset your limit, reconnect to ieng6.
+
+<div class="checkoff">
+
+Have each person in your group search for a different string in `long_rock.txt` using `valgrind`, how many bytes does it report as being in use? Do your answers make sense?
+
+</div>
+
 
 ## Makefiles
 
