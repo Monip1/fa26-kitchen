@@ -42,14 +42,26 @@ The program prints "Malloc returned NULL" if it's malloc call ever returns NULL.
 
 As `ieng6` is a very large and powerful machine, the limit on how much of it you can use is very high --- but *not infinite*. Let us now test the limits of `ieng6`. 
 
+
 <div class="exercise">
 
-Using `rockyou_clean.txt`'s even longer cousin, `long_rock.txt` which can be found here `/home/linux/ieng6/CSE029_FA26_001/public/long_rock.txt`. Increase the requested size in the malloc call until you receive the message "Killed" when searching for a word in the file.
+Using `rockyou_clean.txt`'s even longer cousin, `long_rock.txt` which can be found here `/home/linux/ieng6/CSE029_FA26_001/public/long_rock.txt`. Increase the requested size in the malloc call until you receive the message "Killed" when searching for a word in the file. Each team member should contribute one value which results in "Killed" and one which does not (Brownie points if you narrow in on the threshold) to your whiteboard.
 
+![search_board](./assets/search_board.png)
+
+Leave plenty of space for the next answers like this ^
 
 </div>
 
-We receive this "Killed" message when ieng6 determines we are demanding too much of it. It has the user limit (`ulimit`) set to unlimited. Run `ulimit -a` to see the data segment is set as such. We can set this to be more limited by running `ulimit -d 100000`. Now if we run our search program on the long input again we should see Malloc return NULL. To reset your limit, reconnect to ieng6.
+We receive this "Killed" message when ieng6 determines we are demanding too much of it. It has the user limit (`ulimit`) set to unlimited. Run `ulimit -a` to see the data segment is set as such. We can set this to be more limited by running `ulimit -d 100000`. 
+
+Restore your `search.c` to it's original state (recall [`git restore`](../week2/index.html#oops-undoing-destructive-changes)?).
+
+Now if we run our search program on the long input again we should see Malloc return NULL. 
+
+What does valgrind say if you run it on your search program now?
+
+To reset your limit, reconnect to ieng6.
 
 <div class="checkoff">
 
