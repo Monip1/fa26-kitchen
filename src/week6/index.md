@@ -22,7 +22,7 @@ In this lab, you will review structs, fix a memory leak, learn about the syntax 
 
 <div class="important">
 
-Please make sure that everyone in your group answers the icebreaker and writes their name on the whiteboard. We will come around to collect pictures for attendance soon\!
+Please make sure that everyone in your group answers the icebreaker and writes their **first and last** name on the whiteboard\!
 
 </div>
 
@@ -30,6 +30,7 @@ Please make sure that everyone in your group answers the icebreaker and writes t
 ## Warmup
 The warmup for this lab will be projected on the screen. The slides will be posted [HERE]() once all labs have concluded.  
 
+[Here](https://classroom50.org/ucsd-cse29-fall2026/cse29-fa26/assignments/lab-6/accept) is the classroom 50 assignment for this lab.
 
 # Part 1: Search and Makefiles
 
@@ -52,7 +53,7 @@ We receive this "Killed" message when ieng6 determines we are demanding too much
 
 <div class="checkoff">
 
-Have each person in your group search for a different string in `long_rock.txt` using `valgrind`, how many bytes does it report as being in use? Do your answers make sense?
+Have each person in your group search for a different string in `long_rock.txt` using `valgrind`, how many bytes does it report as being in use. Do your answers make sense?
 
 </div>
 
