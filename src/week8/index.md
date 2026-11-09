@@ -259,3 +259,96 @@ You can take turns drawing and reading through the next part.
 
 
 
+
+
+## The Finale
+
+There are now 2 fun optional activities you can complete:
+
+* Mass mailing, where you send your pokemon to a mailing list of recipients who would be delighted to have your pokemon
+* Pokemon `.bash_profile`, how to add pokemon to print whenever you open your terminal.
+
+You can do either or neither in any order, they are here for your own practice and amusement.
+
+## Mass mailing <span class="label label-purple">Optional</span>
+
+Another useful function in scripting is the while loop. For example, running:
+
+```bash
+while read character; do
+    echo "$character is a transformer"
+done <transformers.txt
+```
+
+Given that `transformers.txt` contains:
+
+```
+Optimus Prime
+Bumblebee
+Grimlock
+Kickback
+Hardshell
+Starscream
+Megatron
+Metroplex
+Ironhide
+```
+
+Will print:
+
+```
+Optimus Prime is a transformer
+Bumblebee is a transformer
+Grimlock is a transformer
+Kickback is a transformer
+Hardshell is a transformer
+Starscream is a transformer
+Megatron is a transformer
+Metroplex is a transformer
+Ironhide is a transformer
+```
+
+Given this and the command to send mail:
+
+<code>
+  $ echo
+  <span contenteditable class="code-replace-me">"email body here"</span>
+  |
+  mail -s
+  <span contenteditable class="code-replace-me">"subject here"</span>
+  -a
+  <span contenteditable class="code-replace-me">filename</span>
+  <span contenteditable class="code-replace-me">friendname</span>@ieng6-640.ucsd.edu
+</code>
+
+Where `-a filename` will attach the file with `filename` to the email, **send everyone in `recipients.txt` your Pokemon**. Please send this to the list in `recipients.txt` **no more than once**. To test your loop, you may want to make a file of your groupmates' emails in the same format of `recipients.txt`. Note that you may also send mail to yourself.
+
+## Adding Pokemon to `.bash_profile` <span class="label label-purple">Optional</span>
+
+If you would like your Pokemon to appear when you open ieng6, you may do the following.
+
+If you would like 1 Pokemon, add the line <code>cat <span contenteditable class="code-replace-me">~/path/to/pokemon.pk</span></code> (replace the path with the entire path to your Pokemon file, starting with `~`) to the end of the `.bash_profile` file in your home directory.
+
+If you would like 2 Pokemon, add the line <code>paste <span contenteditable class="code-replace-me">~/path/to/pokemon/bigPoke.pk</span> <span contenteditable class="code-replace-me">~/path/to/pokemon/smallPoke.pk</span></code> (replace the path with the actual path to your Pokemon file) to the end of the `.bash_profile` file in your home directory. Note that if you paste the smaller Pokemon first, the larger one will be cut in half. You are welcome to try to troubleshoot this.
+
+If you want to do the same thing on your own computer, you can add this same line to your `.bash_profile` or `.bashrc` file. Just make sure to download the referenced `.pk` files using `pokeget.sh` and edit the paths as needed!
+
+## Other Real world Script examples:
+
+A [real life script](https://github.com/kizhikevich/violating_ripe_probes/blob/main/atlas_pipeline/run_atlas_pipeline.sh) by [Katherine Izhikevich](https://kizhikevich.github.io/) and [Ben Du](https://www.bencdu.com/)    which run several python scripts to retrieve and sort through data.
+
+The script Elena made to print out pokemon randomly when she opens ieng6 [pokemon.sh](./pokemon.sh) (complete with commented out old path variables before she figured out how to pick randomly from an arbitrary amount of directories.)
+
+The script Elena made to print out Joe quotes also upon opening ieng6. [juotes.sh](./juotes.sh) Note that the file is full of lines that look like 
+```
+Feb 10 -|Energy is priceless, but so is uninterrupted descriptions of structs.
+Sept25 2025 @10:16? -|I'm thankful to the computer engineering wizards that provided the magic sand to do this
+```
+
+The script Brendan made to automatically zip and re-install python addons for the 3D software Blender. [blender_addon_updater.sh](./blender_addon_updater.sh)
+
+> Note: Understanding scripts.  
+> Bash scripting is no small undertaking to understand. It's basically a whole new programming language with it's own syntax and rules, and while this lab covers a ton of the basics, there is a whole truckload of other things. While you do not know everything there is to know about bash-scripting, you do have a foundation of knowledge and *internet access*. Both google searching and asking ChatGPT *can* be super helpful for 2 things: understanding a script, and making one.  
+> Wonder what mapfile is? googling this gets an AI overview describing it *and* a link to a man page. This may lead you to the thought "oh right the man pages, maybe I should check it on my computer".  
+> pokemon.sh was made with much help from ChatGPT. Elena had a starting point but was unfamiliar with how to get prefixes, suffixes, or how exactly to randomly pick between folders. So, she used ChatGPT how she might switch the file extension from .mail to .pk. Prompts included "how would I remove a prefix" and "how do i pick randomly from a list" to piece together the script.  
+> It is also noteworthy that GenAI models will be good at things they have a lot of training on. Common things like what we find in pokemon.sh they will get correct a lot. **Things they are not as well trained on they may very well get wrong and they will do it confidently**. So, please do be careful.
