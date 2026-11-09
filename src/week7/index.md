@@ -67,17 +67,7 @@ This configuration file can contain many entries to manage access to multiple se
 
 
 
-<div class="quality">
 
-As you continue to use vim, you may want to consider tools to enhance your experience. Below are several options:
-
-Vundle -- a plugin manager for vim <https://github.com/vundlevim/vundle.vim>
-
-vimawesome -- a site with plugins you can add with the help of vundle <https://vimawesome.com/>
-
-These would take longer to customize so feel free to take a few minutes to look through these but do continue on without much delay.
-
-</div>
 
 
 
@@ -511,3 +501,14 @@ Please submit your `gradebook/comment.txt`, `minihome/task1.sh` and `minihome/ta
 </div>
 
 
+<div class="quality">
+
+As you continue to use vim, you may want to consider tools to enhance your experience. Below are several options:
+
+Vundle -- a plugin manager for vim <https://github.com/vundlevim/vundle.vim>
+
+vimawesome -- a site with plugins you can add with the help of vundle <https://vimawesome.com/>
+
+These would take longer to customize so feel free to take a few minutes to look through these but do continue on without much delay.
+
+</div>
