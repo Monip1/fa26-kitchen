@@ -25,9 +25,6 @@ Please write the answers on your whiteboard!
 </div>
 
 
-The warmup for this lab will be projected on the screen. The slides will be posted [HERE]() once all labs have concluded.  
-Information you will need to complete this warmup can be found in the [Project 4 writeup](https://cse29.site/pa/pa4/index.html)
-
 ## Configuration files to improve quality of life
 
 ### SSH Config
