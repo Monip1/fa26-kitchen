@@ -147,12 +147,10 @@ One customization that we have not added that we highly encourage you to check o
 
 
 
-Start by cloning our [classroom 50 assignment](https://classroom50.org/ucsd-cse29-fall2026/cse29-fa26/assignments/lab-7/accept)
-into your ieng6 account, as usual.
-
-
 <h1 id="hacking" style="color: #00ff41 !important; background-color: #0d0d0d; font-family: 'Courier New', Courier, monospace; padding: 10px 20px;text-shadow: 0 0 8px #00ff41, 0 0 20px #00ff41; border-radius: 4px; letter-spacing: 4px;">HACKING</h1>
 
+Start by cloning our [classroom 50 assignment](https://classroom50.org/ucsd-cse29-fall2026/cse29-fa26/assignments/lab-7/accept)
+into your ieng6 account, as usual.
 
 ## Background
 
