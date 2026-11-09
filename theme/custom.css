@@ -79,6 +79,7 @@
 }
 
 .quality {
+    color: #fff8f5 !important;
     background-color: var(--callout-quality-bg) !important;
     background-image:
         repeating-linear-gradient(
