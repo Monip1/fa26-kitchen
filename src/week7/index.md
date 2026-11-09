@@ -213,7 +213,10 @@ GDB commands that may be useful for this activity:
 <div class="checkoff">
 
 Write your method for solving this problem on your whiteboard. Get checked off by a staff member.
+
+Also make sure to add your comment to `gradebook/comment.txt` to be graded on gradescope
 </div>
+
 
 # What the Shell?
 
@@ -312,11 +315,6 @@ This will move a.txt into the Books directory. You can also move multiple files 
 
 With these tidbits, you are now ready to write your (possibly) first ever shell script\! **Your first task will be to write a shell script to organize the text and mp3 files in `minihome` into the `Books` and `Music` directories.** Please work on this with your groupmates if you so wish. As a reminder, you can use the `ls -R` command you all discovered back in lab 1 to test if your files ended up in the right place. While testing your script, you may end up accidentally messing up your directory structure. If this happens, we have provided you with a `reset_task_1.sh` script in the **minihome** directory which you can run to reset the .txt and .mp3 files. This will leave your .sh files intact, however, so don’t worry about losing your progress.
 
-<div class="checkoff">
-
-Please write what you did for `task_1.sh` on your whiteboard and check in with your teammates.
-
-</div>
 
 Our minihome is now looking a lot cleaner. But maybe we can go further. The length of these books seems a bit varied, no? It would be nice if we were able to sort these books into **short stories** and **novels**. This will be your next task. One requirement for your script is that you should be able to supply an **argument** for the cutoff between a novel and a short story. Before you begin the task, **first change into the `Books` directory**.
 
