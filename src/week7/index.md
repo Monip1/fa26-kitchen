@@ -164,7 +164,6 @@ into your ieng6 account, as usual.
 
 <h1 id="hacking" style="color: #00ff41 !important; background-color: #0d0d0d; font-family: 'Courier New', Courier, monospace; padding: 10px 20px;text-shadow: 0 0 8px #00ff41, 0 0 20px #00ff41; border-radius: 4px; letter-spacing: 4px;">HACKING</h1>
 
-This is the same file you may or may not have started in lab 3 and can be found in [**this** github classroom](https://classroom.github.com/a/7dYavFbQ) in the `gradebook` directory.
 
 ## Background
 
@@ -214,6 +213,10 @@ GDB commands that may be useful for this activity:
 
 -   You can use the following [reference card](https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf) for reference on gdb commands, and format commands for x and print.
 
+<div class="checkoff">
+
+Write your method for solving this problem on your whiteboard. Get checked off by a staff member.
+</div>
 
 # What the Shell?
 
