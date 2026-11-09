@@ -89,7 +89,7 @@ So far, we have seen that Vim commands can be manually typed in an open Vim wind
 
 Alternatively, we can tell Vim to execute a certain set of commands automatically every time we open a Vim window in the future. For example, we can type a command to enable syntax highlighting in Vim, which will add syntax-specific coloring to your code and will vastly improve your experience reading through code in Vim.  Another Vim nicety we might want to enable is adding line numbers to the file. There are many, many different commands and settings that we can enable and configure to create our own personal Vim experience, which will make writing code in Vim much more enjoyable!
 
-We will do this by putting these commands directly into a Vim runtime configuration file, called a `.vimrc` file.
+We can do this by putting these commands directly into a Vim runtime configuration file, called a `.vimrc` file.
 
 <div class="note">
 
@@ -105,23 +105,26 @@ Remember: the tilde character `~` is a shorthand for the current user's (your) h
 
 </div>
 
-#### Create your .vimrc
-Using Vim, create an empty `.vimrc` file in your home directory on your `ieng6` account:
+#### Editing your .vimrc
+
+We provided you with a `.vimrc` file in [lab 1](../week1/index.html#the-vim-text-editor)
+Using Vim, open the `.vimrc` file in your home directory on your `ieng6` account:
 ```
 $ vim ~/.vimrc
 ```
 
-Then copy the following lines into your empty `.vimrc` file, as shown in the code snippet below:
+You will see the following lines into your empty `.vimrc` file, as shown in the code snippet below:
 ```
 syntax on
 set number
 set belloff=all
 set showtabline=2   " always show buffer tabs
 set tabstop=4
-set noexpandtab   " ensures tabs do not expand to spaces
+set noexpandtab   "ensures tabs do not expand to spaces
 set autoindent
-set smartindent
+set cindent
 inoremap { {<CR>}<Esc>ko
+set shiftwidth=4
 set backspace=indent,eol,start
 ```
 
@@ -133,8 +136,10 @@ The effect of each of these commands is summarized briefly below:
 - `set tabstop=4`: set tabs to be four spaces
 - `set noexpandtab`: does not expand tabs to space
 - `set autoindent`: apply indentation to next line based on current line
-- `set smartindent`: apply indentation with respect to code syntax
+- `set cindent`: apply indentation with respect to C code syntax
 - `inoremap { {<CR>}<Esc>ko`: autocompletion of curly braces for ease of use
+- `set shiftwidth=4` : Ensures the size of indentation when using `<<` or `>>` in normal mode is 4 spaces
+- `set backspace=indent,eol,start` : Allows you to backspace over automatically placed indentations, line breaks, and text entered before entering insert mode
 
 <div class="note">
 
@@ -149,7 +154,66 @@ In general, you should not paste a command into your `.vimrc` if you are not sur
 
 </div>
 
-These are our suggestions for `.vimrc` settings that we think would be helpful for you in this class. If you feel like you don't like some of these features, feel free to remove the corresponding lines in the `.vimrc` file. These configuration files are usually customized to each programmer's preferences&mdash;figure out what works well for you!
+These are our suggestions for `.vimrc` settings that we think are helpful for you in this class. If you feel like you don't like some of these features, feel free to remove the corresponding lines in the `.vimrc` file. These configuration files are usually customized to each programmer's preferences&mdash;figure out what works well for you!
+
+
+
+Start by cloning our [starter repo](https://github.com/CSE29Spring2026/lab5-scripting)
+into your ieng6 account, as usual.
+
+
+<h1 id="hacking" style="color: #00ff41 !important; background-color: #0d0d0d; font-family: 'Courier New', Courier, monospace; padding: 10px 20px;text-shadow: 0 0 8px #00ff41, 0 0 20px #00ff41; border-radius: 4px; letter-spacing: 4px;">HACKING</h1>
+
+This is the same file you may or may not have started in lab 3 and can be found in [**this** github classroom](https://classroom.github.com/a/7dYavFbQ) in the `gradebook` directory.
+
+## Background
+
+Imagine that you're a less ethical student than I'm sure you actually are. You
+overhear from some other students in lab that there's a binary available on the
+pi-cluster that can show you your grades on assignments before we formally
+release them. You hear quieter whispers that someone found a way to use it to
+_change_ their grade. Given our less-than-ethical assumption about your state
+of mind, you might be tempted to exploit this for yourself.  
+
+## The Plot Thickens
+
+You see some code open on the professor's laptop during office hours.  You do
+your best to commit it to memory and write it down (remember, you're acting
+quite unethically in this story), because it strikes you that the code was
+something regarding assignment scores.  
+![gradebook source code](./assets/gradebook_src.png)
+
+Using this information, you decide to give yourself and A with a score 
+to match while maintaining a real due date.  
+**HINT**
+When important values are adjacent on the stack, overflowing an array with
+values that you control can let you assign into other stack-allocated values.
+
+
+GDB commands that may be useful for this activity:
+
+-   `(gdb) info locals`
+
+-   `(gdb) info args`
+
+-   `(gdb) print VALUE (or p VALUE)` You can print any variable or expression, e.g.
+
+-   `print x`, `p arr[5]`, `p ((x & 0b1111) << 3)`
+
+-   You can also specify a format to print in
+
+-   `print/t` (binary), `print/x` (hex), `print/d` (decimal)
+
+-   `(gdb) x ADDRESS` This prints out memory at an address, e.g. strings / arrays / pointers
+
+-   `(gdb) x/16cb str1` This prints the first 16 bytes of `str1` as characters
+
+-   `(gdb) x/20xb str2` This prints 20 bytes of `str2` in hex
+
+-   `(gdb) x/4dw  arr` This prints 4 "words" (i.e. `int32s`) of `arr`, as decimal numbers
+
+-   You can use the following [reference card](https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf) for reference on gdb commands, and format commands for x and print.
+
 
 # What the Shell?
 
@@ -165,8 +229,7 @@ These are our suggestions for `.vimrc` settings that we think would be helpful f
 
 Today, you will use shell scripting to organize a messy file system.
 
-Start by cloning our [starter repo](https://github.com/CSE29Spring2026/lab5-scripting)
-into your ieng6 account, as usual. Next, **change into the `minihome` directory**
+ Next, **change into the `minihome` directory**
 and take a look at its contents. This directory structure should hopefully look
 familiar to you!
 
@@ -445,58 +508,6 @@ Let’s pretend our user has done a lot of internet browsing and downloaded a lo
 That’s a lot of txt and mp3 files\! Normally it would take quite a while to sort these out, but luckily, we have our script\! Run `task_3.sh`, and hopefully you should see all of the files get sorted. What normally would have taken perhaps an hour can now be done in an instant\!
 
 
-
-<h1 id="hacking" style="color: #00ff41 !important; background-color: #0d0d0d; font-family: 'Courier New', Courier, monospace; padding: 10px 20px;text-shadow: 0 0 8px #00ff41, 0 0 20px #00ff41; border-radius: 4px; letter-spacing: 4px;">HACKING</h1>
-
-This is the same file you may or may not have started in lab 3 and can be found in [**this** github classroom](https://classroom.github.com/a/7dYavFbQ) in the `gradebook` directory.
-
-## Background
-
-Imagine that you're a less ethical student than I'm sure you actually are. You
-overhear from some other students in lab that there's a binary available on the
-pi-cluster that can show you your grades on assignments before we formally
-release them. You hear quieter whispers that someone found a way to use it to
-_change_ their grade. Given our less-than-ethical assumption about your state
-of mind, you might be tempted to exploit this for yourself.  
-
-## The Plot Thickens
-
-You see some code open on the professor's laptop during office hours.  You do
-your best to commit it to memory and write it down (remember, you're acting
-quite unethically in this story), because it strikes you that the code was
-something regarding assignment scores.  
-![gradebook source code](./assets/gradebook_src.png)
-
-Using this information, you decide to give yourself and A with a score 
-to match while maintaining a real due date.  
-**HINT**
-When important values are adjacent on the stack, overflowing an array with
-values that you control can let you assign into other stack-allocated values.
-
-
-GDB commands that may be useful for this activity:
-
--   `(gdb) info locals`
-
--   `(gdb) info args`
-
--   `(gdb) print VALUE (or p VALUE)` You can print any variable or expression, e.g.
-
--   `print x`, `p arr[5]`, `p ((x & 0b1111) << 3)`
-
--   You can also specify a format to print in
-
--   `print/t` (binary), `print/x` (hex), `print/d` (decimal)
-
--   `(gdb) x ADDRESS` This prints out memory at an address, e.g. strings / arrays / pointers
-
--   `(gdb) x/16cb str1` This prints the first 16 bytes of `str1` as characters
-
--   `(gdb) x/20xb str2` This prints 20 bytes of `str2` in hex
-
--   `(gdb) x/4dw  arr` This prints 4 "words" (i.e. `int32s`) of `arr`, as decimal numbers
-
--   You can use the following [reference card](https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf) for reference on gdb commands, and format commands for x and print.
 
 ## The Finale
 
