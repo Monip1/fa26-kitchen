@@ -1,3 +1,14 @@
+# Lab 8: Header Guards, .gitignore, and Mail
+In this lab, you will organize some nostalgic files using shell scripting, write
+your own `.gitignore`, and send mail messages with Pokemon. You have the entire lab period for this. Have fun!
+
+## Lab 8 learning objectives
+
+* Recognize the purpose of header files
+* Understand the need for header guards
+* Determine which files should not be tracked by Git and list them in `.gitignore`
+* Trade Pokemon by sending and receiving mail on `ieng6`!
+
 ## Header Guards
 
 ```c

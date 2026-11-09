@@ -1,15 +1,12 @@
-# Lab 7: Shell scripting, .gitignore, and Mail
-In this lab, you will organize some nostalgic files using shell scripting, write
-your own `.gitignore`, and send mail messages with Pokemon. You have the entire lab period for this. Have fun!
+# Lab 7: Shell scripting, Buffer Overflow, and Workspace Configuration 
+In this lab, you will hack a gradebook to give yourself an A on an assignment, and organize some nostalgic files using shell scripting.
 
 ## Lab 7 learning objectives
 
+* Understand how buffer overflow works and why it is bad
 * Understand the utility and overall mechanism of shell scripting
-* Determine which files should not be tracked by Git and list them in `.gitignore`
-* Trade Pokemon by sending and receiving mail on `ieng6`!
 
 
-![Illustration of 2D arrays and linked lists in memory](./assets/l4_pointers_meme.png)
 
 Can you guess what part of campus each of these photos was taken? Work with your groupmates\! Google Maps is allowed\!
 
@@ -28,12 +25,12 @@ Please write the answers on your whiteboard!
 </div>
 
 
-The warmup for this lab will be projected on the screen. The slides will be posted [HERE](https://docs.google.com/presentation/d/1vAJTyrzpIeim9xQBhIwmX8LRtB35VYUmn8ufaIRY3Xk/edit?usp=sharing) once all labs have concluded.  
-Information you will need to complete this warmup can be found in the [PA3 writeup](https://cse29spring2026.github.io/pa3#implementing-vmalloc)
+The warmup for this lab will be projected on the screen. The slides will be posted [HERE]() once all labs have concluded.  
+Information you will need to complete this warmup can be found in the [Project 4 writeup](https://cse29.site/pa/pa4/index.html)
 
+## Configuration files to improve quality of life
 
-
-### Managing SSH Keys
+### SSH Config
 In this class, we mostly use the `ieng6` server. However, in the future you might have access to multiple servers for which you want to create separate SSH keys. To help us keep track of our SSH keys, we can create a configuration file called an SSH config file.
 
 Exit the `ieng6` server one more time, and create this SSH config file inside your `.ssh` directory that is in your home directory on your computer.
@@ -70,9 +67,6 @@ Now try to login to your `ieng6` account again. This time, you can type the `ssh
 $ ssh ieng6
 ```
 This configuration file can contain many entries to manage access to multiple sets of `ssh` keys for various servers that you might have access to in the future. And it will save you some typing also. How nice!
-
-
-## Warm-up
 
 
 
