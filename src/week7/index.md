@@ -143,6 +143,8 @@ In general, you should not paste a command into your `.vimrc` if you are not sur
 
 These are our suggestions for `.vimrc` settings that we think are helpful for you in this class. If you feel like you don't like some of these features, feel free to remove the corresponding lines in the `.vimrc` file. These configuration files are usually customized to each programmer's preferences&mdash;figure out what works well for you!
 
+One customization that we have not added that we highly encourage you to check out is `:color <color>` you can open a file and type `:color ` and press tab to toggle through the available options OR you can see the list of available colors on `ieng6` in the `/usr/share/vim/vim91/colors` directory. 
+
 
 
 Start by cloning our [classroom 50 assignment](https://classroom50.org/ucsd-cse29-fall2026/cse29-fa26/assignments/lab-7/accept)
