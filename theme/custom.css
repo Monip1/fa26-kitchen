@@ -4,7 +4,7 @@
     --callout-funfact-bg: #48cbe8;
     --callout-funfact-fg: #000000;
     --callout-quality-bg: #ea5656;
-    --callout-quality-fg: #27262b;
+    --callout-quality-fg: #fff8f5;
 }
 
 /* mdBook's dark themes */
@@ -79,7 +79,6 @@
 }
 
 .quality {
-    color: #fff8f5 !important;
     background-color: var(--callout-quality-bg) !important;
     background-image:
         repeating-linear-gradient(
