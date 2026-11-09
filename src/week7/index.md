@@ -158,7 +158,7 @@ These are our suggestions for `.vimrc` settings that we think are helpful for yo
 
 
 
-Start by cloning our [starter repo](https://github.com/CSE29Spring2026/lab5-scripting)
+Start by cloning our [classroom 50 assignment](https://classroom50.org/ucsd-cse29-fall2026/cse29-fa26/assignments/lab-7/accept)
 into your ieng6 account, as usual.
 
 
