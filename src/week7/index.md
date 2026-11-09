@@ -505,6 +505,9 @@ Let’s pretend our user has done a lot of internet browsing and downloaded a lo
 
 That’s a lot of txt and mp3 files\! Normally it would take quite a while to sort these out, but luckily, we have our script\! Run `task_3.sh`, and hopefully you should see all of the files get sorted. What normally would have taken perhaps an hour can now be done in an instant\!
 
+<div class="gradescope">
 
+Please submit your `gradebook/comment.txt`, `minihome/task1.sh` and `minihome/task2.sh` to gradescope.
+</div>
 
 
