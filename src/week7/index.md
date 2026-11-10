@@ -169,14 +169,19 @@ quite unethically in this story), because it strikes you that the code was
 something regarding assignment scores.  
 ![gradebook source code](./assets/gradebook_src.png)
 
+<div class="exercise">
+
 Using this information, you decide to give yourself and A with a score 
 to match while maintaining a real due date.  
 **HINT**
 When important values are adjacent on the stack, overflowing an array with
-values that you control can let you assign into other stack-allocated values.
+values that you control can let you assign into other stack-allocated values.  
+Given the variable names as seen in the source code shown above, you can use the GDB commands below to give you information about how the memory is laid out.  
 
+A recommended place to start is by typing a very long comment and then using GDB to print values around the variables in the struct called `assignment` to see where the values ended up.  
+Remember to work together and that the staff is there to answer any questions your group has.
+</div>
 
-GDB commands that may be useful for this activity:
 
 -   `(gdb) info locals`
 
