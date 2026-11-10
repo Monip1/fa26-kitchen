@@ -497,7 +497,7 @@ That’s a lot of txt and mp3 files\! Normally it would take quite a while to so
 
 <div class="gradescope">
 
-Please submit your `gradebook/comment.txt`, `minihome/task1.sh` and `minihome/task2.sh` to gradescope.
+Please submit your `gradebook/comment.txt`, `minihome/task_1.sh` and `minihome/Books/task_2.sh` to gradescope.
 </div>
 
 
