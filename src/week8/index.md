@@ -1,5 +1,5 @@
 # Lab 8: Header Guards, .gitignore, and Mail
-In this lab, you will organize some nostalgic files using shell scripting, write
+In this lab, you will fix compiler errors by adding a header guard, write
 your own `.gitignore`, and send mail messages with Pokemon. You have the entire lab period for this. Have fun!
 
 ## Lab 8 learning objectives
