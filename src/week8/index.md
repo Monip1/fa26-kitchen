@@ -85,7 +85,7 @@ You may have committed and pushed these files to Git in the past. To fix this, y
 
 <code>
   $ git rm --cached
-  <span contenteditable class="code-replace-me">path to file to untrack</span>
+  <span contenteditable class="code-replace-me"><path to file to untrack></span>
 </code>
 
 For example, if you have committed `stack.o` and want to untrack it without deleting it entirely, you would run `git rm --cached stack.o`.
