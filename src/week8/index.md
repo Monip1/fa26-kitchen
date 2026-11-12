@@ -9,106 +9,7 @@ your own `.gitignore`, and send mail messages with Pokemon. You have the entire 
 * Determine which files should not be tracked by Git and list them in `.gitignore`
 * Trade Pokemon by sending and receiving mail on `ieng6`!
 
-## Header Guards
 
-```c
-#ifndef EXAMPLE_H
-#define EXAMPLE_H
-
-struct example {
-    char *str;
-};
-
-#endif
-```
-
-Header guards prevent the content within them from being processed multiple times by the compiler.
-This can be problematic if the header file intends to *define* any symbol, not just *declare* them.
-In the example above, the header guard ensures that `struct example` is defined at most once.
-Let's illustrate the utility of header guards with a concrete example.
-
-After cloning the Github classroom repository onto `ieng6`, `cd` into `headers` and inspect the contents of the five `.c` and `.h` files inside. These files together represent 3 "modules" with the following dependency graph:
-
-![header_diagram](./assets/l6_header_dep.svg)
-
-When the compiler reads `test.c`, its preprocessor will process `span.h` twice: once through the direct arrow pointing to `span.h` and once through `queries.h`, which also points to `span.h`. As a result, the contents of `span.h` will be "pasted" into the source file twice. Since `span.h` contains a struct *definition* for `struct string_span`, this definition will be repeated twice. Try the following compilation command to see what this causes:
-
-```
-$ gcc span.c queries.c test.c -Wall -o test
-```
-
-The compiler seems to be confused by the duplicated definition for `struct string_span`, which is the first error it reports. 
-
-**To Do**: Use what you have learned about header guards to fix this compiler error! Please note that by convention, everything in a header file is wrapped in a header guard.
-
-
-# What should Git ignore?
-
-You may have used the `git add .` in the past. By default, this means Git should track everything it finds in your repository directory. **But you don't always want to track everything\!** Here are a few things you shouldn't track in Git in most cases:
-
-1. **Machine code**, such as in object files (`.o` files) and executables
-
-   There are three reasons why you shouldn't track machine code in Git:
-   * Git is inefficient at handling large binary files
-   * Machine code differs from machine to machine, so they are often useless to your collaborators
-   * Binary file conflicts are cumbersome—there's no way to integrate conflicts together
-
-   As a general rule, **you should never use Git to track the outputs of a compilation or transpilation process**. In C projects with Makefiles, the targets defined in the Makefile usually represent the outputs of a compilation process.
-
-2. **Secret credentials**
-
-   Many hosted services have public repositories for the source code of the server. The server needs to authenticate itself to get write access to the database, for example. But the keys for such authentication cannot be public or else anyone can tamper with the database\!
-
-3. **Most hidden files** (files whose names start with `.`, like Vim swapfiles)
-
-   Do not track your Vim swapfile\! Imagine this: You have a terminal prompt and Vim side-by-side. Because Vim is currently running, there is a swapfile in the repository directory. You then commit and push your swapfile to GitHub. Your collaborator pulls it from GitHub without Vim running and tries to edit it with Vim. Because there's a swapfile, Vim gives them a warning, thinking that another Vim process might be editing the file simultaneously even though they don't have Vim running. This is counterproductive\!
-
-## How do we tell Git to ignore them?
-
-`.gitignore` is the exact name of a special file that Git reads to determine which files to skip when looking for untracked files. If a file's name matches any line in `.gitignore`, it is ignored. For example, if a `.gitignore` file contains:
-
-```
-*.o
-```
-
-Then Git should ignore all files that end with `.o`. In this context, `*` is a wildcard that matches any sequence of characters.
-
-<div class="note">
-
-It would be nice if we could write an expression that matches all executable files without an extension. As it turns out, we don't know of a neat way to do this. You could copy the list of targets from your Makefile as an alternative. You could also write a shell script that enumerates all the executable files and writes their names into `.gitignore`. Beware that the wildcard in Makefiles is `%`, while the wildcard in `.gitignore` files is `*`.
-
-</div>
-
-## What if they are already being tracked?
-
-You may have committed and pushed these files to Git in the past. To fix this, you can have Git untrack them without removing the actual files themselves by running:
-
-<code>
-  $ git rm --cached
-  <span contenteditable class="code-replace-me">path to file to untrack</span>
-</code>
-
-For example, if you have committed `stack.o` and want to untrack it without deleting it entirely, you would run `git rm --cached stack.o`.
-
-## Write your own `.gitignore`
-
-Some of the files in our starter repository should not have been tracked. First, **change back from `minihome` back to the root of your starter repo.** Run `ls -a` to list all the files (including hidden ones), use your best judgment to decide which ones shouldn't have been tracked, and instruct Git to untrack those files without removing them. Then, write an appropriate `.gitignore` file. To check your work, run `git status`. The files you untracked should not appear in the list of "untracked files", and when you run `git add .`, they should not become tracked again. Don't hesitate to work with your group and ask for help\!
-
-<div class="note">
-
-- Even though `.gitignore` is technically a hidden file, you should track `.gitignore` itself. This prevents your collaborators from tracking the files you don't want to track.
-- You might have noticed the `.git` directory. This is Git's hidden workspace,
-  where it stores your repository's commit history and branches. Git will
-  never track `.git` by default, as this would end up requiring infinite
-  space. Therefore, you don't need to put it in `.gitignore`.
-
-</div>
-
-<div class="checkoff">
-
-Please write what you added to your `.gitignore` on your whiteboard.
-
-</div>
 
 # <a href="http://www.aolsucks.org/aolsound.htm" target="_blank">You've got Mail!</a>
 
@@ -352,3 +253,35 @@ The script Brendan made to automatically zip and re-install python addons for th
 > Wonder what mapfile is? googling this gets an AI overview describing it *and* a link to a man page. This may lead you to the thought "oh right the man pages, maybe I should check it on my computer".  
 > pokemon.sh was made with much help from ChatGPT. Elena had a starting point but was unfamiliar with how to get prefixes, suffixes, or how exactly to randomly pick between folders. So, she used ChatGPT how she might switch the file extension from .mail to .pk. Prompts included "how would I remove a prefix" and "how do i pick randomly from a list" to piece together the script.  
 > It is also noteworthy that GenAI models will be good at things they have a lot of training on. Common things like what we find in pokemon.sh they will get correct a lot. **Things they are not as well trained on they may very well get wrong and they will do it confidently**. So, please do be careful.
+
+## Header Guards
+
+```c
+#ifndef EXAMPLE_H
+#define EXAMPLE_H
+
+struct example {
+    char *str;
+};
+
+#endif
+```
+
+Header guards prevent the content within them from being processed multiple times by the compiler.
+This can be problematic if the header file intends to *define* any symbol, not just *declare* them.
+In the example above, the header guard ensures that `struct example` is defined at most once.
+Let's illustrate the utility of header guards with a concrete example.
+
+After cloning the Github classroom repository onto `ieng6`, `cd` into `headers` and inspect the contents of the five `.c` and `.h` files inside. These files together represent 3 "modules" with the following dependency graph:
+
+![header_diagram](./assets/l6_header_dep.svg)
+
+When the compiler reads `test.c`, its preprocessor will process `span.h` twice: once through the direct arrow pointing to `span.h` and once through `queries.h`, which also points to `span.h`. As a result, the contents of `span.h` will be "pasted" into the source file twice. Since `span.h` contains a struct *definition* for `struct string_span`, this definition will be repeated twice. Try the following compilation command to see what this causes:
+
+```
+$ gcc span.c queries.c test.c -Wall -o test
+```
+
+The compiler seems to be confused by the duplicated definition for `struct string_span`, which is the first error it reports. 
+
+**To Do**: Use what you have learned about header guards to fix this compiler error! Please note that by convention, everything in a header file is wrapped in a header guard.
