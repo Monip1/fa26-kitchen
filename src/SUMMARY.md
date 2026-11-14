@@ -14,3 +14,4 @@
 - [Lab 7](./week7/index.md)
 - [Lab 8](./week8/index.md)
 - [Lab 9](./week9/index.md)
+- [Lab 10](./week10/index.md)

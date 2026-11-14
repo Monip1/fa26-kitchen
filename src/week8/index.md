@@ -157,9 +157,39 @@ You can take turns drawing and reading through the next part.
 
 </div>
 
+## Header Guards
 
+```c
+#ifndef EXAMPLE_H
+#define EXAMPLE_H
 
+struct example {
+    char *str;
+};
 
+void foo(int bar, char * s);
+
+#endif
+```
+
+Header guards prevent the content within them from being processed multiple times by the compiler.
+This can be problematic if the header file intends to *define* any symbol, not just *declare* them.
+In the example above, the header guard ensures that `struct example` is defined at most once.
+Let's illustrate the utility of header guards with a concrete example.
+
+After cloning the Github classroom repository onto `ieng6`, `cd` into `headers` and inspect the contents of the five `.c` and `.h` files inside. These files together represent 3 "modules" with the following dependency graph:
+
+![header_diagram](./assets/l6_header_dep.svg)
+
+When the compiler reads `test.c`, its preprocessor will process `span.h` twice: once through the direct arrow pointing to `span.h` and once through `queries.h`, which also points to `span.h`. As a result, the contents of `span.h` will be "pasted" into the source file twice. Since `span.h` contains a struct *definition* for `struct string_span`, this definition will be repeated twice. Try the following compilation command to see what this causes:
+
+```
+$ gcc span.c queries.c test.c -Wall -o test
+```
+
+The compiler seems to be confused by the duplicated definition for `struct string_span`, which is the first error it reports. 
+
+**To Do**: Use what you have learned about header guards to fix this compiler error! Please note that by convention, everything in a header file is wrapped in a header guard.
 
 
 ## The Finale
@@ -254,34 +284,3 @@ The script Brendan made to automatically zip and re-install python addons for th
 > pokemon.sh was made with much help from ChatGPT. Elena had a starting point but was unfamiliar with how to get prefixes, suffixes, or how exactly to randomly pick between folders. So, she used ChatGPT how she might switch the file extension from .mail to .pk. Prompts included "how would I remove a prefix" and "how do i pick randomly from a list" to piece together the script.  
 > It is also noteworthy that GenAI models will be good at things they have a lot of training on. Common things like what we find in pokemon.sh they will get correct a lot. **Things they are not as well trained on they may very well get wrong and they will do it confidently**. So, please do be careful.
 
-## Header Guards
-
-```c
-#ifndef EXAMPLE_H
-#define EXAMPLE_H
-
-struct example {
-    char *str;
-};
-
-#endif
-```
-
-Header guards prevent the content within them from being processed multiple times by the compiler.
-This can be problematic if the header file intends to *define* any symbol, not just *declare* them.
-In the example above, the header guard ensures that `struct example` is defined at most once.
-Let's illustrate the utility of header guards with a concrete example.
-
-After cloning the Github classroom repository onto `ieng6`, `cd` into `headers` and inspect the contents of the five `.c` and `.h` files inside. These files together represent 3 "modules" with the following dependency graph:
-
-![header_diagram](./assets/l6_header_dep.svg)
-
-When the compiler reads `test.c`, its preprocessor will process `span.h` twice: once through the direct arrow pointing to `span.h` and once through `queries.h`, which also points to `span.h`. As a result, the contents of `span.h` will be "pasted" into the source file twice. Since `span.h` contains a struct *definition* for `struct string_span`, this definition will be repeated twice. Try the following compilation command to see what this causes:
-
-```
-$ gcc span.c queries.c test.c -Wall -o test
-```
-
-The compiler seems to be confused by the duplicated definition for `struct string_span`, which is the first error it reports. 
-
-**To Do**: Use what you have learned about header guards to fix this compiler error! Please note that by convention, everything in a header file is wrapped in a header guard.
