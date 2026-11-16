@@ -175,7 +175,7 @@ This can be problematic if the header file intends to *define* any symbol, not j
 In the example above, the header guard ensures that `struct example` is defined at most once.
 Let's illustrate the utility of header guards with a concrete example.
 
-After cloning the Github classroom repository onto `ieng6`, `cd` into `headers` and inspect the contents of the five `.c` and `.h` files inside. These files together represent 3 "modules" with the following dependency graph:
+After cloning the classroom 50 repository onto `ieng6`, `cd` into `headers` and inspect the contents of the five `.c` and `.h` files inside. These files together represent 3 "modules" with the following dependency graph:
 
 ![header_diagram](./assets/l6_header_dep.svg)
 
