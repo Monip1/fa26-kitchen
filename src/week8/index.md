@@ -9,7 +9,7 @@ In this lab, you will fix compiler errors by adding a header guard, and send mai
 
 
 
-# <a href="http://www.aolsucks.org/aolsound.htm" target="_blank">You've got Mail!</a>
+# <a href="./assets/yougotmail.mp3" target="_blank">You've got Mail!</a>
 
 The mail command, unlike other commands we’ve taught you in this lab and previous ones, is especially unique: literally no one\* uses this\! As such, this section is not relevant to any course material. But the idea of sending each other mail via the terminal, all 1970s-core, is too appealing to pass up on.
 
@@ -111,7 +111,7 @@ Use the below command to generate a ".pk" file with the name of the Pokemon you 
 
 If the `pokeget.sh` script seems to take more than a few seconds to finish running, try using `Ctrl + C` to interrupt the program and try running the same command again.
 
-Once you have a ".pk" file, use the following command to send it to your partner, using the `-a` option. Replace "pikachu.pk" with the name of your Pokemon file if it is different.
+Once you have a ".pk" file, use the following command to send it to your partner, using the `-A` option. Replace "pikachu.pk" with the name of your Pokemon file if it is different.
 
 <code>
   $ echo
@@ -119,7 +119,7 @@ Once you have a ".pk" file, use the following command to send it to your partner
   |
   mail -s
   <span contenteditable class="code-replace-me">"subject here"</span>
-  -a
+  -A
   <span contenteditable class="code-replace-me">pikachu.pk</span>
   <span contenteditable class="code-replace-me">friendname</span>@ieng6-640.ucsd.edu
 </code>
@@ -249,12 +249,12 @@ Given this and the command to send mail:
   |
   mail -s
   <span contenteditable class="code-replace-me">"subject here"</span>
-  -a
+  -A
   <span contenteditable class="code-replace-me">filename</span>
   <span contenteditable class="code-replace-me">friendname</span>@ieng6-640.ucsd.edu
 </code>
 
-Where `-a filename` will attach the file with `filename` to the email, **send everyone in `recipients.txt` your Pokemon**. Please send this to the list in `recipients.txt` **no more than once**. To test your loop, you may want to make a file of your groupmates' emails in the same format of `recipients.txt`. Note that you may also send mail to yourself.
+Where `-A filename` will attach the file with `filename` to the email, **send everyone in `recipients.txt` your Pokemon**. Please send this to the list in `recipients.txt` **no more than once**. To test your loop, you may want to make a file of your groupmates' emails in the same format of `recipients.txt`. Note that you may also send mail to yourself.
 
 ## Adding Pokemon to `.bash_profile` <span class="label label-purple">Optional</span>
 
