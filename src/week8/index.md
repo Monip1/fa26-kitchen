@@ -48,7 +48,7 @@ $ mail friendname@ieng6-640.ucsd.edu
 $ mail friendname@ieng6-640
 ```
 
-This will prompt you with `Subject:` so you can type your email’s subject. The subject is only one line of test, so when you press Enter you are now typing the contents of your mail. When done writing your message, press `Ctrl+D` to finish and send.
+This will prompt you with `Cc:` and you can type any additional emails you would like to send your mail to in a comma-seperated list. Then it will prompt you with `Subject:` so you can type your email’s subject. The subject is only one line of test, so when you press Enter you are now typing the contents of your mail. When done writing your message, press `Enter` to ensure you are on a new line, then press`Ctrl+D` to finish and send.
 
 Now, your partner can use the `mail` command by itself to see that they have received mail\! It will have a number next to it as it enumerates messages every time you open the mail shell. Type this number and press `Enter` to see the message.
 
