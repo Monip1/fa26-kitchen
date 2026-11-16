@@ -272,15 +272,15 @@ If you want to do the same thing on your own computer, you can add this same lin
 
 A [real life script](https://github.com/kizhikevich/violating_ripe_probes/blob/main/atlas_pipeline/run_atlas_pipeline.sh) by [Katherine Izhikevich](https://kizhikevich.github.io/) and [Ben Du](https://www.bencdu.com/)    which run several python scripts to retrieve and sort through data.
 
-The script Elena made to print out pokemon randomly when she opens ieng6 [pokemon.sh](./pokemon.sh) (complete with commented out old path variables before she figured out how to pick randomly from an arbitrary amount of directories.)
+The script Elena made to print out pokemon randomly when she opens ieng6 [pokemon.sh](.assets//pokemon.sh) (complete with commented out old path variables before she figured out how to pick randomly from an arbitrary amount of directories.)
 
-The script Elena made to print out Joe quotes also upon opening ieng6. [juotes.sh](./juotes.sh) Note that the file is full of lines that look like 
+The script Elena made to print out Joe quotes also upon opening ieng6. [juotes.sh](./assets/juotes.sh) Note that the file is full of lines that look like 
 ```
 Feb 10 -|Energy is priceless, but so is uninterrupted descriptions of structs.
 Sept25 2025 @10:16? -|I'm thankful to the computer engineering wizards that provided the magic sand to do this
 ```
 
-The script Brendan made to automatically zip and re-install python addons for the 3D software Blender. [blender_addon_updater.sh](./blender_addon_updater.sh)
+The script Brendan made to automatically zip and re-install python addons for the 3D software Blender. [blender_addon_updater.sh](./assets/blender_addon_updater.sh)
 
 > Note: Understanding scripts.  
 > Bash scripting is no small undertaking to understand. It's basically a whole new programming language with it's own syntax and rules, and while this lab covers a ton of the basics, there is a whole truckload of other things. While you do not know everything there is to know about bash-scripting, you do have a foundation of knowledge and *internet access*. Both google searching and asking ChatGPT *can* be super helpful for 2 things: understanding a script, and making one.  
