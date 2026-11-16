@@ -99,6 +99,8 @@ There also exists another method to send mail from outside the mail shell, using
 
 ## Trading Pokemon
 
+You will need to accept the following [classroom 50 assignment](https://classroom50.org/ucsd-cse29-fall2026/cse29-fa26/assignments/lab-8/accept) for the rest of this lab.
+
 We can also use email to send attachments in the form of files. In this section, we’ll trade Pokemon with each other via mail. We will use the `pokeget.sh` script provided in your lab starter code for fun to generate some files with Pokemon in them. First, let one person be the sender, and the other will be the receiver. After you can successfully send and receive Pokemon from one to the other, swap roles and try sending one the other way.
 
 ### Sender
