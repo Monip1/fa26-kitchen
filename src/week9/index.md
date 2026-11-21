@@ -37,7 +37,7 @@ later in the lab you will be **switching who** is typing at the **keyboard**. Yo
 </div>
 
 #### Partner 1 ONLY:
-1. Create a new team on the Classroom 50 assignment for you and your partner: <TODO> 
+1. Create a new team on the Classroom 50 assignment for you and your partner: <https://classroom50.org/ucsd-cse29-fall2026/cse29-fa26/assignments/lab9-p1/accept> 
 
 #### Partner 2 ONLY:
 2. Join the team that Partner 1 created.
@@ -126,7 +126,7 @@ Each sub-team will be responsible for building one of three features:
 
 </div>
 
-**Please wait for your tutor or TA to assign one of the three features to your team.** Your tutor or TA should direct **ONLY the first driver sitting closest to the whiteboard in each row** to accept the [Classroom 50 assignment](TODO--starter) for this lab and name your row's team following the template and example below:
+**Please wait for your tutor or TA to assign one of the three features to your team.** Your tutor or TA should direct **ONLY the first driver sitting closest to the whiteboard in each row** to accept the [Classroom 50 assignment](https://classroom50.org/ucsd-cse29-fall2026/cse29-fa26/assignments/lab9-p2/accept) for this lab and name your row's team following the template and example below:
 
 ![GitHub classroom team name template](./assets/l8_teamnamingtemplate.png)
 
