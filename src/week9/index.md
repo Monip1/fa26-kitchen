@@ -1,8 +1,8 @@
-# Lab 8: Git and GitHub at scale
+# Lab 9: Git and GitHub at scale
 
 In this lab, you will do a more advanced Git collaboration exercise to learn about forks, pull requests, branches, and how to revert commits. This exercise mimics common collaboration workflows in software engineering. We hope that this exercise will boost your confidence in using Git and prepare you to use it well in future CSE classes and industry\!
 
-## Lab 8 learning objectives
+## Lab 9 learning objectives
 
 - Practice pair programming with driver and navigator roles
 - Understand the mechanism of branching in Git
@@ -37,7 +37,7 @@ later in the lab you will be **switching who** is typing at the **keyboard**. Yo
 </div>
 
 #### Partner 1 ONLY:
-1. Create a new team on the Github Classroom assignment for you and your partner: <https://classroom.github.com/a/O9CzURk9> 
+1. Create a new team on the Classroom 50 assignment for you and your partner: <TODO> 
 
 #### Partner 2 ONLY:
 2. Join the team that Partner 1 created.
@@ -126,7 +126,7 @@ Each sub-team will be responsible for building one of three features:
 
 </div>
 
-**Please wait for your tutor or TA to assign one of the three features to your team.** Your tutor or TA should direct **ONLY the first driver sitting closest to the whiteboard in each row** to accept the [GitHub Classroom assignment](https://classroom.github.com/a/9roQJiWD) for this lab and name your row's team following the template and example below:
+**Please wait for your tutor or TA to assign one of the three features to your team.** Your tutor or TA should direct **ONLY the first driver sitting closest to the whiteboard in each row** to accept the [Classroom 50 assignment](TODO--starter) for this lab and name your row's team following the template and example below:
 
 ![GitHub classroom team name template](./assets/l8_teamnamingtemplate.png)
 
