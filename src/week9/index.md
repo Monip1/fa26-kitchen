@@ -47,7 +47,7 @@ later in the lab you will be **switching who** is typing at the **keyboard**. Yo
 3. Clone the repo to ieng6
 4. Edit `hello.c` to fill in your own name in the print statement
 
-If at any point you are not sure which git command to run, you may refer to [Lab2: Git-Gud-Bro](./lab2#git-gud-bro)
+If at any point you are not sure which git command to run, you may refer to [Lab2: Git-Gud-Bro](../week2/index.html#git-gud-bro)
 
 #### Partner 1 ONLY:
 
