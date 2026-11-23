@@ -118,7 +118,7 @@ Each sub-team will be responsible for building one of three features:
 
 - The **enqueue** Add `student` to the BACK of the waitlist. If the array is full (size == capacity), first double its capacity (realloc is your friend), then add the student.
 - The **dequeue** Remove the student at the FRONT of the waitlist and return them. Everyone else moves up one spot, so the next student is now at students[0]. Returns NULL if the waitlist is empty. The waitlist does not free the student: whoever calls dequeue() owns it now.
-- The **promote** A function to copy the contents of the stack into an array. Move the student whose PID is `id` to the FRONT of the waitlist. Everyone who was ahead of them moves back one spot; everyone behind them stays where they are. Returns 1 if the student was found and promoted, or 0 if no student has that PID (and the waitlist is left unchanged).
+- The **promote** Move the student whose PID is `id` to the FRONT of the waitlist. Everyone who was ahead of them moves back one spot; everyone behind them stays where they are. Returns 1 if the student was found and promoted, or 0 if no student has that PID (and the waitlist is left unchanged).
 
 <div class="important">
 
@@ -257,7 +257,7 @@ According to the GitHub Flow, others in your organization can now review your Pu
 
 ![Your branch and the main branch have diverged](./assets/lab8_diverge.svg)
 
-Between the instant when your sub-team's branch was created and now, `main` has been updated. Unfortunately, your TA has written their own bad implementations of the three functions in `stack.c` and committed it directly to your row's `main` branch. Then, another sub-team has possibly contributed their feature to `main` already. The diagram above shows a probable state of your repository, where the `main` branch and your branch have _diverged_ with different changes. When these divergent commits modify the same file, they could pose a conflict when you want to merge them together.
+Between the instant when your sub-team's branch was created and now, `main` has been updated. Unfortunately, your TA has written their own bad implementations of the three functions in `waitlist.c` and committed it directly to your row's `main` branch. Then, another sub-team has possibly contributed their feature to `main` already. The diagram above shows a probable state of your repository, where the `main` branch and your branch have _diverged_ with different changes. When these divergent commits modify the same file, they could pose a conflict when you want to merge them together.
 
 Merge conflicts are often considered the thorniest part of working with Git, but don't worry\! We're here to guide you through it. Because not all merge conflicts can be resolved through GitHub's online editor, and because we love the command line (as you already know), we're going to show you how to resolve this merge conflict in your terminal.
 
@@ -277,7 +277,7 @@ Ensure that you are on the `main` branch by running:
 $ git checkout main
 ```
 
-Follow the instructions from GitHub until you see a `CONFLICT` reported by Git in `stack.c` and possibly `test_stack.c`. At this point, Git has edited all the files for which there is a conflict by putting all segments of conflicting changes side-by-side for you to review. Use Vim to review the contents of the files for which Git reported a conflict. Pay attention to how Git distinguishes between your branch's changes and the destination branch's changes. Here's GitHub's explanation of what's going on:
+Follow the instructions from GitHub until you see a `CONFLICT` reported by Git `waitlist.c` and possibly `test_waitlist.c`. At this point, Git has edited all the files for which there is a conflict by putting all segments of conflicting changes side-by-side for you to review. Use Vim to review the contents of the files for which Git reported a conflict. Pay attention to how Git distinguishes between your branch's changes and the destination branch's changes. Here's GitHub's explanation of what's going on:
 
 > To see the beginning of the merge conflict in your file, search the file for the conflict marker `<<<<<<<`. When you open the file in your text editor, you'll see the changes from the `HEAD` or base branch after the line `<<<<<<< HEAD`. Next, you'll see `=======`, which divides your changes from the changes in the other branch, followed by `>>>>>>> BRANCH-NAME`. In this example, one person wrote "open an issue" in the base or `HEAD` branch and another person wrote "ask your question in IRC" in the compare branch or `branch-a`.
 > 
@@ -290,7 +290,7 @@ Follow the instructions from GitHub until you see a `CONFLICT` reported by Git i
 > >>>>>>> branch-a
 > ```
 
-Integrate the changes, and then remove Git's markers (`>>>>>>>`, `=======`, `<<<<<<<`), ensuring that the file has proper C syntax. **Repeat this for each file with a conflict (e.g., `stack.c`).** After fixing each file, run <code>git add <span contenteditable class="code-replace-me">filename</span></code> to tell Git that you have finished fixing it.
+Integrate the changes, and then remove Git's markers (`>>>>>>>`, `=======`, `<<<<<<<`), ensuring that the file has proper C syntax. **Repeat this for each file with a conflict (e.g., `waitlist.c`).** After fixing each file, run <code>git add <span contenteditable class="code-replace-me">filename</span></code> to tell Git that you have finished fixing it.
 
 <div class="checkoff">
 
@@ -315,7 +315,7 @@ Pause here until every sub-team in your row has merged their pull request into t
 
 ## Finishing up
 
-After the branch from each sub-team has been merged, your row's `main` branch will contain all combined stack features and test cases.
+After the branch from each sub-team has been merged, your row's `main` branch will contain all combined waitlist features and test cases.
 
 Switch to the `main` branch in your local repository, and run `git pull` to pull the latest updates from GitHub. Compile your code with `make`, and execute the combined test suite. **If the tests don't pass, that is okay! You don't need to make all the tests pass.**
 
