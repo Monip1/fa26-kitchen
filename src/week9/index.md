@@ -112,17 +112,17 @@ We are now entering the pair programming phase of the lab. From this point onwar
 
 </div>
 
-Now, to introduce the task that you will be completing: building an implementation of a stack using linked lists. Of course, such an undertaking would be too much for one lab session, which is why you'll be **splitting up** the work amongst your teams.
+Now, to introduce the task that you will be completing: building an implementation of a waitlist using an array list. Of course, such an undertaking would be too much for one lab session, which is why you'll be **splitting up** the work amongst your teams.
 
 Each sub-team will be responsible for building one of three features:
 
-- The **push** operation (which inserts an element into the beginning of the list)
-- The **pop** operation (which removes the first element from the list)
-- A function to copy the contents of the stack into an array.
+- The **enqueue** Add `student` to the BACK of the waitlist. If the array is full (size == capacity), first double its capacity (realloc is your friend), then add the student.
+- The **dequeue** Remove the student at the FRONT of the waitlist and return them. Everyone else moves up one spot, so the next student is now at students[0]. Returns NULL if the waitlist is empty. The waitlist does not free the student: whoever calls dequeue() owns it now.
+- The **promote** A function to copy the contents of the stack into an array. Move the student whose PID is `id` to the FRONT of the waitlist. Everyone who was ahead of them moves back one spot; everyone behind them stays where they are. Returns 1 if the student was found and promoted, or 0 if no student has that PID (and the waitlist is left unchanged).
 
 <div class="important">
 
-**READ the following paragraph very carefully** as only **ONE** person per row **creates** the github classroom team.
+**READ the following paragraph very carefully** as only **ONE** person per row **creates** the classroom 50 team.
 
 </div>
 
@@ -190,23 +190,23 @@ Once you have created a new branch, run the `git status` command. Call over a tu
 
 <div class="note">
 
-Do you want to see `stack.h` and `stack.c` (or `stack_test.c`) side-by-side in Vim? You can do that with the `:vsplit` command in Vim. Run <code>:vsplit <span contenteditable class="code-replace-me">other file's filename</span></code> to open the other file in a vertical split, then press <kbd>Ctrl</kbd>+<kbd>W</kbd> **twice** to switch between the two panes. Likewise, if you would like to have a terminal window open alongside your code, you can use `:vert bot term` or just `term`.
+Do you want to see `waitlist.h` and `waitlist.c` (or `waitlist_test.c`) side-by-side in Vim? You can do that with the `:vsplit` command in Vim. Run <code>:vsplit <span contenteditable class="code-replace-me">other file's filename</span></code> to open the other file in a vertical split, then press <kbd>Ctrl</kbd>+<kbd>W</kbd> **twice** to switch between the two panes. Likewise, if you would like to have a terminal window open alongside your code, you can use `:vert bot term` or just `term`.
 
 </div>
 
-In your pair programming sub-teams, you will now begin implementing your assigned feature. You may find a description of your feature along with the desired method signature in the `stack.h` file. Your sub-team will write your implementation code in the `stack.c` file. While writing this file, _the first driver_ elected from earlier should be at the keyboard, while all other members should be _navigators_. Feel free to do some light testing during this phase, but you will be writing tests after you implement the feature so prioritize getting the implementation done first. **Once your sub-team has finished an implementation of the feature, make sure to <span class="git-action">commit</span> and <span class="git-action">push</span> your changes.**
+In your pair programming sub-teams, you will now begin implementing your assigned feature. You may find a description of your feature along with the desired method signature in the `waitlist.h` file. Your sub-team will write your implementation code in the `waitlist.c` file. While writing this file, _the first driver_ elected from earlier should be at the keyboard, while all other members should be _navigators_. Feel free to do some light testing during this phase, but you will be writing tests after you implement the feature so prioritize getting the implementation done first. **Once your sub-team has finished an implementation of the feature, make sure to <span class="git-action">commit</span> and <span class="git-action">push</span> your changes.**
 
 <div class="note">
 
-You'll notice that while there is a Makefile in your directory, there is no `main` function within your `stack.c`, so as of now there is no way to run your implementation without writing any tests.
+You'll notice that while there is a Makefile in your directory, there is no `main` function within your `waitlist.c`, so as of now there is no way to run your implementation without writing any tests.
 
 </div>
 
 ## Writing Tests
 
-Now that you've implemented your feature, you'll write tests using `assert` statements to verify that it works (remember Lab 4?). Take a look at `test_stack.c` as a reference for how `main` calls tests functions.
+Now that you've implemented your feature, you'll write tests using `assert` statements to verify that it works (remember Lab 4?). Take a look at `test_waitlist.c` as a reference for how `main` calls tests functions.
 
-**The _first driver_ should yield the keyboard to another sub-team member for writing tests**. If your sub-team has 3 members, each member other than the _first driver_ should be the driver for at least one test. As a sub-team of 2 or 3, brainstorm and write test cases for `stack.c` in `test_stack.c`. Since your tests likely will call functions assigned to other sub-teams, you won't be able to run the tests immediately. Instead, ask a tutor or TA to verify the correctness of your sub-team's tests.
+**The _first driver_ should yield the keyboard to another sub-team member for writing tests**. If your sub-team has 3 members, each member other than the _first driver_ should be the driver for at least one test. As a sub-team of 2 or 3, brainstorm and write test cases for `waitlist.c` in `test_waitlist.c`. Since your tests likely will call functions assigned to other sub-teams, you won't be able to run the tests immediately. Instead, ask a tutor or TA to verify the correctness of your sub-team's tests.
 
 <div class="checkoff">
 
