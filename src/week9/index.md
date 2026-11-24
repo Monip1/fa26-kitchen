@@ -299,9 +299,9 @@ Follow the instructions from GitHub until you see a `CONFLICT` reported by Git `
 
 Integrate the changes, and then remove Git's markers (`>>>>>>>`, `=======`, `<<<<<<<`), ensuring that the file has proper C syntax. **Repeat this for each file with a conflict (e.g., `waitlist.c`).** After fixing each file, run <code>git add <span contenteditable class="code-replace-me">filename</span></code> to tell Git that you have finished fixing it.
 
-<div class="checkoff">
+<div class="important">
 
-Once you have finished resolving the conflicts in all files, ask a tutor or TA to check your progress.
+Make sure to resolve the conflicts in all files, ask a tutor or TA if you need help.
 
 </div>
 
