@@ -215,9 +215,9 @@ Now that you've implemented your feature, you'll write tests using `assert` stat
 
 **The _first driver_ should yield the keyboard to another sub-team member for writing tests**. If your sub-team has 3 members, each member other than the _first driver_ should be the driver for at least one test. As a sub-team of 2 or 3, brainstorm and write test cases for `waitlist.c` in `test_waitlist.c`. Since your tests likely will call functions assigned to other sub-teams, you won't be able to run the tests immediately. Instead, ask a tutor or TA to verify the correctness of your sub-team's tests.
 
-<div class="checkoff">
+<div class="exercise">
 
-When you have at least 2 test functions written, ask a TA or tutor to check your progress. Once checked off, push the test cases to your sub-team's branch.
+Write at least 2 test functions for your feature. Once complete, push the test cases to your sub-team's branch.
 
 </div>
 
@@ -256,7 +256,7 @@ Your function is now finished, but it is still sitting in your sub-team's branch
 
 Go to your row's repository on GitHub.com. Navigate to the "Pull requests" tab, and press the green "New pull request" button near the top right. Near the top of the "Comparing changes" page, you are asked to select which branch to merge from and which branch to merge into. Make sure that the "base" selection is "main" and that the "compare" selection is your sub-team's branch, which means you are merging _from_ your sub-team's branch _into_ the "main" branch.
 
-![Make selections to merge into main](./assets/lab8_setup_pr.png)
+![Make selections to merge into main](./assets/lab9_setup_pr.png)
 
 GitHub may report that these branches "can't automatically merge". **Nevertheless**, press "Create pull request", populate the description box with a short description of your changes, and press "Create pull request" below the box. You have just opened a Pull request\!
 
