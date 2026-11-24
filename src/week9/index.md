@@ -136,6 +136,11 @@ Each sub-team will be responsible for building one of three features:
 
 **Please wait for your tutor or TA to assign one of the three features to your team.** Your tutor or TA should direct **ONLY the first driver sitting closest to the whiteboard in each row** to accept the [Classroom 50 assignment](https://classroom50.org/ucsd-cse29-fall2026/cse29-fa26/assignments/lab9-p2/accept) for this lab and name your row's team.
 
+<div class="checkoff">
+
+Write on your whiteboard all 4-6 of your names, and denote who has created the classroom 50 group, which pair is completing which feature, and who each driver and navigator is.
+</div>
+
 After the first driver sitting closest to the whiteboard in your row accepts the assignment and names the team, **all other drivers will JOIN** your row's team.
 
 Hopefully, now your sub-team knows which function to implement. Because it is easy to forget, you may want to note down your assigned feature. If all the sub-teams started working on the same document, absolute chaos would ensue as everybody is overwriting each other's changes. Hence, to make working in parallel less painful, we will be using **branches**.
