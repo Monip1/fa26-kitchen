@@ -48,6 +48,8 @@ later in the lab you will be **switching who** is typing at the **keyboard**. Yo
 
 ![P1 request](assets/lab9_p1_request.png)
 
+Partner 1 now must accept Partner 2's request to join the team.
+
 #### Both:
 
 3. Clone the repo to ieng6
