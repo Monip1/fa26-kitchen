@@ -326,9 +326,9 @@ After the branch from each sub-team has been merged, your row's `main` branch wi
 
 Switch to the `main` branch in your local repository, and run `git pull` to pull the latest updates from GitHub. Compile your code with `make`, and execute the combined test suite. **If the tests don't pass, that is okay! You don't need to make all the tests pass.**
 
-<div class="checkoff">
+<div class="gradescope">
 
-Show a TA/tutor the outcome of your tests.
+Have 1 person submit your repository and add all other team members to the submission.
 
 </div>
 
@@ -336,8 +336,7 @@ Show a TA/tutor the outcome of your tests.
 
 If you finish with the lab content above you may any do the following:
 * If you want to feel more comfortable with using unix commands or otherwise enjoy files or fruits, we have an activity involving sorting fruit pictures botanically.
-* Work on PA4
-* Work on HW6
+* Work on Pset 5
 
 # Fruit
 in the initial repo you started with your partner, there is a `fruits` directory
