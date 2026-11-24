@@ -126,7 +126,7 @@ Each sub-team will be responsible for building one of three features:
 
 - The **enqueue** Add `student` to the BACK of the waitlist. If the array is full (size == capacity), first double its capacity (realloc is your friend), then add the student.
 - The **dequeue** Remove the student at the FRONT of the waitlist and return them. Everyone else moves up one spot, so the next student is now at students[0]. Returns NULL if the waitlist is empty. The waitlist does not free the student: whoever calls dequeue() owns it now. If removing this student leads the list to be less than 40% of it's capacity, the capacity should be halved, resulting in being at just less than 80% capacity. (realloc is your friend)
-- The **promote** Move the student whose PID is `id` to the FRONT of the waitlist. Everyone who was ahead of them moves back one spot; everyone behind them stays where they are. Returns 1 if the student was found and promoted, or 0 if no student has that PID (and the waitlist is left unchanged).
+- The **promote** (groups of 6 only) Move the student whose PID is `id` to the FRONT of the waitlist. Everyone who was ahead of them moves back one spot; everyone behind them stays where they are. Returns 1 if the student was found and promoted, or 0 if no student has that PID (and the waitlist is left unchanged).
 
 <div class="important">
 
