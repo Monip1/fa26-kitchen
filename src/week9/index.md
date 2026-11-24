@@ -335,6 +335,8 @@ Switch to the `main` branch in your local repository, and run `git pull` to pull
 
 Have 1 person submit your repository and add all other team members to the submission.
 
+Please also submit your SETs and IA evalutions! <https://academicaffairs.ucsd.edu/Modules/Evals>
+
 </div>
 
 # Next steps
