@@ -39,8 +39,14 @@ later in the lab you will be **switching who** is typing at the **keyboard**. Yo
 #### Partner 1 ONLY:
 1. Create a new team on the Classroom 50 assignment for you and your partner: <https://classroom50.org/ucsd-cse29-fall2026/cse29-fa26/assignments/lab9-p1/accept> 
 
+![P1 accept](./assets/lab9_p1_accept.png)
+
 #### Partner 2 ONLY:
 2. Join the team that Partner 1 created.
+
+![P1 ask join](./assets/lab9_p1_ask_join.png)
+
+![P1 request](assets/lab9_p1_request.png)
 
 #### Both:
 
