@@ -132,13 +132,7 @@ Each sub-team will be responsible for building one of three features:
 
 </div>
 
-**Please wait for your tutor or TA to assign one of the three features to your team.** Your tutor or TA should direct **ONLY the first driver sitting closest to the whiteboard in each row** to accept the [Classroom 50 assignment](https://classroom50.org/ucsd-cse29-fall2026/cse29-fa26/assignments/lab9-p2/accept) for this lab and name your row's team following the template and example below:
-
-![GitHub classroom team name template](./assets/l8_teamnamingtemplate.png)
-
-Following the above template, “TIME” is replaced with your lab’s start time (“10am”, “12pm”, “2pm”, “4pm”), “ROOM” is replaced with your lab’s room number (“b240”, “b250”), “ROW” should be replaced with your row’s number (“row1”, “row2”, … , “row7”), and “NAME” should be replaced with your agreed upon team name (“cheeze-itz”, “burgers”). For example, the above template should be filled out like so:
-
-![GitHub classroom team name example](./assets/l8_teamnamingexample.png)
+**Please wait for your tutor or TA to assign one of the three features to your team.** Your tutor or TA should direct **ONLY the first driver sitting closest to the whiteboard in each row** to accept the [Classroom 50 assignment](https://classroom50.org/ucsd-cse29-fall2026/cse29-fa26/assignments/lab9-p2/accept) for this lab and name your row's team.
 
 After the first driver sitting closest to the whiteboard in your row accepts the assignment and names the team, **all other drivers will JOIN** your row's team.
 
@@ -163,6 +157,11 @@ To create a branch, run the `git branch` command like so:
 </code>
 
 Replace `branch name here` with an appropriate name that relates to the feature you have been assigned to implement.
+
+<div class="important">
+
+Ensure your branch name includes the name of your feature and that it is spelled correctly.
+</div>
 
 Next, run:
 
